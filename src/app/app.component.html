@@ -2,6 +2,4 @@
   <input #input onblur="this.focus()" (keyup.enter)="enter()" formControlName="input" type="text" id="input"
     class="form-control" />
 </form>
-<div class="uitvoer">
-  {{uitvoer}}
-</div>
+<app-uitvoer [data]=uitvoerData></app-uitvoer>
