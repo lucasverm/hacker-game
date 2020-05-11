@@ -24,7 +24,6 @@ export class AppComponent {
     return this._bedragInRugzak;
   }
   set bedragInRugzak(bedrag: number) {
-    console.log("setter");
     this._bedragInRugzak = Math.round(bedrag * 100) / 100;
   }
   private _bedragInAutomaat = 0;
@@ -32,7 +31,6 @@ export class AppComponent {
     return this._bedragInAutomaat;
   }
   set bedragInAutomaat(bedrag: number) {
-    console.log("setter");
     this._bedragInAutomaat = Math.round(bedrag * 100) / 100;
   }
 
@@ -171,8 +169,6 @@ export class AppComponent {
   }
 
   level1Automaat(input: string) {
-    console.log("in automaat");
-
     if (input == "ga naar automaat" || input == "locatie") {
       this.huidigePlaats = "automaat";
       this.maakRegel("", this.machine, "art");
@@ -223,8 +219,6 @@ export class AppComponent {
       //kijkt of de volgende woorden in de input staan
     } else if (["steek", "euro", "in", "automaat"].every(i => input.split(" ").includes(i))) {
       var bedrag = parseFloat(input.split(" ")[1].replace(',', '.'));
-      console.log(bedrag);
-
       if (bedrag > this.bedragInRugzak) {
         this.maakRegel("MACHINE", "Je hebt onvoldoende geld op zak om in de automaat te steken.");
       } else {
@@ -242,8 +236,7 @@ export class AppComponent {
 
   enter() {
     //haalt input uit het inputveld en zet het in de input VARiable
-    var input = this.inputForm.value.input;
-
+    var input = this.inputForm.value.input.toLowerCase();
     this.maakRegel(this.voornaam, input);
     this.inputForm.get('input').setValue("");
     this.spel(input);
