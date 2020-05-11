@@ -13,4 +13,8 @@ export class UitvoerComponent implements OnInit {
   ngOnInit() {
   }
 
+  uitvoer() {
+    return this.data.reverse();
+  }
+
 }
