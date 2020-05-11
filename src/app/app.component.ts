@@ -78,8 +78,6 @@ export class AppComponent {
   }
 
   level1Inkom(input: string) {
-    console.log(input);
-
     if (input == "ga naar zetel") {
       this.level1Zetel(input);
     } else if (input == "ga naar automaat") {
@@ -189,7 +187,7 @@ export class AppComponent {
     regel.uitvoerder = uitvoerder;
     regel.tekst = text;
     regel.art = art;
-    this.uitvoerData.push(regel);
+    this.uitvoerData.push(regel); 
   }
 
   scoutsArduHackSpel = String.raw`

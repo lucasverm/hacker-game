@@ -1,4 +1,4 @@
-<div *ngFor="let item of data.reverse(); let index = index">
+<div *ngFor="let item of data">
   <p *ngIf="!item.art" class="uitvoer-met-white-space"><span class="uitvoerder">{{item.uitvoerder}}<span
         *ngIf="item.uitvoerder != ''">></span></span> {{item.tekst}}</p>
   <pre *ngIf="item.art">{{item.uitvoerder}}<span *ngIf="item.uitvoerder != ''">> </span>{{item.tekst}}</pre>

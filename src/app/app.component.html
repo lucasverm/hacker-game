@@ -1,5 +1,5 @@
 <form [formGroup]="inputForm" autocomplete="off">
-  <input formControlName="input" type="text" id="input"
+  <input (keyup.enter)="enter()" formControlName="input" type="text" id="input"
     class="form-control" />
 </form>
 <app-uitvoer [data]=uitvoerData></app-uitvoer>

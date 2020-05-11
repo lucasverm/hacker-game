@@ -10,9 +10,7 @@ export class UitvoerComponent implements OnInit {
 
   @Input() data: Regel[];
   constructor() { }
-
   ngOnInit() {
-
   }
 
 }
