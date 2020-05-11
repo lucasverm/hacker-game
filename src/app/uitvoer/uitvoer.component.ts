@@ -14,7 +14,8 @@ export class UitvoerComponent implements OnInit {
   }
 
   uitvoer() {
-    return this.data.reverse();
+    console.log(this.data);
+    return this.data.slice().reverse();
   }
 
 }
