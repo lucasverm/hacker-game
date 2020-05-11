@@ -1,20 +1,35 @@
+$green: #20C20E;
+
 body {
   background-color: black !important;
-  color: green !important;
+  color: $green !important;
   font-family: monaco, monospace;
 }
 
 input {
+  padding-left: 5px;
   border: 0px;
-  width: 100%;
+  width: 95%;
   background-color: black;
   color: white !important;
   font-size: 16px;
   text-decoration: bold;
   font-family: monaco, monospace;
-  caret-color: green;
+  caret-color: $green;
 
   &:focus {
     outline: none;
   }
+}
+
+
+::-moz-selection {
+  /* Code for Firefox */
+  color: red;
+  background: yellow;
+}
+
+::selection {
+  color: red;
+  background: yellow;
 }

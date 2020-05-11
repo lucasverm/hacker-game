@@ -45,6 +45,10 @@ export class AppComponent {
     this.welkomstBericht();
   }
 
+  ngAfterViewInit() {
+   document.getElementById("input").focus();
+  }
+
   toonRugzak() {
     var uitvoer = "Rugzak: ";
     this.rugzak.forEach(t => {
