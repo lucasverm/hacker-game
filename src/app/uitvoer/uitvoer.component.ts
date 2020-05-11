@@ -12,10 +12,4 @@ export class UitvoerComponent implements OnInit {
   constructor() { }
   ngOnInit() {
   }
-
-  uitvoer() {
-    console.log(this.data);
-    return this.data.slice().reverse();
-  }
-
 }
