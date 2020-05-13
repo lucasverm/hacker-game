@@ -19,6 +19,8 @@ export class AppComponent {
   rugzak = ["Beker", "USB-stick", "aansteker"];
   huidigePlaats = "voor de deur";
   mundstukGevonden = false;
+  securityGuardAfgeleid = false;
+
   private _bedragInRugzak = 0;
   get bedragInRugzak(): number {
     return this._bedragInRugzak;
@@ -46,7 +48,7 @@ export class AppComponent {
   }
 
   ngAfterViewInit() {
-   document.getElementById("input").focus();
+    document.getElementById("input").focus();
   }
 
   toonRugzak() {
@@ -109,6 +111,12 @@ export class AppComponent {
       this.level1Zetel(input);
     } else if (this.huidigePlaats == "automaat") {
       this.level1Automaat(input);
+    } else if (this.huidigePlaats == "lift") {
+      this.level1Lift(input);
+    } else if (this.huidigePlaats == "securityGuard") {
+      this.level1Automaat(input);
+    } else if (this.huidigePlaats == "secretaresse") {
+      this.level1Secretaresse(input);
     }
   }
 
@@ -117,12 +125,15 @@ export class AppComponent {
       this.level1Zetel(input);
     } else if (input == "ga naar automaat") {
       this.level1Automaat(input);
-    } else if (input == " ga naar lift") {
+    } else if (input == "ga naar lift") {
       this.huidigePlaats = "lift";
-      this.maakRegel("MACHINE", "Naar lift");
-    } else if (input == " ga naar bodygoard") {
-      this.huidigePlaats = "bodygoard";
-      this.maakRegel("MACHINE", "Naar bodygoard");
+      this.level1Lift(input);
+    } else if (input == "ga naar secretaresse") {
+      this.huidigePlaats = "secretaresse";
+      this.level1Secretaresse(input);
+    } else if (input == "ga naar securityguard") {
+      this.huidigePlaats = "securityguard";
+      this.level1SecurityGuard(input);
     } else if (input == "terug") {
       this.maakRegel("MACHINE", "Op dit moment kan je niet terug!");
     } else if (input == "ga binnen" || input == "locatie") {
@@ -131,11 +142,59 @@ export class AppComponent {
         this.startKlok = new Date();
       }
       this.maakRegel("MACHINE", "Je staat nu in de inkom van de bank. Je ziet: \n\
-    - een ZETEL\n\
-    - een AUTOMAAT\n\
-    - een lift \n\
-    - een SECURITYGUARD\n\
-    typ \"ga naar ...\" om je te verplaatsen");
+      - een lift \n\
+      - een SECURITYGUARD\n\
+      - een ZETEL\n\
+      - een SECRETARESSE\n\
+      - een AUTOMAAT\n\n\
+    typ \"ga naar ...\" om je te verplaatsen\n");
+    } else {
+      this.maakRegel("MACHINE", "Dit commando is ongeldig!", "error");
+    }
+  }
+
+  level1Lift(input: string) {
+    if (input == "ga naar lift" || input == "locatie") {
+      this.huidigePlaats = "lift";
+      if (!this.securityGuardAfgeleid) {
+        this.maakRegel("", this.lift, "art");
+        this.maakRegel("MACHINE", "Security guard: \"Hela jongeman, deze toegang is niet voor onbevoegden!\"");
+      }
+    } else if (input == "terug") {
+      this.huidigePlaats = "inkom";
+      this.level1Inkom("ga binnen");
+    } else {
+      this.maakRegel("MACHINE", "Dit commando is ongeldig!", "error");
+    }
+  }
+
+  level1SecurityGuard(input: string) {
+    if (input == "ga naar securityguard" || input == "locatie") {
+      this.huidigePlaats = "securityguard";
+      this.maakRegel("", this.securityGuard, "art")
+    } else if (input == "terug") {
+      this.huidigePlaats = "inkom";
+      this.level1Inkom("ga binnen");
+    } else {
+      this.maakRegel("MACHINE", "Dit commando is ongeldig!", "error");
+    }
+  }
+
+  level1Secretaresse(input: string) {
+    if (input == "ga naar secretaresse" || input == "locatie") {
+      this.huidigePlaats = "secretaresse";
+      this.maakRegel("", this.secretaresse, "art");
+      this.maakRegel("MACHINE", "De secretaresse heeft mooie bruin-blonde krullen. Ze heeft een bloes en halsketting aan en kauwkomt er op los, een streling voor het oog! 1.5 meter afstand houden!\n\
+      COMMANDOS: \n\
+        - vraag waar toilet is\n\
+        - verkoop aansteker");
+    } else if (input == "vraag waar toilet is") {
+      this.maakRegel("MACHINE", "Secretaresse: \"Het toilet is naast de lift naar rechts. Gelieve je handen goed te wassen in verband met de huidige corona maatregelen!\"");
+    } else if (input == "verkoop aansteker") {
+      this.maakRegel("MACHINE", `Secretaresse: "Sorry, ${this.voornaam}. Ik kan geen aansteker gebruiken. Ik kan je niet helpen."`);
+    } else if (input == "terug") {
+      this.huidigePlaats = "inkom";
+      this.level1Inkom("ga binnen");
     } else {
       this.maakRegel("MACHINE", "Dit commando is ongeldig!", "error");
     }
@@ -365,6 +424,76 @@ export class AppComponent {
    |__________________________________________|
   
          `;
+
+  lift: string = String.raw`
+          .-----.
+        /_ INKOM _\
+     .---------------.
+     ||      |      ||
+     ||      |      ||
+     ||      |      ||
+     ||      |      ||.-.
+     ||      |      |||x|
+     ||      |      |||x|
+     ||      |      ||'-'
+     ||      |      ||
+     ||      |      ||
+     ||      |      ||
+     ||      |      ||
+     ||      |      ||
+     '---------------'
+  `;
+
+  securityGuard: string = String.raw`
+        _.---._
+     .-' ((O)) '-.
+      \ _.\_/._ /
+       /..___..\
+       ;-.___.-;
+      (| e ) e |)     .;.
+       \  /_   /      ||||
+       _\__-__/_    (\|'-|
+     /' / \V/ \ '\   \ )/
+    /   \  Y  /   \  /=/
+   /  |  \ | / {}  \/ /
+  /  /|   '|'   |\   /
+  \  \|    |.   | \_/
+   \ /\    |.   |
+    \_/\   |.   |
+    /)_/   |    |
+   // ',__.'.__,'
+  //   |   |   |
+ //    |   |   |
+(/     |   |   |
+       |   |   |
+       | _ | _ |
+       |   |   |
+       |   |   |
+       |   |   |
+       |___|___|
+       /  / \  \
+      (__/   \__)
+  `;
+
+  secretaresse: string = String.raw`
+               ,{{}}}}}}.
+              {{{{{}}}}}}}.
+             {{{{  {{{{{}}}}
+            }}}}} _   _ {{{{{
+            }}}}  m   m  }}}}}
+           {{{{C    ^    {{{{{
+          }}}}}}\  '='  /}}}}}}
+         {{{{{{{{;.___.;{{{{{{{{
+         }}}}}}}}})   (}}}}}}}}}}
+        {{{{}}}}}':   :{{{{{{{{{{
+        {{{}}}}}}  '@' {{{}}}}}}}
+         {{{{{{{{{    }}}}}}}}}
+           }}}}}}}}  {{{{{{{{{
+            {{{{{{{{  }}}}}}
+               }}}}}  {{{{
+                {{{    }}
+  `;
+
 }
 
 
