@@ -16,9 +16,9 @@ export class AppComponent {
   uitvoerData: Regel[] = [];
   voornaam: string = null;
   huidigLevel = 0;
-  rugzak = ["Beker", "USB-stick", "aansteker"];
+  rugzak = ["Beker", "USB-stick", "aansteker", "cola", "mentos"];
   huidigePlaats = "voor de deur";
-  mundstukGevonden = false;
+  mundstukGevonden = true;
   securityGuardAfgeleid = false;
 
   private _bedragInRugzak = 0;
@@ -171,7 +171,29 @@ export class AppComponent {
   level1SecurityGuard(input: string) {
     if (input == "ga naar securityguard" || input == "locatie") {
       this.huidigePlaats = "securityguard";
-      this.maakRegel("", this.securityGuard, "art")
+      this.maakRegel("", this.securityGuard, "art");
+      if (this.rugzak.includes("mentos") && this.rugzak.includes("cola")) {
+        this.maakRegel("MACHINE", "Amai, azo nen peet! Jawadde dadde! Hij houd iedereen goed in de gaten. Hij zorgt ervoor dat er geen geld wordt gestolen of er mensen de bank binnen dringen. Hier graak je niet zomaar voorbij hoor! \n\
+      COMMANDOS: \n\
+        - leid af met cola en mentos\n\
+        - vraag waar toilet is\n\
+        - verkoop aansteker");
+      } else {
+        this.maakRegel("MACHINE", "Amai, azo nen peet! Jawadde dadde! \n\
+        COMMANDOS: \n\
+          - vraag waar toilet is\n\
+          - verkoop aansteker");
+      }
+
+    } else if (input == "leid af met cola en mentos") {
+      this.securityGuardAfgeleid = true;
+      this.maakRegel("MACHINE", "Securityguard: \"Het toilet is nier aan de lift naar rechts. Goed mikken hé, we zijn hier niet op scoutskamp!\"");
+    } else if (input == "vraag waar toilet is") {
+      this.maakRegel("MACHINE", "Securityguard: \"Het toilet is nier aan de lift naar rechts. Goed mikken hé, we zijn hier niet op scoutskamp!\"");
+    }
+    else if (input == "verkoop aansteker") {
+      this.maakRegel("MACHINE", `Securityguard: "Ah toeme, Ik heb geen geld op zak!"`);
+
     } else if (input == "terug") {
       this.huidigePlaats = "inkom";
       this.level1Inkom("ga binnen");
@@ -492,6 +514,55 @@ export class AppComponent {
             {{{{{{{{  }}}}}}
                }}}}}  {{{{
                 {{{    }}
+  `;
+
+  colaMentos: String = String.raw`
+  .      .       .       .
+  .   .       .          .      . .      .         .          .    .
+         .       .         .    .   .         .         .            .
+    .   .    .       .         . . .        .        .     .    .
+ .          .   .       .       . .      .        .  .              .
+      .  .    .  .       .     . .    .       . .      .   .        .
+ .   .       .    . .      .    . .   .      .     .          .     .
+    .            .    .     .   . .  .     .   .               .
+     .               .  .    .  . . .    .  .                 .
+                        . .  .  . . .  . .
+                            . . . . . .
+                              . . . .
+                            |_-_-_-_-_|
+                            |_________|
+                             )_______(
+                            (_________)
+                            | M.K.'97 |
+                            /         \
+                           /           \
+                          /             \
+                         /               \
+                        /                 \
+                       /                   \
+                      (_____________________)
+                       )___________________(
+                      (_____________________)
+                      |                     |
+                      |_____________________|
+                       )___________________(
+                      |_____________________|
+                       )___________________(
+                      |                     |
+                      |_____________________|
+                       )___________________(
+                      |_____________________|
+                       )___________________(
+                      |                     |
+                      |                     |
+                      |_____________________|
+                      (_____________________)
+                      |_____________________|
+                      (_____________________)
+                      |                     |
+                      |                     |
+                      \_____________________/
+                       '-------------------'
   `;
 
 }
