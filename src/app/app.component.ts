@@ -18,8 +18,10 @@ export class AppComponent {
   huidigLevel = 0;
   rugzak = ["Beker", "USB-stick", "aansteker", "cola", "mentos"];
   huidigePlaats = "voor de deur";
-  mundstukGevonden = true;
+  mundstukGevonden = false;
   securityGuardAfgeleid = false;
+  inLift = false;
+  downNummer: number = 0;
 
   private _bedragInRugzak = 0;
   get bedragInRugzak(): number {
@@ -113,8 +115,8 @@ export class AppComponent {
       this.level1Automaat(input);
     } else if (this.huidigePlaats == "lift") {
       this.level1Lift(input);
-    } else if (this.huidigePlaats == "securityGuard") {
-      this.level1Automaat(input);
+    } else if (this.huidigePlaats == "securityguard") {
+      this.level1SecurityGuard(input);
     } else if (this.huidigePlaats == "secretaresse") {
       this.level1Secretaresse(input);
     }
@@ -156,9 +158,27 @@ export class AppComponent {
   level1Lift(input: string) {
     if (input == "ga naar lift" || input == "locatie") {
       this.huidigePlaats = "lift";
+      this.maakRegel("", this.lift, "art");
       if (!this.securityGuardAfgeleid) {
-        this.maakRegel("", this.lift, "art");
         this.maakRegel("MACHINE", "Security guard: \"Hela jongeman, deze toegang is niet voor onbevoegden!\"");
+      } else {
+        this.maakRegel("MACHINE", "COMMANDOS:\n - Open lift");
+      }
+    } else if (input == "open lift") {
+      if (this.securityGuardAfgeleid) {
+        this.inLift = true;
+        this.maakRegel("", this.liftCode, "art");
+        this.maakRegel("MACHINE", "Je staat nu in de lift en ziet dit:");
+      } else {
+        this.level1Lift("error");
+      }
+    }
+    else if (input == "20") {
+      if (this.inLift) {
+        this.maakRegel("", this.firework, "art");
+        this.maakRegel("MACHINE", "Proficiat! Je eindigde level 1! De lift gaat nu naar boven, en je komt seffens terecht in level 2. Succes!!");
+      } else {
+        this.level1Lift("error");
       }
     } else if (input == "terug") {
       this.huidigePlaats = "inkom";
@@ -184,12 +204,13 @@ export class AppComponent {
           - vraag waar toilet is\n\
           - verkoop aansteker");
       }
-
     } else if (input == "leid af met cola en mentos") {
       this.securityGuardAfgeleid = true;
-      this.maakRegel("MACHINE", "Securityguard: \"Het toilet is nier aan de lift naar rechts. Goed mikken hé, we zijn hier niet op scoutskamp!\"");
+      this.maakRegel("", this.colaMentos, "art");
+      this.maakRegel("MACHINE", "Je steekt het volledige pakje mentos in het cola flesje, en zet het net achter de securityguard. Psssssssst! Alles begint te spuiten, een ware fontijn!\
+        De securityguard kijkt je aan, maar jij loop nonchalant verder. Niemand zag het je doen. Wat heb jij chance!! De securityguard is helemaal vuil en druipt af naar het tiolet om zijn kleren proper te maken.");
     } else if (input == "vraag waar toilet is") {
-      this.maakRegel("MACHINE", "Securityguard: \"Het toilet is nier aan de lift naar rechts. Goed mikken hé, we zijn hier niet op scoutskamp!\"");
+      this.maakRegel("MACHINE", "Securityguard: \"Het toilet is hier aan de lift naar rechts. Goed mikken hé, we zijn hier niet op scoutskamp!\"");
     }
     else if (input == "verkoop aansteker") {
       this.maakRegel("MACHINE", `Securityguard: "Ah toeme, Ik heb geen geld op zak!"`);
@@ -227,13 +248,13 @@ export class AppComponent {
       this.huidigePlaats = "zetel";
       if (!this.mundstukGevonden) {
         this.maakRegel("MACHINE", `Je zit op een rode zetel, gemaakt door de beroemde kunstenaar Charles Rennie Mackintosh. De zetel werd ontworpen in 1983. Boven jou hangt een kunstwerk van Panamarenko. Op het kaartje dat erbij hangt staat er dat het om de aeromodeller blijkt te gaan, een reusachtige heteluchballon gemaakt rond 1970. Wat een gigantisch kunstwerk! Je ziet een centje blinken dat tussen de zetel zit!\n\
-       - centje oprapen\n\
+       - mundstuk oprapen\n\
        - terug`);
       } else {
         this.maakRegel("MACHINE", `Je zit op een rode zetel, gemaakt door de beroemde kunstenaar Charles Rennie Mackintosh. De zetel werd ontworpen in 1983. Boven jou hangt een kunstwerk van Panamarenko. Op het kaartje dat erbij hangt staat er dat het om de aeromodeller blijkt te gaan, een reusachtige heteluchballon gemaakt rond 1970. Wat een gigantisch kunstwerk!\n\
        - terug`);
       }
-    } else if (input == "centje oprapen") {
+    } else if (input == "mundstuk oprapen") {
 
       if (!this.mundstukGevonden) {
         this.maakRegel("", this.euro, "art")
@@ -320,12 +341,37 @@ export class AppComponent {
   }
 
   enter() {
+
     //haalt input uit het inputveld en zet het in de input VARiable
-    var input = this.inputForm.value.input.toLowerCase();
+    var input = this.inputForm.value.input.toLowerCase().trim();
     this.maakRegel(this.voornaam, input);
     this.inputForm.get('input').setValue("");
     this.spel(input);
   }
+
+  gebruikersInvoer() {
+    return this.uitvoerData.filter(t => t.uitvoerder == this.voornaam || t.uitvoerder == null);
+  }
+
+  down() {
+    if (this.downNummer >= 0) {
+      this.downNummer--;
+    }
+    if (this.gebruikersInvoer()[this.downNummer] != null) {
+      this.inputForm.get('input').setValue(this.gebruikersInvoer()[this.downNummer].tekst);
+    }
+  }
+  up() {
+    if (this.downNummer < this.gebruikersInvoer().length - 1) {
+      this.downNummer++;
+    }
+    if (this.gebruikersInvoer()[this.downNummer + 1] != null) {
+      this.inputForm.get('input').setValue(this.gebruikersInvoer()[this.downNummer + 1].tekst);
+    } else {
+      this.inputForm.get('input').setValue("");
+    }
+  }
+
 
   geefInstructies() {
     this.maakRegel("", this.bank, "art");
@@ -338,7 +384,6 @@ export class AppComponent {
 
   welkomstBericht() {
     this.maakRegel("", this.scoutsArduHackSpel, "art");
-
     this.maakRegel("MACHINE", "Welkom op het hackspel van Scouts ardu. De bedoeling is dat jij onze scouts hackt! Volg de vragen, en denk goed na! Zorg dat je de pagina NIET refreshed! Veel hackplezier!!");
     this.maakRegel("MACHINE", "Geef je voornaam in: ");
   }
@@ -348,8 +393,8 @@ export class AppComponent {
     var regel = new Regel;
     regel.uitvoerder = uitvoerder;
     regel.tekst = text;
-
     regel.type = type
+    this.downNummer = this.gebruikersInvoer().length;
     this.uitvoerData.push(regel);
   }
 
@@ -516,7 +561,7 @@ export class AppComponent {
                 {{{    }}
   `;
 
-  colaMentos: String = String.raw`
+  colaMentos: string = String.raw`
   .      .       .       .
   .   .       .          .      . .      .         .          .    .
          .       .         .    .   .         .         .            .
@@ -533,7 +578,7 @@ export class AppComponent {
                             |_________|
                              )_______(
                             (_________)
-                            | M.K.'97 |
+                            |         |
                             /         \
                            /           \
                           /             \
@@ -563,6 +608,45 @@ export class AppComponent {
                       |                     |
                       \_____________________/
                        '-------------------'
+  `;
+
+  liftCode: string = String.raw`
+  .----------------------------------.
+  |                                  |
+  |           --   CODE    --        |
+  |                                  |
+  |  .-----, .-----, .-----, .-----, |
+  |  |  7  | |  8  | |  9  | |  x  | |
+  |  '-----' '-----' '-----' '-----' |
+  |  .-----, .-----, .-----, .-----, |
+  |  |  4  | |  5  | |  6  | |  -  | |
+  |  '-----' '-----' '-----' '-----' |
+  |  .-----, .-----, .-----, .-----, |
+  |  |  1  | |  2  | |  3  | |     | |
+  |  '-----' '-----' '-----' '-----' |
+  |  .-----, .-----, .-----, .-----, |
+  |  | ON  | |  0  | |  .  | | (-) | |
+  |  '-----' '-----' '-----' '-----' |
+  |  .-----------------------------. |
+  |  |                             | |
+  |  |   Hoeveel keer komt 5 voor  | |
+  |  |  in de getallen 0 tot 100?  | |
+  |  |                             | |
+  |  '-----------------------------' |
+  '----------------------------------'
+`;
+
+  firework: string = String.raw`
+                                     .''.       
+       .''.      .        *''*    :_\/_:     . 
+      :_\/_:   _\(/_  .:.*_\/_*   : /\ :  .'.:.'.
+  .''.: /\ :   ./)\   ':'* /\ * :  '..'.  -=:o:=-
+ :_\/_:'.:::.    ' *''*    * '.\'/.' _\(/_'.':'.'
+ : /\ : :::::     *_\/_*     -= o =-  /)\    '  *
+  '..'  ':::'     * /\ *     .'/.\'.   '
+      *            *..*         :
+     *
+        *
   `;
 
 }

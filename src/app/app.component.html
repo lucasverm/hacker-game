@@ -1,5 +1,5 @@
 <form [formGroup]="inputForm" autocomplete="off">
-  ><input #input autofocus onblur="this.focus()" (keyup.enter)="enter()" formControlName="input" type="text" id="input"
+  ><input #input autofocus onblur="this.focus()" (keyup.enter)="enter()" (keyup.arrowdown)="down()" (keyup.arrowup)="up()" formControlName="input" type="text" id="input"
     class="form-control" />
 </form>
 <app-uitvoer [data]=uitvoerData></app-uitvoer>
