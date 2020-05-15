@@ -16,7 +16,7 @@ export class AppComponent {
   uitvoerData: Regel[] = [];
   voornaam: string = null;
   huidigLevel = 0;
-  rugzak = ["Beker", "USB-stick", "aansteker", "cola", "mentos"];
+  rugzak = ["Beker", "USB-stick", "aansteker"];
   huidigePlaats = "voor de deur";
   mundstukGevonden = false;
   securityGuardAfgeleid = false;
