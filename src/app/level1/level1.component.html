@@ -1,0 +1,18 @@
+<form [formGroup]="inputForm" autocomplete="off">
+  <div class="row">
+    <div class="col-12">
+      <div class="input-group mb-2">
+        <div class="input-group-prepend">
+          <div class="input-group-text">></div>
+        </div>
+        <input #input autofocus onblur="this.focus()" (keyup.enter)="enter()" (keyup.arrowdown)="down()"
+          (keyup.arrowup)="up()" formControlName="input" type="text" id="input" class="form-control" />
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <app-uitvoer [data]=uitvoerData></app-uitvoer>
+    </div>
+  </div>
+</form>

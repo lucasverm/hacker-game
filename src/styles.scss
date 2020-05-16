@@ -1,16 +1,17 @@
 $green: #20C20E;
 
+
 body {
   background-color: black !important;
   color: $green !important;
-  font-family: monaco, monospace;
+  font-family: monaco, monospace !important;
 }
 
 input {
-  padding-left: 5px;
-  border: 0px;
+  padding-left: 5px !important;
+  border: 0px !important;
   width: 95%;
-  background-color: black;
+  background-color: black !important;
   color: white !important;
   font-size: 16px;
   text-decoration: bold;
@@ -18,13 +19,21 @@ input {
   caret-color: $green;
 
   &:focus {
-    outline: none;
+    outline: none !important;
+    box-shadow: none !important;
   }
 }
 
+.input-group-prepend,
+.input-group-text {
+  background-color: black !important;
+  border: none !important;
+  color: $green !important;
+  padding: 0px !important;
+  width: 10px !important;
+}
 
 ::-moz-selection {
-  /* Code for Firefox */
   color: red;
   background: yellow;
 }
@@ -32,4 +41,13 @@ input {
 ::selection {
   color: red;
   background: yellow;
+}
+
+
+tr,
+td,
+th,
+div,
+input {
+  //border: 1px solid red !important;
 }
