@@ -1,5 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Regel } from '../regel';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { Subscription } from 'rxjs/internal/Subscription';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-uitvoer',
@@ -8,8 +11,9 @@ import { Regel } from '../regel';
 })
 export class UitvoerComponent implements OnInit {
 
-  @Input() data: Regel[];
-  constructor() { }
+  constructor(public dataService: DataService ) {}
+
   ngOnInit() {
+
   }
 }
