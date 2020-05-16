@@ -1,6 +1,7 @@
+
 <form [formGroup]="inputForm" autocomplete="off">
   <div class="row">
-    <div class="col-9">
+    <div class="col-8">
       <div class="input-group mb-2">
         <div class="input-group-prepend">
           <div class="input-group-text">></div>
@@ -9,7 +10,7 @@
           (keyup.arrowup)="up()" formControlName="input" type="text" id="input" class="form-control" />
       </div>
     </div>
-    <div class="col-3 text-right">Je bent nu hier: <span class="uitvoerder">{{dataService.huidigePlaats}}</span></div>
+    <div class="col-4 text-right">Je bent nu hier: <span class="uitvoerder">{{getLocatie()}}</span></div>
   </div>
   <div class="row">
     <div class="col-12">

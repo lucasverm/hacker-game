@@ -7,12 +7,13 @@ import { Regel } from '../regel';
 export class DataService {
   uitvoerData: Regel[] = [];
   startKlok = null;
-  voornaam: string = "lucas";
-  rugzak = ["Thermos kan", "USB-stick", "aansteker"];
-  huidigLevel = 2;
+  voornaam: string = null;
+  rugzak = ["Thermos kan", "aansteker"];
+  huidigLevel = 0;
   huidigePlaats = "voor de deur";
   downNummer: number = 0;
   _bedragInRugzak = 0;
+
   get bedragInRugzak(): number {
     return this._bedragInRugzak;
   }
@@ -28,14 +29,22 @@ export class DataService {
   }
 
   //level1
-  muntstukGevonden = true;
-  securityGuardAfgeleid = true;
-  inLift = true;
+  muntstukGevonden = false;
+  securityGuardAfgeleid = false;
+  inLift = false;
+
 
   //level2
   vuurAan = false;
   kastOpen = false;
   plantMetWater = false;
+  sleutelGenomen = false;
+  briefOpen = false;
+  lockerCodes = ["xxx", "xxx", "xxx"];
+  laptopBeschikbaar: boolean = false;
+  terugVanLaptop = false;
+  soniaIngelogd = false;
+  beveilingUitgeschakeld: boolean = false;
 
   constructor() { }
 

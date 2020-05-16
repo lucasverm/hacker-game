@@ -2,12 +2,17 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { Level1Component } from './level1/level1.component';
 import { Level2Component } from './level2/level2.component';
+import { LaptopComponent } from './laptop/laptop.component';
 
 
 const routes: Routes = [
   {
     path: 'level-1',
     component: Level1Component
+  },
+  {
+    path: 'laptop',
+    component: LaptopComponent
   },
   {
     path: 'level-2',
