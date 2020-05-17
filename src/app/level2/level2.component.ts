@@ -29,7 +29,7 @@ export class Level2Component implements OnInit {
   getLocatie() {
     if (this.dataService.huidigePlaats == "bureau") {
       return `${this.dataService.huidigePlaats}`
-    } else if(this.dataService.huidigePlaats == "kluis"){
+    } else if (this.dataService.huidigePlaats == "kluis") {
       return `bureau > gang > ${this.dataService.huidigePlaats}`
     } else {
       return `bureau > ${this.dataService.huidigePlaats}`
@@ -112,48 +112,48 @@ export class Level2Component implements OnInit {
       this.dataService.huidigePlaats = "keuken";
       this.maakRegel("", this.keukenArt, "art")
       if (this.dataService.vuurAan) {
-        this.maakRegel("MACHINE", `Aha, je komt in de kraak nette, zweeds IKEA keuken.\n\
+        this.maakRegel("MACHINE", `Aha, je komt in de kraak nette, zweedse IKEA keuken.\n\
       COMMANDO'S:\n\
       - kook water\n\
       - doe vuur uit\n\
       - neem water van kraan\n\
-      - leeg themos`);
+      - leeg thermoskan`);
       } else {
         this.maakRegel("MACHINE", `Aha, je komt in de kraak nette, zweeds IKEA keuken.\n\
       COMMANDO'S:\n\
       - kook water\n\
       - steek vuur aan\n\
       - neem water van kraan\n\
-      - leeg themos kan`);
+      - leeg thermoskan`);
       }
     } else if (input == "kook water") {
-      if (this.dataService.rugzak.includes("Thermos kan met koud water")) {
-        this.maakRegel("MACHINE", `Je vulde jouw thermos kan met koud water. Zorg ervoor dat het koud water eerst uit de thermos is!`);
-      } else if (this.dataService.rugzak.includes("Thermos kan met heet water")) {
+      if (this.dataService.rugzak.includes("Thermoskan met koud water")) {
+        this.maakRegel("MACHINE", `Je vulde jouw thermoskan met koud water. Zorg ervoor dat het koud water eerst uit de thermos is!`);
+      } else if (this.dataService.rugzak.includes("Thermoskan met heet water")) {
         this.maakRegel("MACHINE", `Je vulde jouw thermos al met heet water!`);
       } else if (this.dataService.vuurAan) {
-        this.dataService.rugzak[this.dataService.rugzak.indexOf("Thermos kan")] = "Thermos kan met heet water";
-        this.maakRegel("MACHINE", `Je vulde jouw thermos kan met heet water en stak hem terug in je rugzak!`);
+        this.dataService.rugzak[this.dataService.rugzak.indexOf("Thermoskan")] = "Thermoskan met heet water";
+        this.maakRegel("MACHINE", `Je vulde jouw thermoskan met heet water en stak hem terug in je rugzak!`);
       } else {
         this.maakRegel("MACHINE", `Je kan het water niet koken als het keukenvuur niet aan staat. Steek eerst het vuur aan!`);
       }
     } else if (input == "neem water van kraan") {
-      if (this.dataService.rugzak.includes("Thermos kan met heet water")) {
-        this.maakRegel("MACHINE", `Je vulde jouw thermos kan met heet water. Zorg ervoor dat het koud water eerst uit de thermos is!`);
-      } else if (this.dataService.rugzak.includes("Thermos kan met koud water")) {
+      if (this.dataService.rugzak.includes("Thermoskan met heet water")) {
+        this.maakRegel("MACHINE", `Je vulde jouw thermoskan met heet water. Zorg ervoor dat het koud water eerst uit de thermos is!`);
+      } else if (this.dataService.rugzak.includes("Thermoskan met koud water")) {
         this.maakRegel("MACHINE", `Je vulde jouw thermos al met koud water!`);
       } else {
-        this.dataService.rugzak[this.dataService.rugzak.indexOf("Thermos kan")] = "Thermos kan met koud water";
-        this.maakRegel("MACHINE", `Je vulde jouw thermos kan met koud water en stak hem terug in je rugzak!`);
+        this.dataService.rugzak[this.dataService.rugzak.indexOf("Thermoskan")] = "Thermoskan met koud water";
+        this.maakRegel("MACHINE", `Je vulde jouw thermoskan met koud water en stak hem terug in je rugzak!`);
       }
 
-    } else if (input == "leeg thermos kan") {
-      if (this.dataService.rugzak.includes("Thermos kan met koud water")) {
-        this.dataService.rugzak[this.dataService.rugzak.indexOf("Thermos kan met koud water")] = "Thermos kan";
+    } else if (input == "leeg thermoskan") {
+      if (this.dataService.rugzak.includes("Thermoskan met koud water")) {
+        this.dataService.rugzak[this.dataService.rugzak.indexOf("Thermoskan met koud water")] = "Thermoskan";
       } else {
-        this.dataService.rugzak[this.dataService.rugzak.indexOf("Thermos kan met heet water")] = "Thermos kan";
+        this.dataService.rugzak[this.dataService.rugzak.indexOf("Thermoskan met heet water")] = "Thermoskan";
       }
-      this.maakRegel("MACHINE", `Jouw thermos kan is leeg en zit in je rugzak.`);
+      this.maakRegel("MACHINE", `Jouw thermoskan is leeg en zit in je rugzak.`);
     }
     else if (input == "steek vuur aan") {
       this.dataService.vuurAan = true;
@@ -249,8 +249,8 @@ export class Level2Component implements OnInit {
         - geef water`);
       }
     } else if (input == "geef water") {
-      if (this.dataService.rugzak.includes("Thermos kan met koud water") && !this.dataService.plantMetWater) {
-        this.dataService.rugzak[this.dataService.rugzak.indexOf("Thermos kan met koud water")] = "Thermos kan";
+      if (this.dataService.rugzak.includes("Thermoskan met koud water") && !this.dataService.plantMetWater) {
+        this.dataService.rugzak[this.dataService.rugzak.indexOf("Thermoskan met koud water")] = "Thermoskan";
         this.dataService.plantMetWater = true;
         this.maakRegel("MACHINE", `Je gaf de plant water. Doordat de aarde een beetje zakt zie je nu iets blinken..? Het lijkt op een sleutel... \n\
         COMMANDO'S:\n\
@@ -303,9 +303,9 @@ export class Level2Component implements OnInit {
           - Open brief`);
       }
     } else if (input == "open brief") {
-      if (this.dataService.rugzak.includes("Thermos kan met heet water")) {
+      if (this.dataService.rugzak.includes("Thermoskan met heet water")) {
         this.dataService.briefOpen = true;
-        this.dataService.rugzak[this.dataService.rugzak.indexOf("Thermos kan met heet water")] = "Thermos kan";
+        this.dataService.rugzak[this.dataService.rugzak.indexOf("Thermoskan met heet water")] = "Thermoskan";
         this.maakRegel("MACHINE", "Je opende de brief door de thermoskan onder de brief te houden en zo de plakrand los te krijgen! Het heet water verdampte uit je thermos. Type informatie om de inhoud van de brief te bekijken!")
       } else {
         this.maakRegel("MACHINE", `Deze brief is TOP SECRET! Je kan deze niet zomaar openen...De bankdirecteur zal zien dat jij de brief probeerde te openen. Probeer de brief te openen zonder sporen achter te laten!`);
