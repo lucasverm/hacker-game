@@ -421,8 +421,8 @@ export class Level2Component implements OnInit {
   |                                                 |
   |  1) We zoeken een code (xxx) die voldoet aan:   |
   |    - 147: één cijfer juist. Verkeerde plaats.   |
-  |    - 189: twee cijfers juist. Juiste plaats.    |
-  |    - 964: twij cijfers juist. Verkeerde plaats. |
+  |    - 189: één cijfers juist. Juiste plaats.    |
+  |    - 964: twee cijfers juist. Verkeerde plaats. |
   |    - 523: alle cijfers zijn fout                |
   |    - 286: één cijfer juist. Verkeerde plaats    |
   |                                                 |
