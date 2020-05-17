@@ -5,8 +5,8 @@
         <div class="input-group-prepend">
           <div class="input-group-text">></div>
         </div>
-        <input #input autofocus onblur="this.focus()" (keyup.enter)="enter()" (keyup.arrowdown)="down()"
-          (keyup.arrowup)="up()" formControlName="input" type="text" id="input" class="form-control" />
+        <input #input autofocus onblur="this.focus()" (keydown.enter)="enter()" (keydown.arrowdown)="down()"
+          (keydown.arrowup)="up()" formControlName="input" type="text" id="input" class="form-control" />
       </div>
     </div>
     <div class="col-4 text-right">Je bent nu hier: <span class="uitvoerder">{{getLocatie()}}</span></div>

@@ -8,7 +8,7 @@ export class DataService {
   uitvoerData: Regel[] = [];
   startKlok = null;
   voornaam: string = null;
-  rugzak = ["Thermos kan", "aansteker"];
+  rugzak = ["Thermoskan", "aansteker"];
   huidigLevel = 0;
   huidigePlaats = "voor de deur";
   downNummer: number = 0;

@@ -28,8 +28,8 @@ export class LaptopComponent implements OnInit {
   signIn() {
     this.errorMessage = "";
     var password = this.loginForm.value.passwoord;
-    //if (password != "10-09-1968") {
-    if (false) {
+    if (password != "10-09-1968") {
+    //if(false){
       this.errorMessage = "Password is niet correct!"
     } else {
       this.dataService.soniaIngelogd = true;
