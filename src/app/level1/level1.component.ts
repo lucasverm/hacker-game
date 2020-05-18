@@ -32,7 +32,7 @@ export class Level1Component implements OnInit {
   getLocatie() {
     if (this.dataService.huidigePlaats == "inkom") {
       return "inkom";
-    } else if(this.dataService.huidigePlaats == "voor de deur"){
+    } else if (this.dataService.huidigePlaats == "voor de deur") {
       return `${this.dataService.huidigePlaats}`
     } else {
       return `inkom > ${this.dataService.huidigePlaats}`
@@ -112,13 +112,13 @@ export class Level1Component implements OnInit {
       this.level1Zetel(input);
     } else if (input == "ga naar automaat" || input == "ga naar een automaat" || input == "ga naar de automaat") {
       this.level1Automaat(input);
-    } else if (input == "ga naar lift"|| input == "ga naar een lift" || input == "ga naar de lift") {
+    } else if (input == "ga naar lift" || input == "ga naar een lift" || input == "ga naar de lift") {
       this.dataService.huidigePlaats = "lift";
       this.level1Lift(input);
-    } else if (input == "ga naar secretaresse"|| input == "ga naar een secretaresse" || input == "ga naar de secretaresse") {
+    } else if (input == "ga naar secretaresse" || input == "ga naar een secretaresse" || input == "ga naar de secretaresse") {
       this.dataService.huidigePlaats = "secretaresse";
       this.level1Secretaresse(input);
-    } else if (input == "ga naar securityguard"|| input == "ga naar een zetel" || input == "ga naar de zetel") {
+    } else if (input == "ga naar securityguard" || input == "ga naar een securityguard" || input == "ga naar de securityguard") {
       this.dataService.huidigePlaats = "securityguard";
       this.level1SecurityGuard(input);
     } else if (input == "terug") {
@@ -142,7 +142,7 @@ export class Level1Component implements OnInit {
   }
 
   level1Lift(input: string) {
-    if (input == "ga naar lift" || input == "informatie") {
+    if (input == "ga naar lift" || input == "ga naar een lift" || input == "ga naar de lift" || input == "informatie") {
       this.dataService.huidigePlaats = "lift";
       this.maakRegel("", this.lift, "art");
       if (!this.dataService.securityGuardAfgeleid) {
@@ -181,7 +181,7 @@ export class Level1Component implements OnInit {
   }
 
   level1SecurityGuard(input: string) {
-    if (input == "ga naar securityguard" || input == "informatie") {
+    if (input == "ga naar securityguard" || input == "ga naar een securityguard" || input == "ga naar de securityguard" || input == "informatie") {
       this.dataService.huidigePlaats = "securityguard";
       this.maakRegel("", this.securityGuard, "art");
       if (this.dataService.rugzak.includes("mentos") && this.dataService.rugzak.includes("cola")) {
@@ -218,7 +218,7 @@ export class Level1Component implements OnInit {
   }
 
   level1Secretaresse(input: string) {
-    if (input == "ga naar secretaresse" || input == "informatie") {
+    if (input == "ga naar secretaresse" || input == "ga naar een secretaresse" || input == "ga naar de secretaresse" || input == "informatie") {
       this.dataService.huidigePlaats = "secretaresse";
       this.maakRegel("", this.secretaresse, "art");
       this.maakRegel("MACHINE", "De secretaresse heeft mooie bruin-blonde krullen. Ze heeft een bloes en halsketting aan en kauwkomt er op los, een streling voor het oog! 1.5 meter afstand houden!\n\
@@ -238,7 +238,7 @@ export class Level1Component implements OnInit {
   }
 
   level1Zetel(input: string) {
-    if (input == "ga naar zetel" || input == "informatie") {
+    if (input == "ga naar zetel" || input == "ga naar een zetel" || input == "ga naar de zetel" || input == "informatie") {
       this.dataService.huidigePlaats = "zetel";
       if (!this.dataService.muntstukGevonden) {
         this.maakRegel("MACHINE", `Je zit op een rode zetel, gemaakt door de beroemde kunstenaar Charles Rennie Mackintosh. De zetel werd ontworpen in 1983. Boven jou hangt een kunstwerk van Panamarenko. Op het kaartje dat erbij hangt staat er dat het om de aeromodeller blijkt te gaan, een reusachtige heteluchballon gemaakt rond 1970. Wat een gigantisch kunstwerk! Je ziet een centje blinken dat tussen de zetel zit!\n\
@@ -269,7 +269,7 @@ export class Level1Component implements OnInit {
   }
 
   level1Automaat(input: string) {
-    if (input == "ga naar automaat" || input == "informatie") {
+    if (input == "ga naar automaat" || input == "ga naar een automaat" || input == "ga naar de automaat" || input == "informatie") {
       this.dataService.huidigePlaats = "automaat";
       this.maakRegel("", this.machine, "art");
       this.maakRegel("MACHINE", `Je staat voor een autmaat. Deze automaat is rood en wit en ziet er al wat versleten uit. Hij is bijna leeg. Inhoud: \n\

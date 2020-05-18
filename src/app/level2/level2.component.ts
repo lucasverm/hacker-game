@@ -108,7 +108,7 @@ export class Level2Component implements OnInit {
   }
 
   keuken(input: string) {
-    if (input == "ga naar keuken" || input == "informatie") {
+    if (input == "ga naar keuken" || input == "ga naar een keuken" || input == "ga naar de keuken" || input == "informatie") {
       this.dataService.huidigePlaats = "keuken";
       this.maakRegel("", this.keukenArt, "art")
       if (this.dataService.vuurAan) {
@@ -172,7 +172,7 @@ export class Level2Component implements OnInit {
   }
 
   gang(input: string) {
-    if (input == "ga naar gang" || input == "informatie") {
+    if (input == "ga naar gang" || input == "ga naar een gang" || input == "ga naar de gang" || input == "informatie") {
       this.dataService.huidigePlaats = "gang";
       if (!this.dataService.beveilingUitgeschakeld) {
         this.maakRegel("MACHINE", "Op het einde van de gang zie je een kluis maar de gang hang vol camera's en infrarood sensoren. Hier graak je niet zomaar voorbij!");
@@ -192,7 +192,7 @@ export class Level2Component implements OnInit {
   }
 
   kast(input: string) {
-    if (input == "ga naar kast" || input == "informatie") {
+    if (input == "ga naar kast" || input == "ga naar een kast" || input == "ga naar de kast" || input == "informatie") {
       this.maakRegel("", this.kastArt, "art");
       this.dataService.huidigePlaats = "kast";
       if (this.dataService.kastOpen) {
@@ -235,7 +235,7 @@ export class Level2Component implements OnInit {
   }
 
   plant(input: string) {
-    if (input == "ga naar plant" || input == "informatie") {
+    if (input == "ga naar plant" || input == "ga naar een plant" || input == "ga naar de plant" || input == "informatie") {
       this.dataService.huidigePlaats = "plant";
       if (this.dataService.plantMetWater && this.dataService.sleutelGenomen) {
         this.maakRegel("MACHINE", `Je gaf de plant water, en vond een sleutel!!`);
@@ -282,7 +282,7 @@ export class Level2Component implements OnInit {
       this.maakRegel("MACHINE", "Je kon het passwoord kraken! Doordat je toegang hebt tot de laptop kan je de lichten en camera's in de gang uitschakelen!\n\
       COMMANDO'S:\n\
       - schakel beveiliging uit");
-    } else if (input == "ga naar tafel" || input == "informatie" || input == "terug van laptop") {
+    } else if (input == "ga naar tafel" || input == "ga naar een tafel" || input == "ga naar de tafel" || input == "informatie" || input == "terug van laptop") {
       this.dataService.huidigePlaats = "tafel";
       if (this.dataService.laptopBeschikbaar) {
         this.maakRegel("MACHINE", `Op deze tafel licht de laptop die je vond in één van de lockers!\n\
@@ -332,7 +332,7 @@ export class Level2Component implements OnInit {
   }
 
   lockers(input: string) {
-    if (input == "ga naar lockers" || input == "informatie") {
+    if (input == "ga naar lockers" || input == "ga naar de lockers" || input == "informatie") {
       this.dataService.huidigePlaats = "lockers";
       this.maakRegel("", this.lockersArt(), "art");
       this.maakRegel("MACHINE", `Je staat aan de lockers. Elke locker heeft een code. Kan jij ze open krijgen?\n\
