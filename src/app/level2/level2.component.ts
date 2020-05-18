@@ -77,17 +77,17 @@ export class Level2Component implements OnInit {
   }
 
   bureau(input: string) {
-    if (input == "ga naar keuken") {
+    if (input == "ga naar keuken" || input == "ga naar een keuken" || input == "ga naar de keuken") {
       this.keuken(input);
-    } else if (input == "ga naar gang") {
+    } else if (input == "ga naar gang" || input == "ga naar een gang" || input == "ga naar de gang") {
       this.gang(input);
-    } else if (input == "ga naar kast") {
+    } else if (input == "ga naar kast" || input == "ga naar een kast" || input == "ga naar de kast") {
       this.kast(input);
-    } else if (input == "ga naar plant") {
+    } else if (input == "ga naar plant" || input == "ga naar een plant" || input == "ga naar de plant") {
       this.plant(input);
-    } else if (input == "ga naar tafel") {
+    } else if (input == "ga naar tafel" || input == "ga naar een tafel" || input == "ga naar de tafel") {
       this.tafel(input);
-    } else if (input == "ga naar lockers") {
+    } else if (input == "ga naar lockers" || input == "ga naar de lockers") {
       this.lockers(input);
     } else if (input == "terug") {
       this.bureau("ga binnen");

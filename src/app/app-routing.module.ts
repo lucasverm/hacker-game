@@ -25,7 +25,8 @@ const routes: Routes = [
   },
   {
     path: '**',
-    component: Level1Component
+    redirectTo: 'level-1',
+    pathMatch: "full"
   }];
 
 @NgModule({

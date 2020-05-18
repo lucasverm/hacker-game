@@ -108,17 +108,17 @@ export class Level1Component implements OnInit {
   }
 
   level1Inkom(input: string) {
-    if (input == "ga naar zetel") {
+    if (input == "ga naar zetel" || input == "ga naar een zetel" || input == "ga naar de zetel") {
       this.level1Zetel(input);
-    } else if (input == "ga naar automaat") {
+    } else if (input == "ga naar automaat" || input == "ga naar een automaat" || input == "ga naar de automaat") {
       this.level1Automaat(input);
-    } else if (input == "ga naar lift") {
+    } else if (input == "ga naar lift"|| input == "ga naar een lift" || input == "ga naar de lift") {
       this.dataService.huidigePlaats = "lift";
       this.level1Lift(input);
-    } else if (input == "ga naar secretaresse") {
+    } else if (input == "ga naar secretaresse"|| input == "ga naar een secretaresse" || input == "ga naar de secretaresse") {
       this.dataService.huidigePlaats = "secretaresse";
       this.level1Secretaresse(input);
-    } else if (input == "ga naar securityguard") {
+    } else if (input == "ga naar securityguard"|| input == "ga naar een zetel" || input == "ga naar de zetel") {
       this.dataService.huidigePlaats = "securityguard";
       this.level1SecurityGuard(input);
     } else if (input == "terug") {
