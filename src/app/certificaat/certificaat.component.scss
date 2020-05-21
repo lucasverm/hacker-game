@@ -1,0 +1,27 @@
+$green: #20C20E;
+iframe{
+          width: 100%;
+}
+table,
+div,
+td,
+tr {
+  border: 1px solid red !important;
+}
+
+.rand {
+  border: 10px double $green !important;
+  height: calc(100vh - 40px);
+  margin: 20px 10px !important;
+}
+
+.text {
+  margin-top: 150px;
+}
+
+.doneren {
+  color: $green !important;
+  border: 1px solid $green !important;
+  padding: 10px 20px !important;
+  display: inline-block;
+}

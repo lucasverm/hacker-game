@@ -3,6 +3,7 @@ import { Regel } from '../regel';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-level1',
@@ -127,7 +128,7 @@ export class Level1Component implements OnInit {
     } else if (input == "ga binnen" || input == "informatie") {
       this.dataService.huidigePlaats = "inkom";
       if (this.dataService.startKlok == null) {
-        this.dataService.startKlok = new Date();
+        this.dataService.startKlok = moment();
       }
       this.maakRegel("MACHINE", "Je staat nu in de inkom van de bank. Je ziet: \n\
       - een lift \n\

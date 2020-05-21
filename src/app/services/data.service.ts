@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Regel } from '../regel';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +8,7 @@ import { Regel } from '../regel';
 export class DataService {
   uitvoerData: Regel[] = [];
   startKlok = null;
+  eindKlok = null;
   voornaam: string = null;
   rugzak = ["Thermoskan", "aansteker"];
   huidigLevel = 0;
@@ -45,6 +47,8 @@ export class DataService {
   terugVanLaptop = false;
   soniaIngelogd = false;
   beveilingUitgeschakeld: boolean = false;
+  frequentieGeraden = false;
+  radioAan = true;
 
   constructor() { }
 

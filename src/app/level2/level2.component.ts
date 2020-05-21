@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Regel } from '../regel';
 import { DataService } from '../services/data.service';
 import { isGeneratedFile } from '@angular/compiler/src/aot/util';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-level2',
@@ -435,7 +436,7 @@ export class Level2Component implements OnInit {
       if (freq == "839205") {
         this.audioMorse.pause();
         this.audioZoeken.pause();
-        this.dataService.eindKlok = new Date();
+        this.dataService.eindKlok = moment();
         this.router.navigate([`../certificaat`]);
       } else {
         this.maakRegel("MACHINE", "Helaas: De kluis gaat niet open met deze code...");
