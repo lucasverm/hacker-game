@@ -30,7 +30,7 @@ export class DataService {
 
   //level1
   muntstukGevonden = false;
-  securityGuardAfgeleid = false;
+  bewakerAfgeleid = false;
   inLift = false;
 
 

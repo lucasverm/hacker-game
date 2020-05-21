@@ -100,8 +100,8 @@ export class Level1Component implements OnInit {
       this.level1Automaat(input);
     } else if (this.dataService.huidigePlaats == "lift") {
       this.level1Lift(input);
-    } else if (this.dataService.huidigePlaats == "securityguard") {
-      this.level1SecurityGuard(input);
+    } else if (this.dataService.huidigePlaats == "bewaker") {
+      this.level1Bewaker(input);
     } else if (this.dataService.huidigePlaats == "secretaresse") {
       this.level1Secretaresse(input);
     }
@@ -118,9 +118,9 @@ export class Level1Component implements OnInit {
     } else if (input == "ga naar secretaresse" || input == "ga naar een secretaresse" || input == "ga naar de secretaresse") {
       this.dataService.huidigePlaats = "secretaresse";
       this.level1Secretaresse(input);
-    } else if (input == "ga naar securityguard" || input == "ga naar een securityguard" || input == "ga naar de securityguard") {
-      this.dataService.huidigePlaats = "securityguard";
-      this.level1SecurityGuard(input);
+    } else if (input == "ga naar bewaker" || input == "ga naar een bewaker" || input == "ga naar de bewaker") {
+      this.dataService.huidigePlaats = "bewaker";
+      this.level1Bewaker(input);
     } else if (input == "terug") {
       this.level1Inkom("ga binnen");
       this.maakRegel("MACHINE", "Op dit moment kan je niet terug!");
@@ -131,7 +131,7 @@ export class Level1Component implements OnInit {
       }
       this.maakRegel("MACHINE", "Je staat nu in de inkom van de bank. Je ziet: \n\
       - een lift \n\
-      - een SECURITYGUARD\n\
+      - een BEWAKER\n\
       - een ZETEL\n\
       - een SECRETARESSE\n\
       - een AUTOMAAT\n\n\
@@ -145,13 +145,13 @@ export class Level1Component implements OnInit {
     if (input == "ga naar lift" || input == "ga naar een lift" || input == "ga naar de lift" || input == "informatie") {
       this.dataService.huidigePlaats = "lift";
       this.maakRegel("", this.lift, "art");
-      if (!this.dataService.securityGuardAfgeleid) {
-        this.maakRegel("MACHINE", "Security guard: \"Hela jongeman, deze toegang is niet voor onbevoegden!\"");
+      if (!this.dataService.bewakerAfgeleid) {
+        this.maakRegel("MACHINE", "Bewaker: \"Hela jongeman, deze toegang is niet voor onbevoegden!\"");
       } else {
         this.maakRegel("MACHINE", "COMMANDO'S:\n - Open lift");
       }
     } else if (input == "open lift") {
-      if (this.dataService.securityGuardAfgeleid) {
+      if (this.dataService.bewakerAfgeleid) {
         this.dataService.inLift = true;
         this.maakRegel("", this.liftCode, "art");
         this.maakRegel("MACHINE", "Je staat nu in de lift en ziet dit:");
@@ -180,10 +180,10 @@ export class Level1Component implements OnInit {
     }
   }
 
-  level1SecurityGuard(input: string) {
-    if (input == "ga naar securityguard" || input == "ga naar een securityguard" || input == "ga naar de securityguard" || input == "informatie") {
-      this.dataService.huidigePlaats = "securityguard";
-      this.maakRegel("", this.securityGuard, "art");
+  level1Bewaker(input: string) {
+    if (input == "ga naar bewaker" || input == "ga naar een bewaker" || input == "ga naar de bewaker" || input == "informatie") {
+      this.dataService.huidigePlaats = "bewaker";
+      this.maakRegel("", this.bewaker, "art");
       if (this.dataService.rugzak.includes("mentos") && this.dataService.rugzak.includes("cola")) {
         this.maakRegel("MACHINE", "Amai, azo nen peet! Jawadde dadde! Hij houd iedereen goed in de gaten. Hij zorgt ervoor dat er geen geld wordt gestolen of er mensen de bank binnen dringen. Hier graak je niet zomaar voorbij hoor! \n\
       COMMANDO'S: \n\
@@ -197,17 +197,17 @@ export class Level1Component implements OnInit {
           - verkoop aansteker");
       }
     } else if (input == "leid af met cola en mentos") {
-      this.dataService.securityGuardAfgeleid = true;
+      this.dataService.bewakerAfgeleid = true;
       this.maakRegel("", this.colaMentos, "art");
       this.dataService.rugzak.splice(this.dataService.rugzak.indexOf("cola"), 1);
       this.dataService.rugzak.splice(this.dataService.rugzak.indexOf("mentos"), 1);
-      this.maakRegel("MACHINE", "Je steekt het volledige pakje mentos in het cola flesje, en zet het net achter de securityguard. Psssssssst! Alles begint te spuiten, een ware fontijn!\
-        De securityguard kijkt je aan, maar jij loop nonchalant verder. Niemand zag het je doen. Wat heb jij chance!! De securityguard is helemaal vuil en druipt af naar het tiolet om zijn kleren proper te maken.");
+      this.maakRegel("MACHINE", "Je steekt het volledige pakje mentos in het cola flesje, en zet het net achter de bewaker. Psssssssst! Alles begint te spuiten, een ware fontijn!\
+        De bewaker kijkt je aan, maar jij loop nonchalant verder. Niemand zag het je doen. Wat heb jij chance!! De bewaker is helemaal vuil en druipt af naar het tiolet om zijn kleren proper te maken.");
     } else if (input == "vraag waar toilet is") {
-      this.maakRegel("MACHINE", "Securityguard: \"Het toilet is hier aan de lift naar rechts. Goed mikken hé, we zijn hier niet op scoutskamp!\"");
+      this.maakRegel("MACHINE", "Bewaker: \"Het toilet is hier aan de lift naar rechts. Goed mikken hé, we zijn hier niet op scoutskamp!\"");
     }
     else if (input == "verkoop aansteker") {
-      this.maakRegel("MACHINE", `Securityguard: "Ah toeme, Ik heb geen geld op zak!"`);
+      this.maakRegel("MACHINE", `Bewaker: "Ah toeme, Ik heb geen geld op zak!"`);
 
     } else if (input == "terug") {
       this.dataService.huidigePlaats = "inkom";
@@ -315,7 +315,7 @@ export class Level1Component implements OnInit {
       this.maakRegel("MACHINE", "Er zit onvoldoende geld in de automaat.");
     }
     else if (input == "bonk op automaat") {
-      this.maakRegel("MACHINE", "Er viel niks uit de automaat.. De securityguard kijkt je boos aan! Opgelet!");
+      this.maakRegel("MACHINE", "Er viel niks uit de automaat.. De bewaker kijkt je boos aan! Opgelet!");
       //kijkt of de volgende woorden in de input staan
     } else if (["steek", "euro", "in", "automaat"].every(i => input.split(" ").includes(i))) {
       var bedrag = parseFloat(input.split(" ")[1].replace(',', '.'));
@@ -500,7 +500,7 @@ export class Level1Component implements OnInit {
      '---------------'
   `;
 
-  securityGuard: string = String.raw`
+  bewaker: string = String.raw`
         _.---._
      .-' ((O)) '-.
       \ _.\_/._ /
