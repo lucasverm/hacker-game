@@ -164,7 +164,7 @@ export class Level1Component implements OnInit {
     else if (input == "20") {
       if (this.dataService.inLift) {
         this.maakRegel("", this.firework, "art");
-        this.maakRegel("MACHINE", "Proficiat! Je beëindigde level 1! De lift gaat nu naar boven, en je komt terecht in level 2. Succes!!");
+        this.maakRegel("MACHINE", "Proficiat! Je graakte in de lift! De lift gaat nu naar boven, en je komt terecht op het 2de verdiep. Succes!!");
         this.dataService.huidigLevel = 2;
         this.router.navigate([`../level-2`]);
       } else {
@@ -387,7 +387,7 @@ export class Level1Component implements OnInit {
   geefInstructies() {
     this.maakRegel("", this.bank, "art");
     this.maakRegel("MACHINE", `Dag ${this.dataService.voornaam}, Welkom in dit virtueel spel. Door de huidige Covid - 19 pandemie konden veel activiteiten niet doorgaan en zitten veel verenigingen krap bij kas. Daarom gaan we op zoek naar andere manieren om onze werkingen te kunnen blijven voortzetten. We hebben jou nodig om ons te helpen.\n\n\
-      Op dit moment sta je voor een bank. Dit gebouw heeft verschillende verdiepingen. Jij staat nu buiten, voor het gebouw. Door dit systeem commando's te geven, kan je zelf beslissen naar waar je gaat en wat je doet. Ook heb je op dit moment een rugzak aan. Daarin zitten spullen die je hoogstwaarschijnlijk kunnen helpen op je missie.\
+    Op dit moment sta je voor een bank. Dit gebouw heeft verschillende verdiepingen. Jij staat nu buiten, voor het gebouw. Door dit systeem commando's te geven, kan je zelf beslissen naar waar je gaat en wat je doet. Ook heb je op dit moment een rugzak aan. Daarin zitten spullen die je hoogstwaarschijnlijk kunnen helpen op je missie.\
     Om de rugzak te openen: typ \"rugzak\". Heb je meer info nodig: typ \"help\". Alles zal wel duidelijk worden. \n\n\
     Zodra je het gebouw binnen stapt begint jouw klok te lopen! Succes! \n\n\
     Om het gebouw binnen te stappen: typ: \"ga binnen\".`);

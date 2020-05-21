@@ -12,7 +12,17 @@ import { isGeneratedFile } from '@angular/compiler/src/aot/util';
 })
 export class Level2Component implements OnInit {
   public inputForm: FormGroup;
-  constructor(public router: Router, private fb: FormBuilder, public dataService: DataService) { }
+  audioMorse = new Audio();
+  audioZoeken = new Audio();
+  constructor(public router: Router, private fb: FormBuilder, public dataService: DataService) {
+    this.audioMorse.src = "../../assets/morse.mp3";
+    this.audioMorse.loop = true;
+    this.audioMorse.load();
+    this.audioZoeken.src = "../../assets/zoeken.mp3";
+    this.audioZoeken.loop = true;
+    this.audioZoeken.load();
+  }
+
 
   ngOnInit() {
     this.inputForm = this.fb.group({
@@ -29,8 +39,8 @@ export class Level2Component implements OnInit {
   getLocatie() {
     if (this.dataService.huidigePlaats == "bureau") {
       return `${this.dataService.huidigePlaats}`
-    } else if (this.dataService.huidigePlaats == "kluis") {
-      return `bureau > gang > ${this.dataService.huidigePlaats}`
+    } else if (this.dataService.huidigePlaats == "voor kluis") {
+      return `${this.dataService.huidigePlaats}`
     } else {
       return `bureau > ${this.dataService.huidigePlaats}`
     }
@@ -73,6 +83,8 @@ export class Level2Component implements OnInit {
       this.tafel(input);
     } else if (this.dataService.huidigePlaats == "lockers") {
       this.lockers(input);
+    } else if (this.dataService.huidigePlaats == "voor kluis") {
+      this.kluis(input);
     }
   }
 
@@ -180,11 +192,12 @@ export class Level2Component implements OnInit {
         this.maakRegel("MACHINE", "Op het einde van de gang zie je een kluis maar de gang hang vol camera's en infrarood sensoren. Hier graak je niet zomaar voorbij!");
       } else {
         this.maakRegel("MACHINE", "COMMANDO'S:\n\
-        - ga naar kluis");
+        - ga naar kluis \n\
+        - terug");
       }
     } else if (input == "ga naar kluis" && this.dataService.beveilingUitgeschakeld) {
-      this.dataService.huidigePlaats = "kluis";
-      this.maakRegel("MACHINE", "Proficiat! Je graakte voorbij level 2!");
+      this.dataService.huidigePlaats = "voor kluis";
+      this.kluis("ga naar kluis")
     } else if (input == "terug") {
       this.dataService.huidigePlaats = "bureau";
       this.bureau("ga binnen");
@@ -383,6 +396,61 @@ export class Level2Component implements OnInit {
     }
   }
 
+  kluis(input: string) {
+    if (!this.isPlaying(this.audioZoeken) && this.dataService.radioAan) {
+      this.audioZoeken.play();
+    };
+    if (input == "ga naar kluis" || input == "ga naar de kluis" || input == "informatie") {
+      this.dataService.huidigePlaats = "voor kluis";
+      this.maakRegel("", this.kluisArt, "art");
+      this.maakRegel("MACHINE", `Je staat voor de kluis met het geld in. Rechts van de kluis staat een radio. Je sprak af met je kompanen dat ze de code van de kluis via een radiofrequentie zullen doorgeven,\
+      maar je vergat de welke. Je onthield wel de tip: De frequentie is het kookpunt van H20 in fahrenheid? ZET JE GELUID AAN!\n\
+          COMMANDO'S: \n\
+          - Stel radio in op frequentie xxx\n\
+          - zet radio uit\n\
+          - zet radio aan`);
+    } else if (["stel", "radio", "in", "op"].every(i => input.split(" ").includes(i))) {
+      var freq = input.split(" ")[5];
+      if (freq == "212") {
+        this.dataService.frequentieGeraden = true;
+        this.maakRegel("MACHINE", "Hoera: Je kon je de frequentie opnieuw herrinneren! Nu luister je naar de morsecode die jouw komanen je doorsturen!\n\
+        - open kluis met code xxxxxx\n\
+        - zet radio uit\n\
+        - zet radio aan");
+        this.audioMorse.play();
+        if (!this.isPlaying(this.audioZoeken)) {
+          this.audioZoeken.play();
+        };
+      } else {
+        this.maakRegel("MACHINE", "Helaas: Op deze frequentie hoor je alleen geruis...");
+      }
+    } else if (input == "zet radio uit") {
+      this.dataService.radioAan = false;
+      this.audioMorse.pause();
+      this.audioMorse.currentTime = 0
+      this.audioZoeken.pause();
+    } else if (["open", "kluis", "met", "code"].every(i => input.split(" ").includes(i)) && this.dataService.frequentieGeraden) {
+      var freq = input.split(" ")[4];
+      console.log(freq);
+      if (freq == "839205") {
+        this.audioMorse.pause();
+        this.audioZoeken.pause();
+        this.dataService.eindKlok = new Date();
+        this.router.navigate([`../certificaat`]);
+      } else {
+        this.maakRegel("MACHINE", "Helaas: De kluis gaat niet open met deze code...");
+      }
+    } else if (input == "zet radio aan") {
+      this.dataService.radioAan = true;
+      if (this.dataService.frequentieGeraden) {
+        this.audioMorse.play();
+      }
+      this.audioZoeken.play();
+    } else {
+      this.maakRegel("MACHINE", "Dit commando is ongeldig!", "error");
+    }
+  }
+
   spel(input: string) {
     if (this.dataService.voornaam == null) {
       this.dataService.voornaam = input;
@@ -432,6 +500,14 @@ export class Level2Component implements OnInit {
     this.dataService.uitvoerData.push(regel);
   }
 
+  isPlaying(audio) {
+    return audio
+      && audio.currentTime > 0
+      && !audio.paused
+      && !audio.ended
+      && audio.readyState > 2;
+  }
+
   brief: string = String.raw`
   ._________________________________________________.
   |                                                 |
@@ -477,6 +553,20 @@ export class Level2Component implements OnInit {
             |                                               |
             |_______________________________________________|
         `;
+  kluisArt: string = String.raw`
+       __________________
+      /                  \
+     /                    \
+    /     o                \
+   /    __|__               \
+  |    /  |  \               | 
+  | o-|-- * --|-o            |      .
+  |    \__|__/               |      |
+   \      |                 /       |
+    \     o                /        ||______.
+     \                    /         ||======|
+      \__________________/          ||======|
+  `;
 
   keukenArt: string = String.raw`
   _____________________________________________________

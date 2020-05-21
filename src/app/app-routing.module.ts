@@ -3,9 +3,14 @@ import { Routes, RouterModule } from '@angular/router';
 import { Level1Component } from './level1/level1.component';
 import { Level2Component } from './level2/level2.component';
 import { LaptopComponent } from './laptop/laptop.component';
+import { CertificaatComponent } from './certificaat/certificaat.component';
 
 
 const routes: Routes = [
+  {
+    path: 'certificaat',
+    component: CertificaatComponent
+  },
   {
     path: 'level-1',
     component: Level1Component
