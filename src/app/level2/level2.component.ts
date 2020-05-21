@@ -117,14 +117,16 @@ export class Level2Component implements OnInit {
       - kook water\n\
       - doe vuur uit\n\
       - neem water van kraan\n\
-      - leeg thermoskan`);
+      - leeg thermoskan\n\
+      - terug`);
       } else {
         this.maakRegel("MACHINE", `Aha, je komt in de kraak nette, zweeds IKEA keuken.\n\
       COMMANDO'S:\n\
       - kook water\n\
       - steek vuur aan\n\
       - neem water van kraan\n\
-      - leeg thermoskan`);
+      - leeg thermoskan\n\
+      - terug`);
       }
     } else if (input == "kook water") {
       if (this.dataService.rugzak.includes("Thermoskan met koud water")) {
@@ -199,17 +201,20 @@ export class Level2Component implements OnInit {
         if (this.dataService.rugzak.includes("schaar")) {
           this.maakRegel("MACHINE", `In de kast hangt een kalender en ligt een schaar. \n\
         COMMANDO'S:\n\
-        - bekijk kalender\n`);
+        - bekijk kalender\n
+        - terug`);
         } else {
           this.maakRegel("MACHINE", `In de kast hangt een kalender en ligt een schaar. \n\
         COMMANDO'S:\n\
         - bekijk kalender\n\
-        - neem schaar`);
+        - neem schaar\n
+        - terug`);
         }
       } else if (this.dataService.rugzak.includes("sleutel")) {
         this.maakRegel("MACHINE", `Je staat voor een super coole, old-fashion ebben houten kast die momenteel op slot zit. Je zal hem eerst moeten openen\n\
         COMMANDO'S:\n\
-        - open kast met sleutel`);
+        - open kast met sleutel\n\
+        - terug`);
       } else {
         this.maakRegel("MACHINE", `Je staat voor een super coole, old-fashion ebbenhouten kast die momenteel op slot zit. Je zal hem eerst moeten openen`);
       }
@@ -242,11 +247,13 @@ export class Level2Component implements OnInit {
       } else if (this.dataService.plantMetWater) {
         this.maakRegel("MACHINE", `Je gaf de plant water. Doordat de aarde een beetje zakt zie je nu iets blinken..? Het lijkt op een sleutel... \n\
         COMMANDO'S:\n\
-        - neem sleutel`);
+        - neem sleutel\n\
+        - terug`);
       } else {
         this.maakRegel("MACHINE", `Deze mooie sierlijke varen lijkt veel dorst te hebben!\n\
         COMMANDO'S:\n\
-        - geef water`);
+        - geef water\n\
+        - terug`);
       }
     } else if (input == "geef water") {
       if (this.dataService.rugzak.includes("Thermoskan met koud water") && !this.dataService.plantMetWater) {
@@ -254,7 +261,8 @@ export class Level2Component implements OnInit {
         this.dataService.plantMetWater = true;
         this.maakRegel("MACHINE", `Je gaf de plant water. Doordat de aarde een beetje zakt zie je nu iets blinken..? Het lijkt op een sleutel... \n\
         COMMANDO'S:\n\
-        - neem sleutel`);
+        - neem sleutel\n\
+        - terug`);
       } else if (this.dataService.plantMetWater) {
         this.plant("error");
       } else {
@@ -287,11 +295,13 @@ export class Level2Component implements OnInit {
       if (this.dataService.laptopBeschikbaar) {
         this.maakRegel("MACHINE", `Op deze tafel licht de laptop die je vond in één van de lockers!\n\
         COMMANDO'S:\n\
-        - zet aan`);
+        - zet aan\n\
+        - terug`);
       } else if (this.dataService.rugzak.includes("laptop")) {
         this.maakRegel("MACHINE", `Je vond een laptop in één van de lockers!\n\
         COMMANDO'S:\n\
-        - leg laptop op tafel`);
+        - leg laptop op tafel\n\
+        - terug`);
       } else if (this.dataService.briefOpen) {
         this.maakRegel("", this.brief, "art");
         this.maakRegel("MACHINE", `Volende TOP SECRET raadsels staan in de brief. Het zijn telkens 3-cijferige codes. misschien kunnen hun oplossingen later nuttig zijn!`);
@@ -300,7 +310,8 @@ export class Level2Component implements OnInit {
         this.maakRegel("", this.bureauLamp, "art");
         this.maakRegel("MACHINE", `Op deze ebbenhoute IKEA tafel staat er duidelijk een lamp en ligt er een "TOP SECRET" brief.\n\
           COMMANDO'S: \n\
-          - Open brief`);
+          - Open brief\n\
+          - terug`);
       }
     } else if (input == "open brief") {
       if (this.dataService.rugzak.includes("Thermoskan met heet water")) {
@@ -316,7 +327,8 @@ export class Level2Component implements OnInit {
       this.dataService.laptopBeschikbaar = true;
       this.maakRegel("MACHINE", `Je legde de laptop op tafel.\n\
       COMMANDO'S: \n\
-      - zet aan`);
+      - zet aan\n\
+      - terug`);
     } else if (input == "zet aan" && this.dataService.laptopBeschikbaar) {
       this.router.navigate([`../laptop`]);
     } else if (input == "schakel beveiliging uit" && this.dataService.soniaIngelogd) {
@@ -337,7 +349,8 @@ export class Level2Component implements OnInit {
       this.maakRegel("", this.lockersArt(), "art");
       this.maakRegel("MACHINE", `Je staat aan de lockers. Elke locker heeft een code. Kan jij ze open krijgen?\n\
           COMMANDO'S: \n\
-          - Open locker x met code xxx`);
+          - Open locker x met code xxx\n\
+          - terug`);
     }
     else if (["open", "locker", "met", "code"].every(i => input.split(" ").includes(i))) {
       var lockerNr = parseInt(input.split(" ")[2]);

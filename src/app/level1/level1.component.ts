@@ -146,7 +146,9 @@ export class Level1Component implements OnInit {
       this.dataService.huidigePlaats = "lift";
       this.maakRegel("", this.lift, "art");
       if (!this.dataService.bewakerAfgeleid) {
-        this.maakRegel("MACHINE", "Bewaker: \"Hela jongeman, deze toegang is niet voor onbevoegden!\"");
+        this.maakRegel("MACHINE", "Bewaker: \"Hela jongeman, deze toegang is niet voor onbevoegden!\"\n\
+        COMMANDOS:\n\
+        - terug");
       } else {
         this.maakRegel("MACHINE", "COMMANDO'S:\n - Open lift");
       }
@@ -189,12 +191,14 @@ export class Level1Component implements OnInit {
       COMMANDO'S: \n\
         - leid af met cola en mentos\n\
         - vraag waar toilet is\n\
-        - verkoop aansteker");
+        - verkoop aansteker\n\
+        - terug");
       } else {
         this.maakRegel("MACHINE", "Amai, azo nen peet! Jawadde dadde! \n\
         COMMANDO'S: \n\
           - vraag waar toilet is\n\
-          - verkoop aansteker");
+          - verkoop aansteker\n\
+          - terug");
       }
     } else if (input == "leid af met cola en mentos") {
       this.dataService.bewakerAfgeleid = true;
@@ -202,12 +206,20 @@ export class Level1Component implements OnInit {
       this.dataService.rugzak.splice(this.dataService.rugzak.indexOf("cola"), 1);
       this.dataService.rugzak.splice(this.dataService.rugzak.indexOf("mentos"), 1);
       this.maakRegel("MACHINE", "Je steekt het volledige pakje mentos in het cola flesje, en zet het net achter de bewaker. Psssssssst! Alles begint te spuiten, een ware fontijn!\
-        De bewaker kijkt je aan, maar jij loop nonchalant verder. Niemand zag het je doen. Wat heb jij chance!! De bewaker is helemaal vuil en druipt af naar het tiolet om zijn kleren proper te maken.");
-    } else if (input == "vraag waar toilet is") {
-      this.maakRegel("MACHINE", "Bewaker: \"Het toilet is hier aan de lift naar rechts. Goed mikken hé, we zijn hier niet op scoutskamp!\"");
+        De bewaker kijkt je aan, maar jij loop nonchalant verder. Niemand zag het je doen. Wat heb jij chance!! De bewaker is helemaal vuil en druipt af naar het tiolet om zijn kleren proper te maken.\n\
+        COMMANDOS:\n\
+        - vraag waar toilet is\n\
+        - verkoop aansteker\n\
+        - terug");
+    } else if (input == "vraag waar toilet is" || input == "vraag waar het toilet is") {
+      this.maakRegel("MACHINE", "Bewaker: \"Het toilet is hier aan de lift naar rechts. Goed mikken hé, we zijn hier niet op scoutskamp!\n\
+      COMMANDOS:\n\
+      - terug");
     }
-    else if (input == "verkoop aansteker") {
-      this.maakRegel("MACHINE", `Bewaker: "Ah toeme, Ik heb geen geld op zak!"`);
+    else if (input == "verkoop aansteker" || input == "verkoop de aansteker" ) {
+      this.maakRegel("MACHINE", `Bewaker: "Ah toeme, Ik heb geen geld op zak!\n\
+      COMMANDOS:\n\
+      - terug`);
 
     } else if (input == "terug") {
       this.dataService.huidigePlaats = "inkom";
@@ -221,14 +233,23 @@ export class Level1Component implements OnInit {
     if (input == "ga naar secretaresse" || input == "ga naar een secretaresse" || input == "ga naar de secretaresse" || input == "informatie") {
       this.dataService.huidigePlaats = "secretaresse";
       this.maakRegel("", this.secretaresse, "art");
-      this.maakRegel("MACHINE", "De secretaresse heeft mooie bruin-blonde krullen. Ze heeft een bloes en halsketting aan en kauwkomt er op los, een streling voor het oog! 1.5 meter afstand houden!\n\
+      this.maakRegel("MACHINE", "De secretaresse heeft mooie bruin-blonde krullen. Ze heeft een bloes en halsketting aan en kauwgomt er op los, een streling voor het oog! 1.5 meter afstand houden!\n\
       COMMANDO'S: \n\
         - vraag waar toilet is\n\
-        - verkoop aansteker");
-    } else if (input == "vraag waar toilet is") {
-      this.maakRegel("MACHINE", "Secretaresse: \"Het toilet is naast de lift naar rechts. Gelieve je handen goed te wassen in verband met de huidige corona maatregelen!\"");
-    } else if (input == "verkoop aansteker") {
-      this.maakRegel("MACHINE", `Secretaresse: "Sorry, ${this.dataService.voornaam}. Ik kan geen aansteker gebruiken. Ik kan je niet helpen."`);
+        - verkoop aansteker\n\
+        - terug");
+    } else if (input == "vraag waar toilet is"  || input == "vraag waar het toilet is") {
+      this.maakRegel("MACHINE", "Secretaresse: \"Het toilet is naast de lift naar rechts. Gelieve je handen goed te wassen in verband met de huidige corona maatregelen!\"\n\
+      COMMANDO'S: \n\
+        - vraag waar toilet is\n\
+        - verkoop aansteker\n\
+        - terug");
+    } else if (input == "verkoop aansteker" || input == "verkoop de aansteker") {
+      this.maakRegel("MACHINE", `Secretaresse: "Sorry, ${this.dataService.voornaam}. Ik kan geen aansteker gebruiken. Ik kan je niet helpen."\n\
+      COMMANDO'S: \n\
+        - vraag waar toilet is\n\
+        - verkoop aansteker\n\
+        - terug`);
     } else if (input == "terug") {
       this.dataService.huidigePlaats = "inkom";
       this.level1Inkom("ga binnen");
@@ -281,7 +302,8 @@ export class Level1Component implements OnInit {
       - steek x euro in automaat
       - bedrag in automaat
       - haal geld uit automaat
-      - koop ...`);
+      - koop ...
+      - terug`);
     } else if (input == "bedrag in automaat") {
       this.maakRegel("MACHINE", `Er zit momenteel ${this.dataService.bedragInAutomaat} euro in de automaat.`);
     } else if (input == "haal geld uit automaat") {
