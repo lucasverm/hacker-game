@@ -58,7 +58,7 @@ export class Level1Component implements OnInit {
   }
 
   help() {
-    this.maakRegel("MACHINE", "HELP \n - rugzak bekijken: typ rugzak \n - informatie krijgen over huidige plaats: typ informatie \n - terug: typ terug");
+    this.maakRegel("MACHINE", "HELP \n - in je rugzak kijken: typ rugzak \n - informatie krijgen over huidige plaats: typ informatie \n - terug: typ terug");
   }
 
   spel(input: string) {
@@ -131,10 +131,10 @@ export class Level1Component implements OnInit {
       }
       this.maakRegel("MACHINE", "Je staat nu in de inkom van de bank. Je ziet: \n\
       - een lift \n\
-      - een BEWAKER\n\
-      - een ZETEL\n\
-      - een SECRETARESSE\n\
-      - een AUTOMAAT\n\n\
+      - een bewaker\n\
+      - een zetel\n\
+      - een secretaresse\n\
+      - een automaat\n\n\
     typ \"ga naar ...\" om je te verplaatsen\n");
     } else {
       this.maakRegel("MACHINE", "Dit commando is ongeldig!", "error");
@@ -164,7 +164,7 @@ export class Level1Component implements OnInit {
     else if (input == "20") {
       if (this.dataService.inLift) {
         this.maakRegel("", this.firework, "art");
-        this.maakRegel("MACHINE", "Proficiat! Je eindigde level 1! De lift gaat nu naar boven, en je komt terecht in level 2. Succes!!");
+        this.maakRegel("MACHINE", "Proficiat! Je beëindigde level 1! De lift gaat nu naar boven, en je komt terecht in level 2. Succes!!");
         this.dataService.huidigLevel = 2;
         this.router.navigate([`../level-2`]);
       } else {
@@ -187,16 +187,16 @@ export class Level1Component implements OnInit {
       this.dataService.huidigePlaats = "bewaker";
       this.maakRegel("", this.bewaker, "art");
       if (this.dataService.rugzak.includes("mentos") && this.dataService.rugzak.includes("cola")) {
-        this.maakRegel("MACHINE", "Amai, azo nen peet! Jawadde dadde! Hij houd iedereen goed in de gaten. Hij zorgt ervoor dat er geen geld wordt gestolen of er mensen de bank binnen dringen. Hier graak je niet zomaar voorbij hoor! \n\
+        this.maakRegel("MACHINE", "Amai, azo nen peet! Jawadde dadde! Hij houdt de inkomhal goed in de gaten. Hij zorgt ervoor dat er geen geld wordt gestolen of mensen zomaar de bank binnen lopen. Hier geraak je niet zomaar voorbij hoor! \n\
       COMMANDO'S: \n\
         - leid af met cola en mentos\n\
-        - vraag waar toilet is\n\
+        - vraag waar het toilet is\n\
         - verkoop aansteker\n\
         - terug");
       } else {
         this.maakRegel("MACHINE", "Amai, azo nen peet! Jawadde dadde! \n\
         COMMANDO'S: \n\
-          - vraag waar toilet is\n\
+          - vraag waar het toilet is\n\
           - verkoop aansteker\n\
           - terug");
       }
@@ -205,14 +205,14 @@ export class Level1Component implements OnInit {
       this.maakRegel("", this.colaMentos, "art");
       this.dataService.rugzak.splice(this.dataService.rugzak.indexOf("cola"), 1);
       this.dataService.rugzak.splice(this.dataService.rugzak.indexOf("mentos"), 1);
-      this.maakRegel("MACHINE", "Je steekt het volledige pakje mentos in het cola flesje, en zet het net achter de bewaker. Psssssssst! Alles begint te spuiten, een ware fontijn!\
-        De bewaker kijkt je aan, maar jij loop nonchalant verder. Niemand zag het je doen. Wat heb jij chance!! De bewaker is helemaal vuil en druipt af naar het tiolet om zijn kleren proper te maken.\n\
+      this.maakRegel("MACHINE", "Je steekt het volledige pakje mentos in het cola flesje, en zet het net achter de bewaker. Psssssssst! Alles begint te spuiten, een ware fontein!\
+        De bewaker kijkt je verschrikt aan, maar jij loopt nonchalant verder. Niemand zag het je doen. Wat heb jij chance!! De bewaker hangt helemaal vol plakkende cola en druipt af naar het toilet om zijn kleren proper te maken.\n\
         COMMANDOS:\n\
-        - vraag waar toilet is\n\
+        - vraag waar het toilet is\n\
         - verkoop aansteker\n\
         - terug");
     } else if (input == "vraag waar toilet is" || input == "vraag waar het toilet is") {
-      this.maakRegel("MACHINE", "Bewaker: \"Het toilet is hier aan de lift naar rechts. Goed mikken hé, we zijn hier niet op scoutskamp!\n\
+      this.maakRegel("MACHINE", "Bewaker: \"Het toilet is hier naast de lift naar rechts. Goed mikken hé, we zijn hier niet op scoutskamp!\n\
       COMMANDOS:\n\
       - terug");
     }
@@ -233,21 +233,21 @@ export class Level1Component implements OnInit {
     if (input == "ga naar secretaresse" || input == "ga naar een secretaresse" || input == "ga naar de secretaresse" || input == "informatie") {
       this.dataService.huidigePlaats = "secretaresse";
       this.maakRegel("", this.secretaresse, "art");
-      this.maakRegel("MACHINE", "De secretaresse heeft mooie bruin-blonde krullen. Ze heeft een bloes en halsketting aan en kauwgomt er op los, een streling voor het oog! 1.5 meter afstand houden!\n\
+      this.maakRegel("MACHINE", "De secretaresse heeft mooie blond-bruine krullen. Ze heeft een fleurige blouse en een snoepjesketting aan en kauwgomt er op los, een ware streling voor het oog! 1.5 meter afstand houden!\n\
       COMMANDO'S: \n\
-        - vraag waar toilet is\n\
+        - vraag waar het toilet is\n\
         - verkoop aansteker\n\
         - terug");
     } else if (input == "vraag waar toilet is"  || input == "vraag waar het toilet is") {
       this.maakRegel("MACHINE", "Secretaresse: \"Het toilet is naast de lift naar rechts. Gelieve je handen goed te wassen in verband met de huidige corona maatregelen!\"\n\
       COMMANDO'S: \n\
-        - vraag waar toilet is\n\
+        - vraag waar het toilet is\n\
         - verkoop aansteker\n\
         - terug");
     } else if (input == "verkoop aansteker" || input == "verkoop de aansteker") {
       this.maakRegel("MACHINE", `Secretaresse: "Sorry, ${this.dataService.voornaam}. Ik kan geen aansteker gebruiken. Ik kan je niet helpen."\n\
       COMMANDO'S: \n\
-        - vraag waar toilet is\n\
+        - vraag waar het toilet is\n\
         - verkoop aansteker\n\
         - terug`);
     } else if (input == "terug") {
@@ -262,18 +262,18 @@ export class Level1Component implements OnInit {
     if (input == "ga naar zetel" || input == "ga naar een zetel" || input == "ga naar de zetel" || input == "informatie") {
       this.dataService.huidigePlaats = "zetel";
       if (!this.dataService.muntstukGevonden) {
-        this.maakRegel("MACHINE", `Je zit op een rode zetel, gemaakt door de beroemde kunstenaar Charles Rennie Mackintosh. De zetel werd ontworpen in 1983. Boven jou hangt een kunstwerk van Panamarenko. Op het kaartje dat erbij hangt staat er dat het om de aeromodeller blijkt te gaan, een reusachtige heteluchballon gemaakt rond 1970. Wat een gigantisch kunstwerk! Je ziet een centje blinken dat tussen de zetel zit!\n\
+        this.maakRegel("MACHINE", `Je zit op een rode zetel, gemaakt door de beroemde kunstenaar Charles Rennie Mackintosh. De zetel werd ontworpen in 1983. Boven jou hangt een kunstwerk van Panamarenko. Op het kaartje dat erbij hangt, staat er dat het om de aeromodeller blijkt te gaan, een reusachtige heteluchballon gemaakt rond 1970. Wat een gigantisch kunstwerk! Je ziet een centje blinken tussen de kussens van de zetel!\n\
        - muntstuk oprapen\n\
        - terug`);
       } else {
-        this.maakRegel("MACHINE", `Je zit op een rode zetel, gemaakt door de beroemde kunstenaar Charles Rennie Mackintosh. De zetel werd ontworpen in 1983. Boven jou hangt een kunstwerk van Panamarenko. Op het kaartje dat erbij hangt staat er dat het om de aeromodeller blijkt te gaan, een reusachtige heteluchballon gemaakt rond 1970. Wat een gigantisch kunstwerk!\n\
+        this.maakRegel("MACHINE", `Je zit op een rode zetel, gemaakt door de beroemde kunstenaar Charles Rennie Mackintosh. De zetel werd ontworpen in 1983. Boven jou hangt een kunstwerk van Panamarenko. Op het kaartje dat erbij hangt, staat er dat het om de aeromodeller blijkt te gaan, een reusachtige heteluchballon gemaakt rond 1970. Wat een gigantisch kunstwerk!\n\
        - terug`);
       }
     } else if (input == "muntstuk oprapen") {
 
       if (!this.dataService.muntstukGevonden) {
         this.maakRegel("", this.euro, "art")
-        this.maakRegel("MACHINE", "amai! Je vind zomaar een muntstuk van 2 euro tussen de zetel! It's your lucky day! Je steekt het muntstuk in je rugzak. \n\
+        this.maakRegel("MACHINE", "Amai! Je vindt zomaar een muntstuk van 2 euro tussen de zetel! It's your lucky day! Je steekt het muntstuk in je rugzak. \n\
       - rugzak\n\
       - terug");
         this.dataService.muntstukGevonden = true;
@@ -293,7 +293,7 @@ export class Level1Component implements OnInit {
     if (input == "ga naar automaat" || input == "ga naar een automaat" || input == "ga naar de automaat" || input == "informatie") {
       this.dataService.huidigePlaats = "automaat";
       this.maakRegel("", this.machine, "art");
-      this.maakRegel("MACHINE", `Je staat voor een autmaat. Deze automaat is rood en wit en ziet er al wat versleten uit. Hij is bijna leeg. Inhoud: \n\
+      this.maakRegel("MACHINE", `Je staat voor een automaat. Deze automaat is rood en wit en ziet er al wat versleten uit. Hij is bijna leeg. Inhoud: \n\
       - COLA: 1,20 euro\n\
       - WAFEL: 2,20 euro\n\
       - MENTOS: 0,70 euro\n\n\
@@ -320,7 +320,7 @@ export class Level1Component implements OnInit {
       } else if (this.dataService.bedragInAutomaat >= 0.7) {
         this.dataService.bedragInAutomaat -= 0.7;
         this.dataService.rugzak.push("mentos");
-        this.maakRegel("MACHINE", "Je kocht mentos van uit de automaat. Die zit nu in je rugzak.");
+        this.maakRegel("MACHINE", "Je kocht mentos van uit de automaat. Deze zit nu in je rugzak.");
       } else {
         this.maakRegel("MACHINE", "Er zit onvoldoende geld in de automaat.");
       }
@@ -386,16 +386,16 @@ export class Level1Component implements OnInit {
 
   geefInstructies() {
     this.maakRegel("", this.bank, "art");
-    this.maakRegel("MACHINE", `Dag ${this.dataService.voornaam}, Welkom in dit virtueel spel.Door de huidige covid - 19 pandemie zijn bij veel verenigingen de centjes op.Daarom gaan we op zoek naar andere manieren om onze werkingen te kunnen blijven voortzetten.We hebben jou nodig om ons te helpen.\n\n\
-      Op dit moment sta je voor een bank.Dit gebouw heeft verschillende verdiepingen.Jij staat nu buiten, voor het gebouw.Door dit systeem commando's te geven, kan je zelf beslissen naar waar je gaat en wat je doet. Ook heb je op dit moment een rugzak aan. Daarin zitten spullen die je hoogstwaarschijnlijk kunnen helpen op je missie.\
+    this.maakRegel("MACHINE", `Dag ${this.dataService.voornaam}, Welkom in dit virtueel spel. Door de huidige Covid - 19 pandemie konden veel activiteiten niet doorgaan en zitten veel verenigingen krap bij kas. Daarom gaan we op zoek naar andere manieren om onze werkingen te kunnen blijven voortzetten. We hebben jou nodig om ons te helpen.\n\n\
+      Op dit moment sta je voor een bank. Dit gebouw heeft verschillende verdiepingen. Jij staat nu buiten, voor het gebouw. Door dit systeem commando's te geven, kan je zelf beslissen naar waar je gaat en wat je doet. Ook heb je op dit moment een rugzak aan. Daarin zitten spullen die je hoogstwaarschijnlijk kunnen helpen op je missie.\
     Om de rugzak te openen: typ \"rugzak\". Heb je meer info nodig: typ \"help\". Alles zal wel duidelijk worden. \n\n\
-    Vanaf je het gebouw binnen stapt begint jouw klok te lopen! Succes! \n\n\
+    Zodra je het gebouw binnen stapt begint jouw klok te lopen! Succes! \n\n\
     Om het gebouw binnen te stappen: typ: \"ga binnen\".`);
   }
 
   welkomstBericht() {
     this.maakRegel("", this.scoutsArduHackSpel, "art");
-    this.maakRegel("MACHINE", "Welkom op het hackspel van Scouts ardu. De bedoeling is dat jij onze scouts hackt! Volg de vragen, en denk goed na! Zorg dat je de pagina NIET refreshed! Veel hackplezier!!");
+    this.maakRegel("MACHINE", "Welkom op het hackspel van Scouts Ardu. De bedoeling is dat jij onze scouts hackt! Volg de vragen, en denk goed na! Zorg dat je de pagina NIET refreshed! Veel hackplezier!!");
     this.maakRegel("MACHINE", "Geef je voornaam in: ");
   }
 
