@@ -289,11 +289,14 @@ export class Level2Component implements OnInit {
     if (input == "terug van laptop" && this.dataService.soniaIngelogd) {
       this.maakRegel("MACHINE", "Je kon het passwoord kraken! Doordat je toegang hebt tot de laptop kan je de lichten en camera's in de gang uitschakelen!\n\
       COMMANDO'S:\n\
-      - schakel beveiliging uit");
+      - schakel beveiliging uit \n\
+      - terug ");
     } else if (input == "ga naar tafel" || input == "ga naar een tafel" || input == "ga naar de tafel" || input == "informatie" || input == "terug van laptop") {
       this.dataService.huidigePlaats = "tafel";
-      if (this.dataService.laptopBeschikbaar) {
-        this.maakRegel("MACHINE", `Op deze tafel licht de laptop die je vond in één van de lockers!\n\
+      if (this.dataService.soniaIngelogd) {
+        this.tafel("terug van laptop");
+      } else if (this.dataService.laptopBeschikbaar) {
+        this.maakRegel("MACHINE", `Op deze tafel ligt de laptop die je vond in één van de lockers!\n\
         COMMANDO'S:\n\
         - zet aan\n\
         - terug`);
@@ -529,7 +532,7 @@ export class Level2Component implements OnInit {
   |        ._______.        |        ._______.        |        ._______.        |
   |        |   1   |        |        |   2   |        |        |   3   |        |
   |        '-------'        |        '-------'        |        '-------'        |
-  |          SONIA          |          TANIA          |          NANCY          |
+  |                         |                         |                         |
   |    .___.                |    .___.                |    .___.                |
   |    |___|                |    |___|                |    |___|                |
   |    |${this.dataService.lockerCodes[0]}|                |    |${this.dataService.lockerCodes[1]}|                |    |${this.dataService.lockerCodes[2]}|                |
