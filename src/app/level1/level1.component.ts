@@ -131,11 +131,11 @@ export class Level1Component implements OnInit {
         this.dataService.startKlok = moment();
       }
       this.maakRegel("MACHINE", "Je staat nu in de inkom van de bank. Je ziet: \n\
-      - een lift \n\
-      - een bewaker\n\
-      - een zetel\n\
-      - een secretaresse\n\
-      - een automaat\n\n\
+      - een LIFT \n\
+      - een BEWAKER\n\
+      - een ZETEL\n\
+      - een SECRETARESSE\n\
+      - een AUTOMAAT\n\n\
     typ \"ga naar ...\" om je te verplaatsen\n");
     } else {
       this.maakRegel("MACHINE", "Dit commando is ongeldig!", "error");
@@ -217,7 +217,7 @@ export class Level1Component implements OnInit {
       COMMANDOS:\n\
       - terug");
     }
-    else if (input == "verkoop aansteker" || input == "verkoop de aansteker" ) {
+    else if (input == "verkoop aansteker" || input == "verkoop de aansteker") {
       this.maakRegel("MACHINE", `Bewaker: "Ah toeme, Ik heb geen geld op zak!\n\
       COMMANDOS:\n\
       - terug`);
@@ -239,7 +239,7 @@ export class Level1Component implements OnInit {
         - vraag waar het toilet is\n\
         - verkoop aansteker\n\
         - terug");
-    } else if (input == "vraag waar toilet is"  || input == "vraag waar het toilet is") {
+    } else if (input == "vraag waar toilet is" || input == "vraag waar het toilet is") {
       this.maakRegel("MACHINE", "Secretaresse: \"Het toilet is naast de lift naar rechts. Gelieve je handen goed te wassen in verband met de huidige corona maatregelen!\"\n\
       COMMANDO'S: \n\
         - vraag waar het toilet is\n\
@@ -396,7 +396,7 @@ export class Level1Component implements OnInit {
 
   welkomstBericht() {
     this.maakRegel("", this.scoutsArduHackSpel, "art");
-    this.maakRegel("MACHINE", "Welkom op het hackspel van Scouts Ardu. De bedoeling is dat jij onze scouts hackt! Volg de vragen, en denk goed na! Zorg dat je de pagina NIET refreshed! Veel hackplezier!!");
+    this.maakRegel("MACHINE", "Welkom op de online escape van Scouts Ardu. De bedoeling is dat jij onze scouts helpt door te hacken! Volg de vragen, en denk goed na! Zorg dat je de pagina NIET refreshed! Veel escape plezier!!");
     this.maakRegel("MACHINE", "Geef je voornaam in: ");
   }
 
@@ -411,19 +411,20 @@ export class Level1Component implements OnInit {
   }
 
   scoutsArduHackSpel = String.raw`
-███████╗ ██████╗ ██████╗ ██╗   ██╗████████╗███████╗     █████╗ ██████╗ ██████╗ ██╗   ██╗
-██╔════╝██╔════╝██╔═══██╗██║   ██║╚══██╔══╝██╔════╝    ██╔══██╗██╔══██╗██╔══██╗██║   ██║
-███████╗██║     ██║   ██║██║   ██║   ██║   ███████╗    ███████║██████╔╝██║  ██║██║   ██║
-╚════██║██║     ██║   ██║██║   ██║   ██║   ╚════██║    ██╔══██║██╔══██╗██║  ██║██║   ██║
-███████║╚██████╗╚██████╔╝╚██████╔╝   ██║   ███████║    ██║  ██║██║  ██║██████╔╝╚██████╔╝
-╚══════╝ ╚═════╝ ╚═════╝  ╚═════╝    ╚═╝   ╚══════╝    ╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝  ╚═════╝ 
-                                                                                        
-██╗  ██╗ █████╗  ██████╗██╗  ██╗███████╗██████╗ ███████╗██╗                             
-██║  ██║██╔══██╗██╔════╝██║ ██╔╝██╔════╝██╔══██╗██╔════╝██║                             
-███████║███████║██║     █████╔╝ ███████╗██████╔╝█████╗  ██║                             
-██╔══██║██╔══██║██║     ██╔═██╗ ╚════██║██╔═══╝ ██╔══╝  ██║                             
-██║  ██║██║  ██║╚██████╗██║  ██╗███████║██║     ███████╗███████╗                        
-╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝╚══════╝╚═╝     ╚══════╝╚══════╝  
+  ███████╗ ██████╗ ██████╗ ██╗   ██╗████████╗███████╗     █████╗ ██████╗ ██████╗ ██╗   ██╗ 
+  ██╔════╝██╔════╝██╔═══██╗██║   ██║╚══██╔══╝██╔════╝    ██╔══██╗██╔══██╗██╔══██╗██║   ██║ 
+  ███████╗██║     ██║   ██║██║   ██║   ██║   ███████╗    ███████║██████╔╝██║  ██║██║   ██║ 
+  ╚════██║██║     ██║   ██║██║   ██║   ██║   ╚════██║    ██╔══██║██╔══██╗██║  ██║██║   ██║ 
+  ███████║╚██████╗╚██████╔╝╚██████╔╝   ██║   ███████║    ██║  ██║██║  ██║██████╔╝╚██████╔╝ 
+  ╚══════╝ ╚═════╝ ╚═════╝  ╚═════╝    ╚═╝   ╚══════╝    ╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝  ╚═════╝  
+                                                                                           
+  ███████╗███████╗ ██████╗ █████╗ ██████╗ ███████╗    ██████╗  ██████╗  ██████╗ ███╗   ███╗
+  ██╔════╝██╔════╝██╔════╝██╔══██╗██╔══██╗██╔════╝    ██╔══██╗██╔═══██╗██╔═══██╗████╗ ████║
+  █████╗  ███████╗██║     ███████║██████╔╝█████╗      ██████╔╝██║   ██║██║   ██║██╔████╔██║
+  ██╔══╝  ╚════██║██║     ██╔══██║██╔═══╝ ██╔══╝      ██╔══██╗██║   ██║██║   ██║██║╚██╔╝██║
+  ███████╗███████║╚██████╗██║  ██║██║     ███████╗    ██║  ██║╚██████╔╝╚██████╔╝██║ ╚═╝ ██║
+  ╚══════╝╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝     ╚══════╝    ╚═╝  ╚═╝ ╚═════╝  ╚═════╝ ╚═╝     ╚═╝                                                                                         
+  
 `;
   bank: string = String.raw`
          _._._                       _._._

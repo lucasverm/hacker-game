@@ -1,12 +1,14 @@
 $green: #20C20E;
-iframe{
-          width: 100%;
+
+.width100 {
+  width: 100% !important;
 }
+
 table,
 div,
 td,
 tr {
-  border: 1px solid red !important;
+  //border: 1px solid red !important;
 }
 
 .rand {
@@ -15,8 +17,17 @@ tr {
   margin: 20px 10px !important;
 }
 
+a {
+  color: $green !important;
+  text-decoration: underline;
+}
+
 .text {
   margin-top: 150px;
+}
+
+.qr {
+  width: 25%;
 }
 
 .doneren {
@@ -24,4 +35,10 @@ tr {
   border: 1px solid $green !important;
   padding: 10px 20px !important;
   display: inline-block;
+
+  &:hover {
+    text-decoration: none;
+    background-color: $green;
+    color: black !important;
+  }
 }
