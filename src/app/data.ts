@@ -9,7 +9,7 @@ export class Data  {
 	huidigLevel = 0;
 	huidigePlaats = "voor de deur";
 	downNummer: number = 0;
-	_bedragInRugzak = 0;
+	_bedragInRugzak:number = 0;
 	welkomsBerichtGetoond = false;
 
 	get bedragInRugzak(): number {
@@ -18,7 +18,7 @@ export class Data  {
 	set bedragInRugzak(bedrag: number) {
 		this._bedragInRugzak = Math.round(bedrag * 100) / 100;
 	}
-	private _bedragInAutomaat = 0;
+	private _bedragInAutomaat:number = 0;
 	get bedragInAutomaat(): number {
 		return this._bedragInAutomaat;
 	}
@@ -32,6 +32,7 @@ export class Data  {
 	inLift = false;
 
 	//level2
+	level2gestart = false;
 	vuurAan = false;
 	kastOpen = false;
 	plantMetWater = false;
@@ -61,14 +62,15 @@ export class Data  {
 		obj.huidigLevel = json.huidigLevel;
 		obj.huidigePlaats = json.huidigePlaats;
 		obj.downNummer = json.downNummer;
-		obj.bedragInRugzak = json.bedragInRugzak;
-		obj.bedragInAutomaat = json.bedragInAutomaat;
+		obj._bedragInRugzak = json._bedragInRugzak;
+		obj._bedragInAutomaat = json._bedragInAutomaat;
 		obj.welkomsBerichtGetoond = json.welkomsBerichtGetoond;
 
 		obj.muntstukGevonden = json.muntstukGevonden;
 		obj.bewakerAfgeleid = json.bewakerAfgeleid;
 		obj.inLift = json.inLift;
-		
+
+		obj.level2gestart = json.level2gestart;
 		obj.vuurAan = json.vuurAan;
 		obj.kastOpen = json.kastOpen;
 		obj.plantMetWater = json.plantMetWater;

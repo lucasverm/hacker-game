@@ -24,14 +24,12 @@ export class DataService {
   constructor() {
     var data = localStorage.getItem('data');
     if (data == null) {
-      console.log("data is null");
       this._dataSource = new BehaviorSubject<Data>(new Data());
       this.dataObserver$ = this._dataSource.asObservable();
       this.dataObserver$.subscribe(item => {
         localStorage.setItem('data', JSON.stringify(item));
       });
     } else {
-      console.log("data is niet null");
       this._dataSource = new BehaviorSubject<Data>(Data.fromJson(JSON.parse(data)));
       this.dataObserver$ = this._dataSource.asObservable();
     };

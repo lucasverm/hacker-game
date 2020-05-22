@@ -34,8 +34,13 @@ export class Level2Component implements OnInit {
     this.inputForm = this.fb.group({
       input: [""]
     });
-    this.data.huidigePlaats = "bureau";
-    this.spel("ga binnen");
+
+    if (!this.data.level2gestart) {
+      this.data.huidigePlaats = "bureau";
+      this.spel("ga binnen");
+      this.data.level2gestart = true;
+      this.updateData();
+    }
   }
 
   ngAfterViewInit() {
@@ -471,6 +476,10 @@ export class Level2Component implements OnInit {
       this.data.voornaam = input;
     } else if (input == "rugzak") {
       this.toonRugzak();
+    } else if (input == "restart") {
+      this.data = new Data();
+      this.updateData();
+      this.router.navigate([`../level-1`]);
     } else if (input == "help") {
       this.help();
     } else if (input == "informatie") {

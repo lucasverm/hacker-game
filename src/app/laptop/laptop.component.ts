@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
+import { Data } from '../data';
 
 @Component({
   selector: 'app-laptop',
@@ -12,6 +13,7 @@ export class LaptopComponent implements OnInit {
 
   public hintTonen: Boolean = false;
   public loginForm: FormGroup;
+  data: Data;
 
   constructor(public router: Router, private fb: FormBuilder, public dataService: DataService) { }
   @ViewChild('canvas', { static: false })
@@ -19,10 +21,22 @@ export class LaptopComponent implements OnInit {
   errorMessage: string = "";
 
   ngOnInit(): void {
+    this.dataService.dataObserver$.subscribe(item => {
+      this.data = item;
+    });
     this.loginForm = this.fb.group({
       email: ["sonia@nationalebank.be"],
       passwoord: [""]
     })
+  }
+
+  updateData() {
+    this.dataService.updateData(this.data);
+    this.dataService.dataObserver$.subscribe(item => {
+      console.log(item);
+      this.data = item;
+    }
+    )
   }
 
   signIn() {
@@ -32,8 +46,9 @@ export class LaptopComponent implements OnInit {
     //if(false){
       this.errorMessage = "Password is niet correct!"
     } else {
-      this.dataService.soniaIngelogd = true;
-      this.dataService.terugVanLaptop = true;
+      this.data.soniaIngelogd = true;
+      this.data.terugVanLaptop = true;
+      this.updateData;
       this.router.navigate([`../level-2`]);
     }
   }
@@ -43,7 +58,8 @@ export class LaptopComponent implements OnInit {
   }
 
   terug() {
-    this.dataService.terugVanLaptop = true;
+    this.data.terugVanLaptop = true;
+    this.updateData;
     this.router.navigate([`../level-2`])
   }
 

@@ -42,7 +42,6 @@ export class Level1Component implements OnInit {
     this.dataService.updateData(this.data);
     this.dataService.dataObserver$.subscribe(item => {
       this.data = item;
-      
     }
     )
   }
@@ -85,6 +84,11 @@ export class Level1Component implements OnInit {
       this.geefInstructies();
     } else if (input == "rugzak") {
       this.toonRugzak();
+    } else if (input == "restart") {
+      this.data = new Data();
+      this.welkomstBericht();
+      this.data.welkomsBerichtGetoond = true;
+      this.updateData();
     } else if (input == "help") {
       this.help();
     } else if (input == "informatie") {
@@ -326,6 +330,7 @@ export class Level1Component implements OnInit {
   }
 
   level1Automaat(input: string) {
+    console.log(this.data);
     if (input == "ga naar automaat" || input == "ga naar een automaat" || input == "ga naar de automaat" || input == "informatie") {
       this.data.huidigePlaats = "automaat";
 
@@ -378,13 +383,22 @@ export class Level1Component implements OnInit {
       this.maakRegel("MACHINE", "Er viel niks uit de automaat.. De bewaker kijkt je boos aan! Opgelet!");
       //kijkt of de volgende woorden in de input staan
     } else if (["steek", "euro", "in", "automaat"].every(i => input.split(" ").includes(i))) {
-      var bedrag = parseFloat(input.split(" ")[1].replace(',', '.'));
-      if (bedrag > this.data.bedragInRugzak) {
-        this.maakRegel("MACHINE", "Je hebt onvoldoende geld op zak om in de automaat te steken.");
+      console.log(input.split(" ")[1]);
+      const bedrag: number = parseFloat(input.split(" ")[1].replace(',', '.'));
+      console.log(bedrag);
+      
+      if (!isNaN(bedrag)) {
+        console.log(this.data.bedragInRugzak);
+        console.log(bedrag)
+        if (bedrag > this.data.bedragInRugzak) {
+          this.maakRegel("MACHINE", "Je hebt onvoldoende geld op zak om in de automaat te steken.");
+        } else {
+          this.data.bedragInAutomaat += bedrag;
+          this.data.bedragInRugzak -= bedrag;
+          this.maakRegel("MACHINE", `Je stak ${bedrag} euro in de automaat.`);
+        }
       } else {
-        this.data.bedragInAutomaat += bedrag;
-        this.data.bedragInRugzak -= bedrag;
-        this.maakRegel("MACHINE", `Je stak ${bedrag} euro in de automaat.`);
+        this.maakRegel("MACHINE", `Dit bedrag is ongeldig!`);
       }
     } else if (input == "terug") {
       this.data.huidigePlaats = "inkom";
