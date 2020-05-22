@@ -173,7 +173,7 @@ export class Level2Component implements OnInit {
         this.data.rugzak[this.data.rugzak.indexOf("Thermoskan")] = "Thermoskan met heet water";
         this.maakRegel("MACHINE", `Je vulde jouw thermoskan met heet water en stak hem terug in je rugzak!`);
       } else {
-        this.maakRegel("MACHINE", `Je kan het water niet koken als het keukenvuur niet aan staat. Steek eerst het vuur aan!`);
+        this.maakRegel("MACHINE", `Je kan het water niet koken als het gasvuur niet aan staat. Steek eerst het vuur aan!`);
       }
     } else if (input == "neem water van kraan") {
       if (this.data.rugzak.includes("Thermoskan met heet water")) {
@@ -195,10 +195,10 @@ export class Level2Component implements OnInit {
     }
     else if (input == "steek vuur aan") {
       this.data.vuurAan = true;
-      this.maakRegel("MACHINE", `Je stak het keukenvuur aan met de aansteker uit jouw rugzak.`);
+      this.maakRegel("MACHINE", `Je stak het kookvuur aan met de aansteker uit jouw rugzak.`);
     } else if (input == "doe vuur uit") {
       this.data.vuurAan = false;
-      this.maakRegel("MACHINE", `Je deed het keukenvuur uit.`);
+      this.maakRegel("MACHINE", `Je deed het kookvuur uit.`);
     }
 
     else if (input == "terug") {
@@ -213,7 +213,7 @@ export class Level2Component implements OnInit {
     if (input == "ga naar gang" || input == "ga naar een gang" || input == "ga naar de gang" || input == "informatie") {
       this.data.huidigePlaats = "gang";
       if (!this.data.beveilingUitgeschakeld) {
-        this.maakRegel("MACHINE", "Op het einde van de gang zie je een kluis maar de gang hang vol camera's en infrarood sensoren. Hier graak je niet zomaar voorbij!");
+        this.maakRegel("MACHINE", "Op het einde van de gang zie je een kluis maar de gang hang vol camera's en infraroodsensoren. Hier geraak je niet zomaar voorbij!");
       } else {
         this.maakRegel("MACHINE", "COMMANDO'S:\n\
         - ga naar kluis \n\
@@ -248,12 +248,12 @@ export class Level2Component implements OnInit {
         - terug`);
         }
       } else if (this.data.rugzak.includes("sleutel")) {
-        this.maakRegel("MACHINE", `Je staat voor een super coole, old-fashion ebben houten kast die momenteel op slot zit. Je zal hem eerst moeten openen\n\
+        this.maakRegel("MACHINE", `Je staat voor een supercoole, old-fashioned ebbenhouten kast die momenteel op slot zit. Je zal hem eerst moeten openen.\n\
         COMMANDO'S:\n\
         - open kast met sleutel\n\
         - terug`);
       } else {
-        this.maakRegel("MACHINE", `Je staat voor een super coole, old-fashion ebbenhouten kast die momenteel op slot zit. Je zal hem eerst moeten openen`);
+        this.maakRegel("MACHINE", `Je staat voor een supercoole, old-fashioned ebbenhouten kast die momenteel op slot zit. Je zal hem eerst moeten openen`);
       }
     } else if (this.data.kastOpen && input == "neem schaar" && !this.data.rugzak.includes("schaar")) {
       this.data.rugzak.push("schaar");
@@ -264,7 +264,7 @@ export class Level2Component implements OnInit {
       if (this.data.rugzak.includes("sleutel")) {
         this.data.kastOpen = true;
         this.data.rugzak.splice(this.data.rugzak.indexOf("sleutel"), 1);
-        this.maakRegel("MACHINE", `Je opende de ebbenhoute kast! Typ 'informatie' om te zien wat er in zit\n`);
+        this.maakRegel("MACHINE", `Je opende de ebbenhouten kast! Typ 'informatie' om te zien wat er in zit.\n`);
       } else {
         this.kast("error");
       }
@@ -282,7 +282,7 @@ export class Level2Component implements OnInit {
       if (this.data.plantMetWater && this.data.sleutelGenomen) {
         this.maakRegel("MACHINE", `Je gaf de plant water, en vond een sleutel!!`);
       } else if (this.data.plantMetWater) {
-        this.maakRegel("MACHINE", `Je gaf de plant water. Doordat de aarde een beetje zakt zie je nu iets blinken..? Het lijkt op een sleutel... \n\
+        this.maakRegel("MACHINE", `Je gaf de plant water. Doordat de aarde een beetje zakt, zie je nu iets blinken..? Het lijkt op een sleutel... \n\
         COMMANDO'S:\n\
         - neem sleutel\n\
         - terug`);
@@ -296,7 +296,7 @@ export class Level2Component implements OnInit {
       if (this.data.rugzak.includes("Thermoskan met koud water") && !this.data.plantMetWater) {
         this.data.rugzak[this.data.rugzak.indexOf("Thermoskan met koud water")] = "Thermoskan";
         this.data.plantMetWater = true;
-        this.maakRegel("MACHINE", `Je gaf de plant water. Doordat de aarde een beetje zakt zie je nu iets blinken..? Het lijkt op een sleutel... \n\
+        this.maakRegel("MACHINE", `Je gaf de plant water. Doordat de aarde een beetje zakt, zie je nu iets blinken..? Het lijkt op een sleutel... \n\
         COMMANDO'S:\n\
         - neem sleutel\n\
         - terug`);
@@ -310,7 +310,7 @@ export class Level2Component implements OnInit {
         this.data.sleutelGenomen = true;
         this.maakRegel("", this.sleutel, "art");
         this.data.rugzak.push("sleutel");
-        this.maakRegel("MACHINE", `Je vind zomaar een sleutel in de bloempot van de plant! Woehoe!! De sleutel zit in je rugzak!`);
+        this.maakRegel("MACHINE", `Je vindt zomaar een sleutel in de bloempot van de plant! Woehoe!! De sleutel zit in je rugzak!`);
       } else { this.plant("error") }
     }
     else if (input == "terug") {
@@ -324,7 +324,7 @@ export class Level2Component implements OnInit {
 
   tafel(input: string) {
     if (input == "terug van laptop" && this.data.soniaIngelogd) {
-      this.maakRegel("MACHINE", "Je kon het passwoord kraken! Doordat je toegang hebt tot de laptop kan je de lichten en camera's in de gang uitschakelen!\n\
+      this.maakRegel("MACHINE", "Je kon het paswoord kraken! Doordat je toegang hebt tot de laptop kan je de camera's en infraroodsensoren in de gang uitschakelen!\n\
       COMMANDO'S:\n\
       - schakel beveiliging uit \n\
       - terug ");
@@ -333,7 +333,7 @@ export class Level2Component implements OnInit {
       if (this.data.soniaIngelogd) {
         this.tafel("terug van laptop");
       } else if (this.data.laptopBeschikbaar) {
-        this.maakRegel("MACHINE", `Op deze tafel ligt de laptop die je vond in één van de lockers!\n\
+        this.maakRegel("MACHINE", `Op deze tafel ligt nu de laptop die je vond in één van de lockers!\n\
         COMMANDO'S:\n\
         - zet aan\n\
         - terug`);
@@ -344,11 +344,11 @@ export class Level2Component implements OnInit {
         - terug`);
       } else if (this.data.briefOpen) {
         this.maakRegel("", this.brief, "art");
-        this.maakRegel("MACHINE", `Volende TOP SECRET raadsels staan in de brief. Het zijn telkens 3-cijferige codes. misschien kunnen hun oplossingen later nuttig zijn!`);
+        this.maakRegel("MACHINE", `Volgende TOP SECRET raadsels staan in de brief. Het zijn telkens 3-cijferige codes. Misschien komen hun oplossingen later nog van pas!`);
       }
       else {
         this.maakRegel("", this.bureauLamp, "art");
-        this.maakRegel("MACHINE", `Op deze ebbenhoute IKEA tafel staat er duidelijk een lamp en ligt er een "TOP SECRET" brief.\n\
+        this.maakRegel("MACHINE", `Op deze ebbenhouten designertafel staat er een lamp en ligt er een "TOP SECRET" brief.\n\
           COMMANDO'S: \n\
           - Open brief\n\
           - terug`);
@@ -387,7 +387,7 @@ export class Level2Component implements OnInit {
     if (input == "ga naar lockers" || input == "ga naar de lockers" || input == "informatie") {
       this.data.huidigePlaats = "lockers";
       this.maakRegel("", this.lockersArt(), "art");
-      this.maakRegel("MACHINE", `Je staat aan de lockers. Elke locker heeft een code. Kan jij ze open krijgen?\n\
+      this.maakRegel("MACHINE", `Je staat aan de lockers. Elke locker heeft een codeslot. Kan jij ze open krijgen?\n\
           COMMANDO'S: \n\
           - Open locker x met code xxx\n\
           - terug`);
@@ -428,7 +428,7 @@ export class Level2Component implements OnInit {
       this.data.huidigePlaats = "voor kluis";
       this.maakRegel("", this.kluisArt, "art");
       this.maakRegel("MACHINE", `Je staat voor de kluis met het geld in. Rechts van de kluis staat een radio. Je sprak af met je kompanen dat ze de code van de kluis via een radiofrequentie zullen doorgeven,\
-      maar je vergat de welke. Je onthield wel de tip: De frequentie is het kookpunt van H20 in fahrenheid? ZET JE GELUID AAN!\n\
+      maar je vergat de welke. Je onthield wel de tip: de frequentie is het kookpunt van H20 in Fahrenheit? ZET JE GELUID AAN!\n\
           COMMANDO'S: \n\
           - Stel radio in op frequentie xxx\n\
           - zet radio uit\n\
@@ -437,7 +437,7 @@ export class Level2Component implements OnInit {
       var freq = input.split(" ")[5];
       if (freq == "212") {
         this.data.frequentieGeraden = true;
-        this.maakRegel("MACHINE", "Hoera: Je kon je de frequentie opnieuw herrinneren! Nu luister je naar de morsecode die jouw komanen je doorsturen!\n\
+        this.maakRegel("MACHINE", "Hoera: je kon je de frequentie opnieuw herrinneren! Nu luister je naar de morsecode die jouw kompanen je doorzenden!\n\
         - open kluis met code xxxxxx\n\
         - zet radio uit\n\
         - zet radio aan");
@@ -446,7 +446,7 @@ export class Level2Component implements OnInit {
           this.audioZoeken.play();
         };
       } else {
-        this.maakRegel("MACHINE", "Helaas: Op deze frequentie hoor je alleen geruis...");
+        this.maakRegel("MACHINE", "Helaas: op deze frequentie hoor je alleen geruis...");
       }
     } else if (input == "zet radio uit") {
       this.data.radioAan = false;
