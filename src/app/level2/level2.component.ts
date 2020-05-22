@@ -85,7 +85,7 @@ export class Level2Component implements OnInit {
   }
 
   help() {
-    this.maakRegel("MACHINE", "HELP \n - rugzak bekijken: typ rugzak \n - informatie krijgen over huidige plaats: typ informatie \n - terug: typ terug");
+    this.maakRegel("MACHINE", "HELP \n - in je rugzak kijken: typ rugzak \n - informatie krijgen over huidige plaats: typ informatie \n - terug: typ terug");
   }
 
   level2(input: string) {
@@ -130,7 +130,7 @@ export class Level2Component implements OnInit {
       this.maakRegel("MACHINE", "Op dit moment kan je niet terug!");
     } else if (input == "ga binnen" || input == "informatie") {
       this.data.huidigePlaats = "bureau"
-      this.maakRegel("MACHINE", "Je staat nu in het bureau op het eerste verdiep van de bank. Je ziet: \n\
+      this.maakRegel("MACHINE", "Je staat nu in het bureau op de eerste verdieping van de bank. Je ziet: \n\
       - een KEUKEN \n\
       - een GANG\n\
       - een KAST \n\
@@ -148,7 +148,7 @@ export class Level2Component implements OnInit {
       this.data.huidigePlaats = "keuken";
       this.maakRegel("", this.keukenArt, "art")
       if (this.data.vuurAan) {
-        this.maakRegel("MACHINE", `Aha, je komt in de kraak nette, zweedse IKEA keuken.\n\
+        this.maakRegel("MACHINE", `Aha, je komt in de kraaknette, moderne IKEA keuken.\n\
       COMMANDO'S:\n\
       - kook water\n\
       - doe vuur uit\n\
@@ -156,7 +156,7 @@ export class Level2Component implements OnInit {
       - leeg thermoskan\n\
       - terug`);
       } else {
-        this.maakRegel("MACHINE", `Aha, je komt in de kraak nette, zweeds IKEA keuken.\n\
+        this.maakRegel("MACHINE", `Aha, je komt in de kraaknette, moderne IKEA keuken.\n\
       COMMANDO'S:\n\
       - kook water\n\
       - steek vuur aan\n\
