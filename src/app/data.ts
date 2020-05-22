@@ -1,6 +1,6 @@
 import { Regel } from './regel';
 
-export class Data  {
+export class Data {
 	uitvoerData: Regel[] = [];
 	startKlok = null;
 	eindKlok = null;
@@ -9,7 +9,7 @@ export class Data  {
 	huidigLevel = 0;
 	huidigePlaats = "voor de deur";
 	downNummer: number = 0;
-	_bedragInRugzak:number = 0;
+	_bedragInRugzak: number = 0;
 	welkomsBerichtGetoond = false;
 
 	get bedragInRugzak(): number {
@@ -18,7 +18,7 @@ export class Data  {
 	set bedragInRugzak(bedrag: number) {
 		this._bedragInRugzak = Math.round(bedrag * 100) / 100;
 	}
-	private _bedragInAutomaat:number = 0;
+	private _bedragInAutomaat: number = 0;
 	get bedragInAutomaat(): number {
 		return this._bedragInAutomaat;
 	}
@@ -45,7 +45,7 @@ export class Data  {
 	beveilingUitgeschakeld: boolean = false;
 	frequentieGeraden = false;
 	radioAan = true;
-
+	kluisOpen = false;
 	constructor() { }
 
 	public gebruikersInvoer() {
@@ -83,6 +83,7 @@ export class Data  {
 		obj.beveilingUitgeschakeld = json.beveilingUitgeschakeld;
 		obj.frequentieGeraden = json.frequentieGeraden;
 		obj.radioAan = json.radioAan;
+		obj.kluisOpen = json.kluisOpen;
 		return obj;
 	}
 

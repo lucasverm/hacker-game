@@ -22,16 +22,16 @@ export class Level1Component implements OnInit {
   ngOnInit() {
     this.dataService.dataObserver$.subscribe(item => {
       this.data = item;
+      if (!this.data.welkomsBerichtGetoond) {
+        this.welkomstBericht();
+        this.data.welkomsBerichtGetoond = true;
+        this.updateData();
+      }
     });
     //onbelangrijk voor jou
     this.inputForm = this.fb.group({
       input: [""]
     });
-    if (!this.data.welkomsBerichtGetoond) {
-      this.welkomstBericht();
-      this.data.welkomsBerichtGetoond = true;
-      this.updateData();
-    }
   }
 
   ngAfterViewInit() {
@@ -298,7 +298,7 @@ export class Level1Component implements OnInit {
   level1Zetel(input: string) {
     if (input == "ga naar zetel" || input == "ga naar een zetel" || input == "ga naar de zetel" || input == "informatie") {
       this.data.huidigePlaats = "zetel";
-
+      this.maakRegel("", this.sofaArt, "art");
       if (!this.data.muntstukGevonden) {
         this.maakRegel("MACHINE", `Je zit op een rode zetel, gemaakt door de beroemde kunstenaar Charles Rennie Mackintosh. De zetel werd ontworpen in 1983. Boven jou hangt een kunstwerk van Panamarenko. Op het kaartje dat erbij hangt, staat er dat het om de aeromodeller blijkt te gaan, een reusachtige heteluchballon gemaakt rond 1970. Wat een gigantisch kunstwerk! Je ziet een centje blinken tussen de kussens van de zetel!\n\
        - muntstuk oprapen\n\
@@ -333,7 +333,6 @@ export class Level1Component implements OnInit {
     console.log(this.data);
     if (input == "ga naar automaat" || input == "ga naar een automaat" || input == "ga naar de automaat" || input == "informatie") {
       this.data.huidigePlaats = "automaat";
-
       this.maakRegel("", this.machine, "art");
       this.maakRegel("MACHINE", `Je staat voor een automaat. Deze automaat is rood en wit en ziet er al wat versleten uit. Hij is bijna leeg. Inhoud: \n\
       - COLA: 1,20 euro\n\
@@ -386,7 +385,7 @@ export class Level1Component implements OnInit {
       console.log(input.split(" ")[1]);
       const bedrag: number = parseFloat(input.split(" ")[1].replace(',', '.'));
       console.log(bedrag);
-      
+
       if (!isNaN(bedrag)) {
         console.log(this.data.bedragInRugzak);
         console.log(bedrag)
@@ -439,10 +438,14 @@ export class Level1Component implements OnInit {
 
   geefInstructies() {
     this.maakRegel("", this.bank, "art");
-    this.maakRegel("MACHINE", `Dag ${this.data.voornaam}, Welkom in dit virtueel spel. Door de huidige Covid - 19 pandemie konden veel activiteiten niet doorgaan en zitten veel verenigingen krap bij kas. Daarom gaan we op zoek naar andere manieren om onze werkingen te kunnen blijven voortzetten. We hebben jou nodig om ons te helpen.\n\n\
-    Op dit moment sta je voor een bank. Dit gebouw heeft verschillende verdiepingen. Jij staat nu buiten, voor het gebouw. Door dit systeem commando's te geven, kan je zelf beslissen naar waar je gaat en wat je doet. Ook heb je op dit moment een rugzak aan. Daarin zitten spullen die je hoogstwaarschijnlijk kunnen helpen op je missie.\
-    Om de rugzak te openen: typ \"rugzak\". Heb je meer info nodig: typ \"help\". Alles zal wel duidelijk worden. \n\n\
-    Zodra je het gebouw binnen stapt begint jouw klok te lopen! Succes! \n\n\
+    this.maakRegel("MACHINE", `Dag ${this.data.voornaam}, Welkom in deze virtuele escape room. Door de huidige Covid - 19 pandemie konden veel activiteiten niet doorgaan en zitten veel verenigingen krap bij kas. Daarom gaan we op zoek naar andere manieren om onze werkingen te kunnen blijven voortzetten. We hebben jou nodig om ons te helpen.\n\n\
+    Op dit moment sta je voor een bank. Dit gebouw heeft verschillende verdiepingen. Jij staat nu buiten, voor het gebouw. Door aan dit systeem commando's te geven, kan je zelf beslissen naar waar je gaat en wat je doet. Ook heb je op dit moment een rugzak aan. Daarin zitten spullen die je hoogstwaarschijnlijk kunnen helpen op je missie. Lees alle tekstjes erg goed!\n\n\
+     - Om de rugzak te openen: typ \"rugzak\". \n\
+     - Heb je informatie nodig over je huidige omgeving: typ \"informatie\". \n\
+     - Heb je hulp nodig bij de commando's: typ \"help\". \n\
+     - (optie) Met je pijltjes haal je je laatste commando's terug in het input veld. \n\
+     - (optie) Herstart het spel met \"restart\". \n\
+     Alles zal wel duidelijk worden. Zodra je het gebouw binnen stapt begint jouw klok te lopen! Probeer een snelle tijd neer ze zetten! Succes! \n\n\
     Om het gebouw binnen te stappen: typ: \"ga binnen\".`);
   }
 
@@ -700,6 +703,20 @@ export class Level1Component implements OnInit {
   |  '-----------------------------' |
   '----------------------------------'
 `;
+
+  sofaArt: string = String.raw`
+  .--------------.--------------.
+  |              |              |
+  |              |              |
+  |              |              |
+  |______________|_________*____|
+  /                             \
+ /                               \
+/_________________________________\
+|                                 |
+|_________________________________|
+[]                               []
+  `;
 
   firework: string = String.raw`
                                      .''.       

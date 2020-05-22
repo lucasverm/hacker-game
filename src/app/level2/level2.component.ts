@@ -17,6 +17,7 @@ export class Level2Component implements OnInit {
   data: Data;
   audioMorse = new Audio();
   audioZoeken = new Audio();
+
   constructor(public router: Router, private fb: FormBuilder, public dataService: DataService) {
     this.audioMorse.src = "../../assets/morse.mp3";
     this.audioMorse.loop = true;
@@ -26,16 +27,19 @@ export class Level2Component implements OnInit {
     this.audioZoeken.load();
   }
 
-
   ngOnInit() {
     this.dataService.dataObserver$.subscribe(item => {
       this.data = item;
+      if (this.data.huidigLevel == 0 || this.data.huidigLevel == 1) {
+        console.log("data");
+        this.router.navigate([`../level-1`]);
+      }
     });
     this.inputForm = this.fb.group({
       input: [""]
     });
 
-    if (!this.data.level2gestart) {
+    if (!this.data.level2gestart && this.data.huidigLevel == 2) {
       this.data.huidigePlaats = "bureau";
       this.spel("ga binnen");
       this.data.level2gestart = true;
@@ -451,11 +455,11 @@ export class Level2Component implements OnInit {
       this.audioZoeken.pause();
     } else if (["open", "kluis", "met", "code"].every(i => input.split(" ").includes(i)) && this.data.frequentieGeraden) {
       var freq = input.split(" ")[4];
-      console.log(freq);
       if (freq == "839205") {
         this.audioMorse.pause();
         this.audioZoeken.pause();
         this.data.eindKlok = moment();
+        this.data.kluisOpen = true;
         this.router.navigate([`../certificaat`]);
       } else {
         this.maakRegel("MACHINE", "Helaas: De kluis gaat niet open met deze code...");

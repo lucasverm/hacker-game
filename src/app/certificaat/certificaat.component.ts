@@ -18,8 +18,17 @@ export class CertificaatComponent implements OnInit {
   ngOnInit() {
     this.dataService.dataObserver$.subscribe(item => {
       this.data = item;
+      if (!this.data.kluisOpen) {
+        if (this.data.huidigLevel == 0 || this.data.huidigLevel == 1) {
+          this.router.navigate([`../level-1`]);
+        } else {
+          this.router.navigate([`../level-2`]);
+        }
+      } else {
+        this.berekenTijd();
+      }
     });
-    this.berekenTijd();
+
   }
 
   berekenTijd() {
