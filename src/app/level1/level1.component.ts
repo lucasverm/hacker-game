@@ -254,7 +254,7 @@ export class Level1Component implements OnInit {
       - terug");
     }
     else if (input == "verkoop aansteker" || input == "verkoop de aansteker") {
-      this.maakRegel("MACHINE", `Bewaker: "Ah toeme, Ik heb geen geld op zak!\n\
+      this.maakRegel("MACHINE", `Bewaker: "Ah toeme, ik heb geen geld op zak!\n\
       COMMANDOS:\n\
       - terug`);
 
@@ -278,7 +278,7 @@ export class Level1Component implements OnInit {
         - verkoop aansteker\n\
         - terug");
     } else if (input == "vraag waar toilet is" || input == "vraag waar het toilet is") {
-      this.maakRegel("MACHINE", "Secretaresse: \"Het toilet is naast de lift naar rechts. Gelieve je handen goed te wassen in verband met de huidige corona maatregelen!\"\n\
+      this.maakRegel("MACHINE", "Secretaresse: \"Het toilet is naast de lift naar rechts. Gelieve je handen goed te wassen in verband met de huidige coronamaatregelen!\"\n\
       COMMANDO'S: \n\
         - vraag waar het toilet is\n\
         - verkoop aansteker\n\
@@ -303,7 +303,7 @@ export class Level1Component implements OnInit {
       this.data.huidigePlaats = "zetel";
       this.maakRegel("", this.sofaArt, "art");
       if (!this.data.muntstukGevonden) {
-        this.maakRegel("MACHINE", `Je zit op een rode zetel, gemaakt door de beroemde kunstenaar Charles Rennie Mackintosh. De zetel werd ontworpen in 1983. Boven jou hangt een kunstwerk van Panamarenko. Op het kaartje dat erbij hangt, staat er dat het om de aeromodeller blijkt te gaan, een reusachtige heteluchballon gemaakt rond 1970. Wat een gigantisch kunstwerk! Je ziet een centje blinken tussen de kussens van de zetel!\n\
+        this.maakRegel("MACHINE", `Je zit op een rode zetel, gemaakt door de beroemde kunstenaar Charles Rennie Mackintosh. De zetel werd ontworpen in 1983. Boven jou hangt een kunstwerk van Panamarenko. Op het kaartje dat erbij hangt, staat er dat het om de aeromodeller blijkt te gaan, een reusachtige heteluchballon gemaakt rond 1970. Wat een gigantisch kunstwerk! Je ziet een centje blinken tussen de kussens van de zetel.\n\
        - muntstuk oprapen\n\
        - terug`);
       } else {
@@ -364,7 +364,7 @@ export class Level1Component implements OnInit {
       } else if (this.data.bedragInAutomaat >= 0.7) {
         this.data.bedragInAutomaat -= 0.7;
         this.data.rugzak.push("mentos");
-        this.maakRegel("MACHINE", "Je kocht mentos van uit de automaat. Deze zit nu in je rugzak.");
+        this.maakRegel("MACHINE", "Je kocht mentos uit de automaat. Deze zit nu in je rugzak.");
       } else {
         this.maakRegel("MACHINE", "Er zit onvoldoende geld in de automaat.");
       }
@@ -372,7 +372,7 @@ export class Level1Component implements OnInit {
       if (this.data.bedragInAutomaat >= 1.2) {
         this.data.bedragInAutomaat -= 1.2;
         this.data.rugzak.push("cola");
-        this.maakRegel("MACHINE", "Je kocht cola van uit de automaat. Die zit nu in je rugzak.");
+        this.maakRegel("MACHINE", "Je kocht cola uit de automaat. Deze zit nu in je rugzak.");
       } else {
         this.maakRegel("MACHINE", "Er zit onvoldoende geld in de automaat.");
       }
@@ -442,7 +442,7 @@ export class Level1Component implements OnInit {
      - Heb je hulp nodig bij de commando's: typ \"help\". \n\
      - (optie) Met je pijltjes haal je je laatste commando's terug in het input veld. \n\
      - (optie) Herstart het spel met \"restart\". \n\
-     Alles zal wel duidelijk worden. Zodra je het gebouw binnen stapt begint jouw klok te lopen! Probeer een snelle tijd neer ze zetten! Succes! (Een fout gevonden? Meld op lucasvermeulen@gmail.com!)\n\n\
+     Alles zal wel duidelijk worden. Zodra je het gebouw binnenstapt, begint jouw klok te lopen! Probeer een snelle tijd neer ze zetten! Succes! (Een fout gevonden? Meld op lucasvermeulen@gmail.com!)\n\n\
     Om het gebouw binnen te stappen: typ: \"ga binnen\".`);
   }
 
