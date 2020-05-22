@@ -5,6 +5,7 @@ import { Regel } from '../regel';
 import { DataService } from '../services/data.service';
 import { isGeneratedFile } from '@angular/compiler/src/aot/util';
 import * as moment from 'moment';
+import { Data } from '../data';
 
 @Component({
   selector: 'app-level2',
@@ -13,6 +14,7 @@ import * as moment from 'moment';
 })
 export class Level2Component implements OnInit {
   public inputForm: FormGroup;
+  data: Data;
   audioMorse = new Audio();
   audioZoeken = new Audio();
   constructor(public router: Router, private fb: FormBuilder, public dataService: DataService) {
@@ -26,10 +28,13 @@ export class Level2Component implements OnInit {
 
 
   ngOnInit() {
+    this.dataService.dataObserver$.subscribe(item => {
+      this.data = item;
+    });
     this.inputForm = this.fb.group({
       input: [""]
     });
-    this.dataService.huidigePlaats = "bureau";
+    this.data.huidigePlaats = "bureau";
     this.spel("ga binnen");
   }
 
@@ -37,22 +42,31 @@ export class Level2Component implements OnInit {
     document.getElementById("input").focus();
   }
 
+  updateData() {
+    this.dataService.updateData(this.data);
+    this.dataService.dataObserver$.subscribe(item => {
+      console.log(item);
+      this.data = item;
+    }
+    )
+  }
+
   getLocatie() {
-    if (this.dataService.huidigePlaats == "bureau") {
-      return `${this.dataService.huidigePlaats}`
-    } else if (this.dataService.huidigePlaats == "voor kluis") {
-      return `${this.dataService.huidigePlaats}`
+    if (this.data.huidigePlaats == "bureau") {
+      return `${this.data.huidigePlaats}`
+    } else if (this.data.huidigePlaats == "voor kluis") {
+      return `${this.data.huidigePlaats}`
     } else {
-      return `bureau > ${this.dataService.huidigePlaats}`
+      return `bureau > ${this.data.huidigePlaats}`
     }
   }
 
   toonRugzak() {
     var uitvoer = "Rugzak: ";
-    this.dataService.rugzak.forEach(t => {
+    this.data.rugzak.forEach(t => {
       uitvoer += t + ", ";
     })
-    uitvoer += `${this.dataService.bedragInRugzak} euro`;
+    uitvoer += `${this.data.bedragInRugzak} euro`;
 
     this.maakRegel("MACHINE", uitvoer);
   }
@@ -66,25 +80,25 @@ export class Level2Component implements OnInit {
   }
 
   level2(input: string) {
-    if (this.dataService.terugVanLaptop) {
-      this.dataService.terugVanLaptop = false;
-      this.dataService.huidigePlaats = "tafel";
+    if (this.data.terugVanLaptop) {
+      this.data.terugVanLaptop = false;
+      this.data.huidigePlaats = "tafel";
       this.tafel("terug van laptop");
-    } else if (this.dataService.huidigePlaats == "bureau") {
+    } else if (this.data.huidigePlaats == "bureau") {
       this.bureau(input);
-    } else if (this.dataService.huidigePlaats == "keuken") {
+    } else if (this.data.huidigePlaats == "keuken") {
       this.keuken(input);
-    } else if (this.dataService.huidigePlaats == "gang") {
+    } else if (this.data.huidigePlaats == "gang") {
       this.gang(input);
-    } else if (this.dataService.huidigePlaats == "kast") {
+    } else if (this.data.huidigePlaats == "kast") {
       this.kast(input);
-    } else if (this.dataService.huidigePlaats == "plant") {
+    } else if (this.data.huidigePlaats == "plant") {
       this.plant(input);
-    } else if (this.dataService.huidigePlaats == "tafel") {
+    } else if (this.data.huidigePlaats == "tafel") {
       this.tafel(input);
-    } else if (this.dataService.huidigePlaats == "lockers") {
+    } else if (this.data.huidigePlaats == "lockers") {
       this.lockers(input);
-    } else if (this.dataService.huidigePlaats == "voor kluis") {
+    } else if (this.data.huidigePlaats == "voor kluis") {
       this.kluis(input);
     }
   }
@@ -106,7 +120,7 @@ export class Level2Component implements OnInit {
       this.bureau("ga binnen");
       this.maakRegel("MACHINE", "Op dit moment kan je niet terug!");
     } else if (input == "ga binnen" || input == "informatie") {
-      this.dataService.huidigePlaats = "bureau"
+      this.data.huidigePlaats = "bureau"
       this.maakRegel("MACHINE", "Je staat nu in het bureau op het eerste verdiep van de bank. Je ziet: \n\
       - een KEUKEN \n\
       - een GANG\n\
@@ -122,9 +136,9 @@ export class Level2Component implements OnInit {
 
   keuken(input: string) {
     if (input == "ga naar keuken" || input == "ga naar een keuken" || input == "ga naar de keuken" || input == "informatie") {
-      this.dataService.huidigePlaats = "keuken";
+      this.data.huidigePlaats = "keuken";
       this.maakRegel("", this.keukenArt, "art")
-      if (this.dataService.vuurAan) {
+      if (this.data.vuurAan) {
         this.maakRegel("MACHINE", `Aha, je komt in de kraak nette, zweedse IKEA keuken.\n\
       COMMANDO'S:\n\
       - kook water\n\
@@ -142,44 +156,44 @@ export class Level2Component implements OnInit {
       - terug`);
       }
     } else if (input == "kook water") {
-      if (this.dataService.rugzak.includes("Thermoskan met koud water")) {
+      if (this.data.rugzak.includes("Thermoskan met koud water")) {
         this.maakRegel("MACHINE", `Je vulde jouw thermoskan met koud water. Zorg ervoor dat het koud water eerst uit de thermos is!`);
-      } else if (this.dataService.rugzak.includes("Thermoskan met heet water")) {
+      } else if (this.data.rugzak.includes("Thermoskan met heet water")) {
         this.maakRegel("MACHINE", `Je vulde jouw thermos al met heet water!`);
-      } else if (this.dataService.vuurAan) {
-        this.dataService.rugzak[this.dataService.rugzak.indexOf("Thermoskan")] = "Thermoskan met heet water";
+      } else if (this.data.vuurAan) {
+        this.data.rugzak[this.data.rugzak.indexOf("Thermoskan")] = "Thermoskan met heet water";
         this.maakRegel("MACHINE", `Je vulde jouw thermoskan met heet water en stak hem terug in je rugzak!`);
       } else {
         this.maakRegel("MACHINE", `Je kan het water niet koken als het keukenvuur niet aan staat. Steek eerst het vuur aan!`);
       }
     } else if (input == "neem water van kraan") {
-      if (this.dataService.rugzak.includes("Thermoskan met heet water")) {
+      if (this.data.rugzak.includes("Thermoskan met heet water")) {
         this.maakRegel("MACHINE", `Je vulde jouw thermoskan met heet water. Zorg ervoor dat het koud water eerst uit de thermos is!`);
-      } else if (this.dataService.rugzak.includes("Thermoskan met koud water")) {
+      } else if (this.data.rugzak.includes("Thermoskan met koud water")) {
         this.maakRegel("MACHINE", `Je vulde jouw thermos al met koud water!`);
       } else {
-        this.dataService.rugzak[this.dataService.rugzak.indexOf("Thermoskan")] = "Thermoskan met koud water";
+        this.data.rugzak[this.data.rugzak.indexOf("Thermoskan")] = "Thermoskan met koud water";
         this.maakRegel("MACHINE", `Je vulde jouw thermoskan met koud water en stak hem terug in je rugzak!`);
       }
 
     } else if (input == "leeg thermoskan") {
-      if (this.dataService.rugzak.includes("Thermoskan met koud water")) {
-        this.dataService.rugzak[this.dataService.rugzak.indexOf("Thermoskan met koud water")] = "Thermoskan";
+      if (this.data.rugzak.includes("Thermoskan met koud water")) {
+        this.data.rugzak[this.data.rugzak.indexOf("Thermoskan met koud water")] = "Thermoskan";
       } else {
-        this.dataService.rugzak[this.dataService.rugzak.indexOf("Thermoskan met heet water")] = "Thermoskan";
+        this.data.rugzak[this.data.rugzak.indexOf("Thermoskan met heet water")] = "Thermoskan";
       }
       this.maakRegel("MACHINE", `Jouw thermoskan is leeg en zit in je rugzak.`);
     }
     else if (input == "steek vuur aan") {
-      this.dataService.vuurAan = true;
+      this.data.vuurAan = true;
       this.maakRegel("MACHINE", `Je stak het keukenvuur aan met de aansteker uit jouw rugzak.`);
     } else if (input == "doe vuur uit") {
-      this.dataService.vuurAan = false;
+      this.data.vuurAan = false;
       this.maakRegel("MACHINE", `Je deed het keukenvuur uit.`);
     }
 
     else if (input == "terug") {
-      this.dataService.huidigePlaats = "bureau";
+      this.data.huidigePlaats = "bureau";
       this.bureau("ga binnen");
     } else {
       this.maakRegel("MACHINE", "Dit commando is ongeldig!", "error");
@@ -188,19 +202,19 @@ export class Level2Component implements OnInit {
 
   gang(input: string) {
     if (input == "ga naar gang" || input == "ga naar een gang" || input == "ga naar de gang" || input == "informatie") {
-      this.dataService.huidigePlaats = "gang";
-      if (!this.dataService.beveilingUitgeschakeld) {
+      this.data.huidigePlaats = "gang";
+      if (!this.data.beveilingUitgeschakeld) {
         this.maakRegel("MACHINE", "Op het einde van de gang zie je een kluis maar de gang hang vol camera's en infrarood sensoren. Hier graak je niet zomaar voorbij!");
       } else {
         this.maakRegel("MACHINE", "COMMANDO'S:\n\
         - ga naar kluis \n\
         - terug");
       }
-    } else if (input == "ga naar kluis" && this.dataService.beveilingUitgeschakeld) {
-      this.dataService.huidigePlaats = "voor kluis";
+    } else if (input == "ga naar kluis" && this.data.beveilingUitgeschakeld) {
+      this.data.huidigePlaats = "voor kluis";
       this.kluis("ga naar kluis")
     } else if (input == "terug") {
-      this.dataService.huidigePlaats = "bureau";
+      this.data.huidigePlaats = "bureau";
       this.bureau("ga binnen");
     } else {
       this.maakRegel("MACHINE", "Dit commando is ongeldig!", "error");
@@ -210,9 +224,9 @@ export class Level2Component implements OnInit {
   kast(input: string) {
     if (input == "ga naar kast" || input == "ga naar een kast" || input == "ga naar de kast" || input == "informatie") {
       this.maakRegel("", this.kastArt, "art");
-      this.dataService.huidigePlaats = "kast";
-      if (this.dataService.kastOpen) {
-        if (this.dataService.rugzak.includes("schaar")) {
+      this.data.huidigePlaats = "kast";
+      if (this.data.kastOpen) {
+        if (this.data.rugzak.includes("schaar")) {
           this.maakRegel("MACHINE", `In de kast hangt een kalender en ligt een schaar. \n\
         COMMANDO'S:\n\
         - bekijk kalender\n
@@ -224,7 +238,7 @@ export class Level2Component implements OnInit {
         - neem schaar\n
         - terug`);
         }
-      } else if (this.dataService.rugzak.includes("sleutel")) {
+      } else if (this.data.rugzak.includes("sleutel")) {
         this.maakRegel("MACHINE", `Je staat voor een super coole, old-fashion ebben houten kast die momenteel op slot zit. Je zal hem eerst moeten openen\n\
         COMMANDO'S:\n\
         - open kast met sleutel\n\
@@ -232,21 +246,21 @@ export class Level2Component implements OnInit {
       } else {
         this.maakRegel("MACHINE", `Je staat voor een super coole, old-fashion ebbenhouten kast die momenteel op slot zit. Je zal hem eerst moeten openen`);
       }
-    } else if (this.dataService.kastOpen && input == "neem schaar" && !this.dataService.rugzak.includes("schaar")) {
-      this.dataService.rugzak.push("schaar");
+    } else if (this.data.kastOpen && input == "neem schaar" && !this.data.rugzak.includes("schaar")) {
+      this.data.rugzak.push("schaar");
       this.maakRegel("MACHINE", `De schaar zit in je rugzak!`);
-    } else if (this.dataService.kastOpen && input == "bekijk kalender") {
+    } else if (this.data.kastOpen && input == "bekijk kalender") {
       this.maakRegel("", this.kalender, "art");
     } else if (input == "open kast met sleutel") {
-      if (this.dataService.rugzak.includes("sleutel")) {
-        this.dataService.kastOpen = true;
-        this.dataService.rugzak.splice(this.dataService.rugzak.indexOf("sleutel"), 1);
+      if (this.data.rugzak.includes("sleutel")) {
+        this.data.kastOpen = true;
+        this.data.rugzak.splice(this.data.rugzak.indexOf("sleutel"), 1);
         this.maakRegel("MACHINE", `Je opende de ebbenhoute kast! Typ 'informatie' om te zien wat er in zit\n`);
       } else {
         this.kast("error");
       }
     } else if (input == "terug") {
-      this.dataService.huidigePlaats = "bureau";
+      this.data.huidigePlaats = "bureau";
       this.bureau("ga binnen");
     } else {
       this.maakRegel("MACHINE", "Dit commando is ongeldig!", "error");
@@ -255,10 +269,10 @@ export class Level2Component implements OnInit {
 
   plant(input: string) {
     if (input == "ga naar plant" || input == "ga naar een plant" || input == "ga naar de plant" || input == "informatie") {
-      this.dataService.huidigePlaats = "plant";
-      if (this.dataService.plantMetWater && this.dataService.sleutelGenomen) {
+      this.data.huidigePlaats = "plant";
+      if (this.data.plantMetWater && this.data.sleutelGenomen) {
         this.maakRegel("MACHINE", `Je gaf de plant water, en vond een sleutel!!`);
-      } else if (this.dataService.plantMetWater) {
+      } else if (this.data.plantMetWater) {
         this.maakRegel("MACHINE", `Je gaf de plant water. Doordat de aarde een beetje zakt zie je nu iets blinken..? Het lijkt op een sleutel... \n\
         COMMANDO'S:\n\
         - neem sleutel\n\
@@ -270,28 +284,28 @@ export class Level2Component implements OnInit {
         - terug`);
       }
     } else if (input == "geef water") {
-      if (this.dataService.rugzak.includes("Thermoskan met koud water") && !this.dataService.plantMetWater) {
-        this.dataService.rugzak[this.dataService.rugzak.indexOf("Thermoskan met koud water")] = "Thermoskan";
-        this.dataService.plantMetWater = true;
+      if (this.data.rugzak.includes("Thermoskan met koud water") && !this.data.plantMetWater) {
+        this.data.rugzak[this.data.rugzak.indexOf("Thermoskan met koud water")] = "Thermoskan";
+        this.data.plantMetWater = true;
         this.maakRegel("MACHINE", `Je gaf de plant water. Doordat de aarde een beetje zakt zie je nu iets blinken..? Het lijkt op een sleutel... \n\
         COMMANDO'S:\n\
         - neem sleutel\n\
         - terug`);
-      } else if (this.dataService.plantMetWater) {
+      } else if (this.data.plantMetWater) {
         this.plant("error");
       } else {
         this.maakRegel("MACHINE", `Je hebt op dit moment geen koud water in je rugzak zitten!`);
       }
     } else if (input == "neem sleutel") {
-      if (!this.dataService.sleutelGenomen && this.dataService.plantMetWater) {
-        this.dataService.sleutelGenomen = true;
+      if (!this.data.sleutelGenomen && this.data.plantMetWater) {
+        this.data.sleutelGenomen = true;
         this.maakRegel("", this.sleutel, "art");
-        this.dataService.rugzak.push("sleutel");
+        this.data.rugzak.push("sleutel");
         this.maakRegel("MACHINE", `Je vind zomaar een sleutel in de bloempot van de plant! Woehoe!! De sleutel zit in je rugzak!`);
       } else { this.plant("error") }
     }
     else if (input == "terug") {
-      this.dataService.huidigePlaats = "bureau";
+      this.data.huidigePlaats = "bureau";
       this.bureau("ga binnen");
     } else {
       this.maakRegel("MACHINE", "Dit commando is ongeldig!", "error");
@@ -300,26 +314,26 @@ export class Level2Component implements OnInit {
   }
 
   tafel(input: string) {
-    if (input == "terug van laptop" && this.dataService.soniaIngelogd) {
+    if (input == "terug van laptop" && this.data.soniaIngelogd) {
       this.maakRegel("MACHINE", "Je kon het passwoord kraken! Doordat je toegang hebt tot de laptop kan je de lichten en camera's in de gang uitschakelen!\n\
       COMMANDO'S:\n\
       - schakel beveiliging uit \n\
       - terug ");
     } else if (input == "ga naar tafel" || input == "ga naar een tafel" || input == "ga naar de tafel" || input == "informatie" || input == "terug van laptop") {
-      this.dataService.huidigePlaats = "tafel";
-      if (this.dataService.soniaIngelogd) {
+      this.data.huidigePlaats = "tafel";
+      if (this.data.soniaIngelogd) {
         this.tafel("terug van laptop");
-      } else if (this.dataService.laptopBeschikbaar) {
+      } else if (this.data.laptopBeschikbaar) {
         this.maakRegel("MACHINE", `Op deze tafel ligt de laptop die je vond in één van de lockers!\n\
         COMMANDO'S:\n\
         - zet aan\n\
         - terug`);
-      } else if (this.dataService.rugzak.includes("laptop")) {
+      } else if (this.data.rugzak.includes("laptop")) {
         this.maakRegel("MACHINE", `Je vond een laptop in één van de lockers!\n\
         COMMANDO'S:\n\
         - leg laptop op tafel\n\
         - terug`);
-      } else if (this.dataService.briefOpen) {
+      } else if (this.data.briefOpen) {
         this.maakRegel("", this.brief, "art");
         this.maakRegel("MACHINE", `Volende TOP SECRET raadsels staan in de brief. Het zijn telkens 3-cijferige codes. misschien kunnen hun oplossingen later nuttig zijn!`);
       }
@@ -331,29 +345,29 @@ export class Level2Component implements OnInit {
           - terug`);
       }
     } else if (input == "open brief") {
-      if (this.dataService.rugzak.includes("Thermoskan met heet water")) {
-        this.dataService.briefOpen = true;
-        this.dataService.rugzak[this.dataService.rugzak.indexOf("Thermoskan met heet water")] = "Thermoskan";
+      if (this.data.rugzak.includes("Thermoskan met heet water")) {
+        this.data.briefOpen = true;
+        this.data.rugzak[this.data.rugzak.indexOf("Thermoskan met heet water")] = "Thermoskan";
         this.maakRegel("MACHINE", "Je opende de brief door de thermoskan onder de brief te houden en zo de plakrand los te krijgen! Het heet water verdampte uit je thermos. Type informatie om de inhoud van de brief te bekijken!")
       } else {
         this.maakRegel("MACHINE", `Deze brief is TOP SECRET! Je kan deze niet zomaar openen...De bankdirecteur zal zien dat jij de brief probeerde te openen. Probeer de brief te openen zonder sporen achter te laten!`);
       }
-    } else if (input == "leg laptop op tafel" && this.dataService.rugzak.includes("laptop")) {
-      this.dataService.rugzak.indexOf("laptop");
-      this.dataService.rugzak.splice(this.dataService.rugzak.indexOf("laptop"), 1);
-      this.dataService.laptopBeschikbaar = true;
+    } else if (input == "leg laptop op tafel" && this.data.rugzak.includes("laptop")) {
+      this.data.rugzak.indexOf("laptop");
+      this.data.rugzak.splice(this.data.rugzak.indexOf("laptop"), 1);
+      this.data.laptopBeschikbaar = true;
       this.maakRegel("MACHINE", `Je legde de laptop op tafel.\n\
       COMMANDO'S: \n\
       - zet aan\n\
       - terug`);
-    } else if (input == "zet aan" && this.dataService.laptopBeschikbaar) {
+    } else if (input == "zet aan" && this.data.laptopBeschikbaar) {
       this.router.navigate([`../laptop`]);
-    } else if (input == "schakel beveiliging uit" && this.dataService.soniaIngelogd) {
-      this.dataService.beveilingUitgeschakeld = true;
+    } else if (input == "schakel beveiliging uit" && this.data.soniaIngelogd) {
+      this.data.beveilingUitgeschakeld = true;
       this.maakRegel("MACHINE", `De beveiling in de gang werd uitgeschakeld!\n`);
     }
     else if (input == "terug") {
-      this.dataService.huidigePlaats = "bureau";
+      this.data.huidigePlaats = "bureau";
       this.bureau("ga binnen");
     } else {
       this.maakRegel("MACHINE", "Dit commando is ongeldig!", "error");
@@ -362,7 +376,7 @@ export class Level2Component implements OnInit {
 
   lockers(input: string) {
     if (input == "ga naar lockers" || input == "ga naar de lockers" || input == "informatie") {
-      this.dataService.huidigePlaats = "lockers";
+      this.data.huidigePlaats = "lockers";
       this.maakRegel("", this.lockersArt(), "art");
       this.maakRegel("MACHINE", `Je staat aan de lockers. Elke locker heeft een code. Kan jij ze open krijgen?\n\
           COMMANDO'S: \n\
@@ -378,19 +392,19 @@ export class Level2Component implements OnInit {
       } else if (code.length != 3) {
         this.maakRegel("MACHINE", `Deze code bestaat niet uit 3 cijfers!`);
       } else if ((lockerNr == 1 && code == "679") || (lockerNr == 2 && code == "223") || (lockerNr == 3 && code == "326")) {
-        this.dataService.lockerCodes[lockerNr - 1] = code;
-        console.log(this.dataService.lockerCodes);
+        this.data.lockerCodes[lockerNr - 1] = code;
+        console.log(this.data.lockerCodes);
         this.maakRegel("", this.lockersArt(), "art");
         this.maakRegel("MACHINE", `Je opende locker ${lockerNr} met de juiste code!`);
-        if (!this.dataService.lockerCodes.includes("xxx")) {
-          this.dataService.rugzak.push("laptop");
+        if (!this.data.lockerCodes.includes("xxx")) {
+          this.data.rugzak.push("laptop");
           this.maakRegel("MACHINE", `Proficiat, je vond een laptop in locker ${lockerNr}.. Die zit op dit moment in je rugzak. Je kan deze op de tafel leggen en daar kijken wat je ermee kan doen!`)
         }
       } else {
         this.maakRegel("MACHINE", `De code ${code} voor ${lockerNr} is fout!`);
       }
     } else if (input == "terug") {
-      this.dataService.huidigePlaats = "bureau";
+      this.data.huidigePlaats = "bureau";
       this.bureau("ga binnen");
     } else {
       this.maakRegel("MACHINE", "Dit commando is ongeldig!", "error");
@@ -398,11 +412,11 @@ export class Level2Component implements OnInit {
   }
 
   kluis(input: string) {
-    if (!this.isPlaying(this.audioZoeken) && this.dataService.radioAan) {
+    if (!this.isPlaying(this.audioZoeken) && this.data.radioAan) {
       this.audioZoeken.play();
     };
     if (input == "ga naar kluis" || input == "ga naar de kluis" || input == "informatie") {
-      this.dataService.huidigePlaats = "voor kluis";
+      this.data.huidigePlaats = "voor kluis";
       this.maakRegel("", this.kluisArt, "art");
       this.maakRegel("MACHINE", `Je staat voor de kluis met het geld in. Rechts van de kluis staat een radio. Je sprak af met je kompanen dat ze de code van de kluis via een radiofrequentie zullen doorgeven,\
       maar je vergat de welke. Je onthield wel de tip: De frequentie is het kookpunt van H20 in fahrenheid? ZET JE GELUID AAN!\n\
@@ -413,7 +427,7 @@ export class Level2Component implements OnInit {
     } else if (["stel", "radio", "in", "op"].every(i => input.split(" ").includes(i))) {
       var freq = input.split(" ")[5];
       if (freq == "212") {
-        this.dataService.frequentieGeraden = true;
+        this.data.frequentieGeraden = true;
         this.maakRegel("MACHINE", "Hoera: Je kon je de frequentie opnieuw herrinneren! Nu luister je naar de morsecode die jouw komanen je doorsturen!\n\
         - open kluis met code xxxxxx\n\
         - zet radio uit\n\
@@ -426,24 +440,24 @@ export class Level2Component implements OnInit {
         this.maakRegel("MACHINE", "Helaas: Op deze frequentie hoor je alleen geruis...");
       }
     } else if (input == "zet radio uit") {
-      this.dataService.radioAan = false;
+      this.data.radioAan = false;
       this.audioMorse.pause();
       this.audioMorse.currentTime = 0
       this.audioZoeken.pause();
-    } else if (["open", "kluis", "met", "code"].every(i => input.split(" ").includes(i)) && this.dataService.frequentieGeraden) {
+    } else if (["open", "kluis", "met", "code"].every(i => input.split(" ").includes(i)) && this.data.frequentieGeraden) {
       var freq = input.split(" ")[4];
       console.log(freq);
       if (freq == "839205") {
         this.audioMorse.pause();
         this.audioZoeken.pause();
-        this.dataService.eindKlok = moment();
+        this.data.eindKlok = moment();
         this.router.navigate([`../certificaat`]);
       } else {
         this.maakRegel("MACHINE", "Helaas: De kluis gaat niet open met deze code...");
       }
     } else if (input == "zet radio aan") {
-      this.dataService.radioAan = true;
-      if (this.dataService.frequentieGeraden) {
+      this.data.radioAan = true;
+      if (this.data.frequentieGeraden) {
         this.audioMorse.play();
       }
       this.audioZoeken.play();
@@ -453,15 +467,15 @@ export class Level2Component implements OnInit {
   }
 
   spel(input: string) {
-    if (this.dataService.voornaam == null) {
-      this.dataService.voornaam = input;
+    if (this.data.voornaam == null) {
+      this.data.voornaam = input;
     } else if (input == "rugzak") {
       this.toonRugzak();
     } else if (input == "help") {
       this.help();
     } else if (input == "informatie") {
       this.toonInformatie(input);
-    } else if (this.dataService.huidigLevel == 2) {
+    } else if (this.data.huidigLevel == 2) {
       this.level2(input);
     }
   }
@@ -469,25 +483,26 @@ export class Level2Component implements OnInit {
   enter() {
     //haalt input uit het inputveld en zet het in de input VARiable
     var input = this.inputForm.value.input.toLowerCase().trim();
-    this.maakRegel(this.dataService.voornaam, input);
+    this.maakRegel(this.data.voornaam, input);
     this.inputForm.get('input').setValue("");
     this.spel(input);
+    this.updateData();
   }
 
   down() {
-    if (this.dataService.downNummer >= 0) {
-      this.dataService.downNummer--;
+    if (this.data.downNummer >= 0) {
+      this.data.downNummer--;
     }
-    if (this.dataService.gebruikersInvoer()[this.dataService.downNummer] != null) {
-      this.inputForm.get('input').setValue(this.dataService.gebruikersInvoer()[this.dataService.downNummer].tekst);
+    if (this.data.gebruikersInvoer()[this.data.downNummer] != null) {
+      this.inputForm.get('input').setValue(this.data.gebruikersInvoer()[this.data.downNummer].tekst);
     }
   }
   up() {
-    if (this.dataService.downNummer < this.dataService.gebruikersInvoer().length - 1) {
-      this.dataService.downNummer++;
+    if (this.data.downNummer < this.data.gebruikersInvoer().length - 1) {
+      this.data.downNummer++;
     }
-    if (this.dataService.gebruikersInvoer()[this.dataService.downNummer + 1] != null) {
-      this.inputForm.get('input').setValue(this.dataService.gebruikersInvoer()[this.dataService.downNummer + 1].tekst);
+    if (this.data.gebruikersInvoer()[this.data.downNummer + 1] != null) {
+      this.inputForm.get('input').setValue(this.data.gebruikersInvoer()[this.data.downNummer + 1].tekst);
     } else {
       this.inputForm.get('input').setValue("");
     }
@@ -497,8 +512,8 @@ export class Level2Component implements OnInit {
     regel.uitvoerder = uitvoerder;
     regel.tekst = text;
     regel.type = type
-    this.dataService.downNummer = this.dataService.gebruikersInvoer().length;
-    this.dataService.uitvoerData.push(regel);
+    this.data.downNummer = this.data.gebruikersInvoer().length;
+    this.data.uitvoerData.push(regel);
   }
 
   isPlaying(audio) {
@@ -626,7 +641,7 @@ export class Level2Component implements OnInit {
   |                         |                         |                         |
   |    .___.                |    .___.                |    .___.                |
   |    |___|                |    |___|                |    |___|                |
-  |    |${this.dataService.lockerCodes[0]}|                |    |${this.dataService.lockerCodes[1]}|                |    |${this.dataService.lockerCodes[2]}|                |
+  |    |${this.data.lockerCodes[0]}|                |    |${this.data.lockerCodes[1]}|                |    |${this.data.lockerCodes[2]}|                |
   |    '---'                |    '---'                |    '---'                |
   |                         |                         |                         |
   |                         |                         |                         |

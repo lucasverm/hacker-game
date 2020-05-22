@@ -3,6 +3,7 @@ import { Regel } from '../regel';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { DataService } from '../services/data.service';
+import { Data } from '../data';
 
 @Component({
   selector: 'app-uitvoer',
@@ -11,9 +12,13 @@ import { DataService } from '../services/data.service';
 })
 export class UitvoerComponent implements OnInit {
 
-  constructor(public dataService: DataService ) {}
+  data: Data;
+
+  constructor(public dataService: DataService) { }
 
   ngOnInit() {
-
+    this.dataService.dataObserver$.subscribe(item => {
+      this.data = item;
+    });
   }
 }

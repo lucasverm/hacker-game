@@ -1,58 +1,40 @@
-import { Injectable } from '@angular/core';
+import { Injectable, KeyValueDiffer, KeyValueDiffers, KeyValueChanges } from '@angular/core';
 import { Regel } from '../regel';
 import * as moment from 'moment';
+import { Data } from '../data';
+import { observe } from "rxjs-observe";
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
-  uitvoerData: Regel[] = [];
-  startKlok = null;
-  eindKlok = null;
-  voornaam: string = null;
-  rugzak = ["Thermoskan", "aansteker"];
-  huidigLevel = 0;
-  huidigePlaats = "voor de deur";
-  downNummer: number = 0;
-  _bedragInRugzak = 0;
 
-  get bedragInRugzak(): number {
-    return this._bedragInRugzak;
-  }
-  set bedragInRugzak(bedrag: number) {
-    this._bedragInRugzak = Math.round(bedrag * 100) / 100;
-  }
-  private _bedragInAutomaat = 0;
-  get bedragInAutomaat(): number {
-    return this._bedragInAutomaat;
-  }
-  set bedragInAutomaat(bedrag: number) {
-    this._bedragInAutomaat = Math.round(bedrag * 100) / 100;
+  private _dataSource;
+  // Observable navItem stream
+  dataObserver$;
+  // service command
+  updateData(data: Data) {
+    this._dataSource.next(data);
+    this.dataObserver$.subscribe(item => {
+      localStorage.setItem('data', JSON.stringify(item));
+    });
   }
 
-  //level1
-  muntstukGevonden = false;
-  bewakerAfgeleid = false;
-  inLift = false;
-
-
-  //level2
-  vuurAan = false;
-  kastOpen = false;
-  plantMetWater = false;
-  sleutelGenomen = false;
-  briefOpen = false;
-  lockerCodes = ["xxx", "xxx", "xxx"];
-  laptopBeschikbaar: boolean = false;
-  terugVanLaptop = false;
-  soniaIngelogd = false;
-  beveilingUitgeschakeld: boolean = false;
-  frequentieGeraden = false;
-  radioAan = true;
-
-  constructor() { }
-
-  public gebruikersInvoer() {
-    return this.uitvoerData.filter(t => t.uitvoerder == this.voornaam || t.uitvoerder == null);
+  constructor() {
+    var data = localStorage.getItem('data');
+    if (data == null) {
+      console.log("data is null");
+      this._dataSource = new BehaviorSubject<Data>(new Data());
+      this.dataObserver$ = this._dataSource.asObservable();
+      this.dataObserver$.subscribe(item => {
+        localStorage.setItem('data', JSON.stringify(item));
+      });
+    } else {
+      console.log("data is niet null");
+      this._dataSource = new BehaviorSubject<Data>(Data.fromJson(JSON.parse(data)));
+      this.dataObserver$ = this._dataSource.asObservable();
+    };
   }
+
 }

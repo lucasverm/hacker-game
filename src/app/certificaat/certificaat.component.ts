@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { DataService } from '../services/data.service';
 import * as moment from 'moment';
+import { Data } from '../data';
 
 @Component({
   selector: 'app-certificaat',
@@ -11,15 +12,18 @@ import * as moment from 'moment';
 })
 export class CertificaatComponent implements OnInit {
 
+  data: Data;
   constructor(public router: Router, private fb: FormBuilder, public dataService: DataService) { }
 
   ngOnInit() {
+    this.dataService.dataObserver$.subscribe(item => {
+      this.data = item;
+    });
     this.berekenTijd();
-
   }
 
   berekenTijd() {
-    var verschil = this.dataService.eindKlok.diff(this.dataService.startKlok);
+    var verschil = this.data.eindKlok.diff(this.data.startKlok);
     var tempTime = moment.duration(verschil);
     var uitvoer = "";
     if (tempTime.hours().toString().length == 1) {
