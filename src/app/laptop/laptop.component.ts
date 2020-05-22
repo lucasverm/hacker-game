@@ -40,7 +40,6 @@ export class LaptopComponent implements OnInit {
   updateData() {
     this.dataService.updateData(this.data);
     this.dataService.dataObserver$.subscribe(item => {
-      console.log(item);
       this.data = item;
     }
     )

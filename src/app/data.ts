@@ -1,5 +1,5 @@
 import { Regel } from './regel';
-
+import * as moment from 'moment';
 export class Data {
 	uitvoerData: Regel[] = [];
 	startKlok = null;
@@ -49,14 +49,14 @@ export class Data {
 	constructor() { }
 
 	public gebruikersInvoer() {
-		return this.uitvoerData.filter(t => t.uitvoerder == this.voornaam || t.uitvoerder == null);
+		return this.uitvoerData.filter(t => t.uitvoerder == this.voornaam);
 	}
 
 	public static fromJson(json: any): Data {
 		var obj = new Data();
 		obj.uitvoerData = json.uitvoerData;
-		obj.startKlok = json.startKlok;
-		obj.eindKlok = json.eindKlok;
+		obj.startKlok = moment(json.startKlok);
+		obj.eindKlok = moment(json.eindKlok);
 		obj.voornaam = json.voornaam;
 		obj.rugzak = json.rugzak;
 		obj.huidigLevel = json.huidigLevel;

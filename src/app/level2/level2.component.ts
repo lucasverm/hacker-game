@@ -31,20 +31,21 @@ export class Level2Component implements OnInit {
     this.dataService.dataObserver$.subscribe(item => {
       this.data = item;
       if (this.data.huidigLevel == 0 || this.data.huidigLevel == 1) {
-        console.log("data");
         this.router.navigate([`../level-1`]);
+      } else if (!this.data.level2gestart && this.data.huidigLevel == 2) {
+        this.data.huidigePlaats = "bureau";
+        this.spel("ga binnen");
+        this.data.level2gestart = true;
+        this.updateData();
+      } else if (this.data.terugVanLaptop) {
+        this.level2("");
       }
     });
     this.inputForm = this.fb.group({
       input: [""]
     });
 
-    if (!this.data.level2gestart && this.data.huidigLevel == 2) {
-      this.data.huidigePlaats = "bureau";
-      this.spel("ga binnen");
-      this.data.level2gestart = true;
-      this.updateData();
-    }
+    
   }
 
   ngAfterViewInit() {
@@ -54,7 +55,6 @@ export class Level2Component implements OnInit {
   updateData() {
     this.dataService.updateData(this.data);
     this.dataService.dataObserver$.subscribe(item => {
-      console.log(item);
       this.data = item;
     }
     )
@@ -85,7 +85,7 @@ export class Level2Component implements OnInit {
   }
 
   help() {
-    this.maakRegel("MACHINE", "HELP \n - rugzak bekijken: typ rugzak \n - informatie krijgen over huidige plaats: typ informatie \n - terug: typ terug");
+    this.maakRegel("MACHINE", "HELP \n - in je rugzak kijken: typ 'rugzak' \n - informatie krijgen over huidige plaats: typ 'informatie' \n - terug: typ 'terug'");
   }
 
   level2(input: string) {
@@ -244,7 +244,7 @@ export class Level2Component implements OnInit {
           this.maakRegel("MACHINE", `In de kast hangt een kalender en ligt een schaar. \n\
         COMMANDO'S:\n\
         - bekijk kalender\n\
-        - neem schaar\n
+        - neem schaar\n\
         - terug`);
         }
       } else if (this.data.rugzak.includes("sleutel")) {
@@ -279,6 +279,7 @@ export class Level2Component implements OnInit {
   plant(input: string) {
     if (input == "ga naar plant" || input == "ga naar een plant" || input == "ga naar de plant" || input == "informatie") {
       this.data.huidigePlaats = "plant";
+      this.maakRegel("", this.plantArt, "art");
       if (this.data.plantMetWater && this.data.sleutelGenomen) {
         this.maakRegel("MACHINE", `Je gaf de plant water, en vond een sleutel!!`);
       } else if (this.data.plantMetWater) {
@@ -394,7 +395,6 @@ export class Level2Component implements OnInit {
     }
     else if (["open", "locker", "met", "code"].every(i => input.split(" ").includes(i))) {
       var lockerNr = parseInt(input.split(" ")[2]);
-      console.log(lockerNr);
       var code = input.split(" ")[5];
       if (isNaN(lockerNr) || lockerNr <= 0 || lockerNr > 3) {
         this.maakRegel("MACHINE", `Deze locker bestaat niet!`);
@@ -402,7 +402,6 @@ export class Level2Component implements OnInit {
         this.maakRegel("MACHINE", `Deze code bestaat niet uit 3 cijfers!`);
       } else if ((lockerNr == 1 && code == "679") || (lockerNr == 2 && code == "223") || (lockerNr == 3 && code == "326")) {
         this.data.lockerCodes[lockerNr - 1] = code;
-        console.log(this.data.lockerCodes);
         this.maakRegel("", this.lockersArt(), "art");
         this.maakRegel("MACHINE", `Je opende locker ${lockerNr} met de juiste code!`);
         if (!this.data.lockerCodes.includes("xxx")) {
@@ -503,7 +502,7 @@ export class Level2Component implements OnInit {
   }
 
   down() {
-    if (this.data.downNummer >= 0) {
+    if (this.data.downNummer > -1) {
       this.data.downNummer--;
     }
     if (this.data.gebruikersInvoer()[this.data.downNummer] != null) {
@@ -511,22 +510,25 @@ export class Level2Component implements OnInit {
     }
   }
   up() {
-    if (this.data.downNummer < this.data.gebruikersInvoer().length - 1) {
+    if (this.data.downNummer < this.data.gebruikersInvoer().length) {
       this.data.downNummer++;
     }
-    if (this.data.gebruikersInvoer()[this.data.downNummer + 1] != null) {
-      this.inputForm.get('input').setValue(this.data.gebruikersInvoer()[this.data.downNummer + 1].tekst);
+    if (this.data.gebruikersInvoer()[this.data.downNummer] != null) {
+      this.inputForm.get('input').setValue(this.data.gebruikersInvoer()[this.data.downNummer].tekst);
     } else {
       this.inputForm.get('input').setValue("");
     }
   }
+
   maakRegel(uitvoerder: string, text: string, type: string = "normaal") {
     var regel = new Regel;
     regel.uitvoerder = uitvoerder;
     regel.tekst = text;
     regel.type = type
-    this.data.downNummer = this.data.gebruikersInvoer().length;
     this.data.uitvoerData.push(regel);
+    if (uitvoerder == this.data.voornaam) {
+      this.data.downNummer = this.data.gebruikersInvoer().length;
+    }
   }
 
   isPlaying(audio) {
@@ -556,6 +558,22 @@ export class Level2Component implements OnInit {
   |      ${decodeURIComponent('%F0%9F%98%81')}${decodeURIComponent('%F0%9F%9A%80')}${decodeURIComponent('%F0%9F%8C%88')}  ${'\t'}                            |
   |_________________________________________________|
   `;
+
+  plantArt: string = String.raw`
+      *-*,
+  ,*\/|'| \
+  \'  | |'| *,
+   \ '| | |/ )
+    | |'| , /
+    |'| |, /
+  __|_|_|_|__
+ [___________]
+  |         |
+  |         |
+  |         |
+  |_________|
+  `;
+
 
   bureauLamp: string = String.raw`
                            .^.

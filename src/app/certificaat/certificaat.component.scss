@@ -4,16 +4,19 @@ $green: #20C20E;
   width: 100% !important;
 }
 
-table,
-div,
-td,
-tr {
-  //border: 1px solid red !important;
+img {
+  margin-bottom: 15px;
+}
+
+.tijd {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .rand {
   border: 10px double $green !important;
-  height: calc(100vh - 40px);
+  height: calc(100% - 40px);
+  min-height: calc(100vh - 40px);
   margin: 20px 10px !important;
 }
 
@@ -23,17 +26,20 @@ a {
 }
 
 .text {
-  margin-top: 150px;
+  margin-top: 120px;
 }
 
 .qr {
-  width: 25%;
+  margin-top: 15px;
+  min-width: 25%;
+  max-width: 30%;
 }
 
 .doneren {
   color: $green !important;
   border: 1px solid $green !important;
   padding: 10px 20px !important;
+  margin-left: 20px;
   display: inline-block;
 
   &:hover {

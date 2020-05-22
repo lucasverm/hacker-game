@@ -22,6 +22,10 @@ export class Level1Component implements OnInit {
   ngOnInit() {
     this.dataService.dataObserver$.subscribe(item => {
       this.data = item;
+      if (this.data.huidigLevel == 2) {
+        this.router.navigate([`../level-2`]);
+      }
+
       if (!this.data.welkomsBerichtGetoond) {
         this.welkomstBericht();
         this.data.welkomsBerichtGetoond = true;
@@ -75,7 +79,7 @@ export class Level1Component implements OnInit {
   }
 
   help() {
-    this.maakRegel("MACHINE", "HELP \n - in je rugzak kijken: typ rugzak \n - informatie krijgen over huidige plaats: typ informatie \n - terug: typ terug");
+    this.maakRegel("MACHINE", "HELP \n - in je rugzak kijken: typ 'rugzak' \n - informatie krijgen over huidige plaats: typ 'informatie' \n - terug: typ 'terug'");
   }
 
   spel(input: string) {
@@ -194,9 +198,8 @@ export class Level1Component implements OnInit {
     else if (input == "20") {
       if (this.data.inLift) {
         this.maakRegel("", this.firework, "art");
-        this.maakRegel("MACHINE", "Proficiat! Je graakte in de lift! De lift gaat nu naar boven, en je komt terecht op het 2de verdiep. Succes!!");
+        this.maakRegel("MACHINE", "Proficiat! Je graakte in de lift! De lift gaat nu naar boven en je komt terecht op het 2de verdiep. Succes!!");
         this.data.huidigLevel = 2;
-
         this.router.navigate([`../level-2`]);
       } else {
         this.level1Lift("error");
@@ -330,7 +333,6 @@ export class Level1Component implements OnInit {
   }
 
   level1Automaat(input: string) {
-    console.log(this.data);
     if (input == "ga naar automaat" || input == "ga naar een automaat" || input == "ga naar de automaat" || input == "informatie") {
       this.data.huidigePlaats = "automaat";
       this.maakRegel("", this.machine, "art");
@@ -382,13 +384,8 @@ export class Level1Component implements OnInit {
       this.maakRegel("MACHINE", "Er viel niks uit de automaat.. De bewaker kijkt je boos aan! Opgelet!");
       //kijkt of de volgende woorden in de input staan
     } else if (["steek", "euro", "in", "automaat"].every(i => input.split(" ").includes(i))) {
-      console.log(input.split(" ")[1]);
       const bedrag: number = parseFloat(input.split(" ")[1].replace(',', '.'));
-      console.log(bedrag);
-
       if (!isNaN(bedrag)) {
-        console.log(this.data.bedragInRugzak);
-        console.log(bedrag)
         if (bedrag > this.data.bedragInRugzak) {
           this.maakRegel("MACHINE", "Je hebt onvoldoende geld op zak om in de automaat te steken.");
         } else {
@@ -417,7 +414,7 @@ export class Level1Component implements OnInit {
   }
 
   down() {
-    if (this.data.downNummer >= 0) {
+    if (this.data.downNummer > -1) {
       this.data.downNummer--;
     }
     if (this.data.gebruikersInvoer()[this.data.downNummer] != null) {
@@ -425,11 +422,11 @@ export class Level1Component implements OnInit {
     }
   }
   up() {
-    if (this.data.downNummer < this.data.gebruikersInvoer().length - 1) {
+    if (this.data.downNummer < this.data.gebruikersInvoer().length) {
       this.data.downNummer++;
     }
-    if (this.data.gebruikersInvoer()[this.data.downNummer + 1] != null) {
-      this.inputForm.get('input').setValue(this.data.gebruikersInvoer()[this.data.downNummer + 1].tekst);
+    if (this.data.gebruikersInvoer()[this.data.downNummer] != null) {
+      this.inputForm.get('input').setValue(this.data.gebruikersInvoer()[this.data.downNummer].tekst);
     } else {
       this.inputForm.get('input').setValue("");
     }
@@ -445,13 +442,13 @@ export class Level1Component implements OnInit {
      - Heb je hulp nodig bij de commando's: typ \"help\". \n\
      - (optie) Met je pijltjes haal je je laatste commando's terug in het input veld. \n\
      - (optie) Herstart het spel met \"restart\". \n\
-     Alles zal wel duidelijk worden. Zodra je het gebouw binnen stapt begint jouw klok te lopen! Probeer een snelle tijd neer ze zetten! Succes! \n\n\
+     Alles zal wel duidelijk worden. Zodra je het gebouw binnen stapt begint jouw klok te lopen! Probeer een snelle tijd neer ze zetten! Succes! (Een fout gevonden? Meld op lucasvermeulen@gmail.com!)\n\n\
     Om het gebouw binnen te stappen: typ: \"ga binnen\".`);
   }
 
   welkomstBericht() {
     this.maakRegel("", this.scoutsArduHackSpel, "art");
-    this.maakRegel("MACHINE", "Welkom op de online escape van Scouts Ardu. De bedoeling is dat jij onze scouts helpt door te hacken! Volg de vragen, en denk goed na! Zorg dat je de pagina NIET refreshed! Veel escape plezier!!");
+    this.maakRegel("MACHINE", "Welkom op de online escape room van Scouts Ardu. De bedoeling is dat jij onze scouts helpt door te hacken! Volg de vragen, en denk goed na! Voor de visualiteit raden we aan om het spel op de computer te spelen. Veel escape plezier!");
     this.maakRegel("MACHINE", "Geef je voornaam in: ");
   }
 
@@ -461,8 +458,11 @@ export class Level1Component implements OnInit {
     regel.uitvoerder = uitvoerder;
     regel.tekst = text;
     regel.type = type
-    this.data.downNummer = this.data.gebruikersInvoer().length;
     this.data.uitvoerData.push(regel);
+    if (uitvoerder == this.data.voornaam) {
+      this.data.downNummer = this.data.gebruikersInvoer().length;
+    }
+
   }
 
   scoutsArduHackSpel = String.raw`
