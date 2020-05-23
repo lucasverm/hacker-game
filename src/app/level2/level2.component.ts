@@ -108,6 +108,8 @@ export class Level2Component implements OnInit {
       this.lockers(input);
     } else if (this.data.huidigePlaats == "voor kluis") {
       this.kluis(input);
+    }else {
+      this.maakRegel("MACHINE", "Dit commando is ongeldig!", "error");
     }
   }
 

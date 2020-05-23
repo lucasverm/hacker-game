@@ -34,6 +34,9 @@ export class LaptopComponent implements OnInit {
     this.dataService.updateData(this.data);
     this.dataService.dataObserver$.subscribe(item => {
       this.data = item;
+      this.router.navigate([`../level-2`]);
+      console.log("done");
+      
     }
     )
   }
@@ -47,8 +50,8 @@ export class LaptopComponent implements OnInit {
     } else {
       this.data.soniaIngelogd = true;
       this.data.terugVanLaptop = true;
-      this.updateData;
-      this.router.navigate([`../level-2`]);
+      this.updateData();
+      
     }
   }
 
@@ -58,8 +61,7 @@ export class LaptopComponent implements OnInit {
 
   terug() {
     this.data.terugVanLaptop = true;
-    this.updateData;
-    this.router.navigate([`../level-2`])
+    this.updateData();
   }
 
 
