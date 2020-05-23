@@ -30,22 +30,21 @@ export class Level2Component implements OnInit {
   ngOnInit() {
     this.dataService.dataObserver$.subscribe(item => {
       this.data = item;
-      if (this.data.huidigLevel == 0 || this.data.huidigLevel == 1) {
-        this.router.navigate([`../level-1`]);
-      } else if (!this.data.level2gestart && this.data.huidigLevel == 2) {
-        this.data.huidigePlaats = "bureau";
-        this.spel("ga binnen");
-        this.data.level2gestart = true;
-        this.updateData();
-      } else if (this.data.terugVanLaptop) {
-        this.level2("");
-      }
     });
     this.inputForm = this.fb.group({
       input: [""]
     });
 
-    
+    if (!this.data.level2gestart) {
+      this.data.huidigePlaats = "bureau";
+      this.spel("ga binnen");
+      this.data.level2gestart = true;
+      this.updateData();
+    } else if (this.data.terugVanLaptop) {
+      this.level2("");
+    }
+
+
   }
 
   ngAfterViewInit() {
@@ -371,7 +370,7 @@ export class Level2Component implements OnInit {
       - zet aan\n\
       - terug`);
     } else if (input == "zet aan" && this.data.laptopBeschikbaar) {
-      this.router.navigate([`../laptop`]);
+      this.router.navigate(['/laptop']);
     } else if (input == "schakel beveiliging uit" && this.data.soniaIngelogd) {
       this.data.beveilingUitgeschakeld = true;
       this.maakRegel("MACHINE", `De beveiling in de gang werd uitgeschakeld!\n`);
@@ -402,11 +401,16 @@ export class Level2Component implements OnInit {
         this.maakRegel("MACHINE", `Deze code bestaat niet uit 3 cijfers!`);
       } else if ((lockerNr == 1 && code == "679") || (lockerNr == 2 && code == "223") || (lockerNr == 3 && code == "326")) {
         this.data.lockerCodes[lockerNr - 1] = code;
-        this.maakRegel("", this.lockersArt(), "art");
-        this.maakRegel("MACHINE", `Je opende locker ${lockerNr} met de juiste code!`);
-        if (!this.data.lockerCodes.includes("xxx")) {
-          this.data.rugzak.push("laptop");
-          this.maakRegel("MACHINE", `Proficiat, je vond een laptop in locker ${lockerNr}.. Die zit op dit moment in je rugzak. Je kan deze op de tafel leggen en daar kijken wat je ermee kan doen!`)
+        if (!this.data.laptopOntvangen) {
+          this.maakRegel("", this.lockersArt(), "art");
+          this.maakRegel("MACHINE", `Je opende locker ${lockerNr} met de juiste code!`);
+          if (!this.data.lockerCodes.includes("xxx")) {
+            this.data.rugzak.push("laptop");
+            this.data.laptopOntvangen = true;
+            this.maakRegel("MACHINE", `Proficiat, je vond een laptop in locker ${lockerNr}.. Die zit op dit moment in je rugzak. Je kan deze op de tafel leggen en daar kijken wat je ermee kan doen!`)
+          }
+        } else {
+          this.maakRegel("MACHINE", `Je opende alle lockers al!`)
         }
       } else {
         this.maakRegel("MACHINE", `De code ${code} voor ${lockerNr} is fout!`);

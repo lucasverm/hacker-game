@@ -22,9 +22,6 @@ export class Level1Component implements OnInit {
   ngOnInit() {
     this.dataService.dataObserver$.subscribe(item => {
       this.data = item;
-      if (this.data.huidigLevel == 2) {
-        this.router.navigate([`../level-2`]);
-      }
 
       if (!this.data.welkomsBerichtGetoond) {
         this.welkomstBericht();

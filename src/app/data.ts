@@ -40,6 +40,7 @@ export class Data {
 	briefOpen = false;
 	lockerCodes = ["xxx", "xxx", "xxx"];
 	laptopBeschikbaar: boolean = false;
+	laptopOntvangen = false;
 	terugVanLaptop = false;
 	soniaIngelogd = false;
 	beveilingUitgeschakeld: boolean = false;
@@ -78,6 +79,7 @@ export class Data {
 		obj.briefOpen = json.briefOpen;
 		obj.lockerCodes = json.lockerCodes;
 		obj.laptopBeschikbaar = json.laptopBeschikbaar;
+		obj.laptopOntvangen = json.laptopOntvangen;
 		obj.terugVanLaptop = json.terugVanLaptop;
 		obj.soniaIngelogd = json.soniaIngelogd;
 		obj.beveilingUitgeschakeld = json.beveilingUitgeschakeld;

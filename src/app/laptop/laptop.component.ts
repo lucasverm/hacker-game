@@ -23,13 +23,6 @@ export class LaptopComponent implements OnInit {
   ngOnInit(): void {
     this.dataService.dataObserver$.subscribe(item => {
       this.data = item;
-      if (!this.data.laptopBeschikbaar) {
-        if (this.data.huidigLevel == 0 || this.data.huidigLevel == 1) {
-          this.router.navigate([`../level-1`]);
-        } else {
-          this.router.navigate([`../level-2`]);
-        }
-      }
     });
     this.loginForm = this.fb.group({
       email: ["sonia@nationalebank.be"],
