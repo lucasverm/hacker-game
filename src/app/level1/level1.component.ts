@@ -186,7 +186,7 @@ export class Level1Component implements OnInit {
       }
       this.maakRegel(
         "MACHINE",
-        'Je staat nu in de inkom van de bank. Je ziet: \n\
+        'Je staat nu in de inkomhal van de bank. Je ziet: \n\
       - een LIFT \n\
       - een BEWAKER\n\
       - een ZETEL\n\
@@ -233,7 +233,7 @@ export class Level1Component implements OnInit {
         this.maakRegel("", this.firework, "art");
         this.maakRegel(
           "MACHINE",
-          "Proficiat! Je graakte in de lift! De lift gaat nu naar boven en je komt terecht op het 2de verdiep. Succes!!"
+          "Proficiat! Je activeerde de lift! De lift gaat nu naar boven en je komt terecht op het 2de verdiep. Succes!!"
         );
         this.data.huidigLevel = 2;
         this.router.navigate([`../level-2`]);
@@ -344,7 +344,7 @@ export class Level1Component implements OnInit {
       this.maakRegel("", this.secretaresse, "art");
       this.maakRegel(
         "MACHINE",
-        "De secretaresse heeft mooie blond-bruine krullen. Ze heeft een fleurige blouse en een snoepjesketting aan en kauwgomt er op los, een ware streling voor het oog! 1.5 meter afstand houden!\n\
+        "De secretaresse heeft mooie, blond-bruine krullen. Ze heeft een fleurige blouse en een snoepjesketting aan en kauwgomt er op los, een ware streling voor het oog! 1.5 meter afstand houden!\n\
       COMMANDO'S: \n\
         - vraag waar het toilet is\n\
         - verkoop aansteker\n\
@@ -571,7 +571,7 @@ export class Level1Component implements OnInit {
      - Heb je hulp nodig bij de commando's: typ \"help\". \n\
      - (optie) Met je pijltjes haal je je laatste commando's terug in het input veld. \n\
      - (optie) Herstart het spel met \"restart\". \n\
-     Alles zal wel duidelijk worden. Zodra je het gebouw binnenstapt, begint jouw klok te lopen! Probeer een snelle tijd neer ze zetten! Succes! (Een fout gevonden? Meld op escape-room@ardu.be!)\n\n\
+     Alles zal wel duidelijk worden. Zodra je het gebouw binnenstapt, begint jouw klok te lopen! Probeer een snelle tijd neer te zetten! Succes! (Een fout gevonden? Meld op escape-room@ardu.be!)\n\n\
     Om het gebouw binnen te stappen: typ: \"ga binnen\".`
     );
   }
