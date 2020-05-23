@@ -278,7 +278,7 @@ export class Level2Component implements OnInit {
       if (!this.data.beveilingUitgeschakeld) {
         this.maakRegel(
           "MACHINE",
-          "Op het einde van de gang zie je een kluis maar de gang hang vol camera's en infraroodsensoren. Hier geraak je niet zomaar voorbij!"
+          "Op het einde van de gang zie je een kluis maar de gang hangt vol camera's en infraroodsensoren. Hier geraak je niet zomaar voorbij!"
         );
       } else {
         this.maakRegel(
@@ -381,7 +381,7 @@ export class Level2Component implements OnInit {
       if (this.data.plantMetWater && this.data.sleutelGenomen) {
         this.maakRegel(
           "MACHINE",
-          `Je gaf de plant water, en vond een sleutel!!`
+          `Je gaf de plant water, en vond een sleutel!`
         );
       } else if (this.data.plantMetWater) {
         this.maakRegel(
@@ -431,7 +431,7 @@ export class Level2Component implements OnInit {
         this.data.rugzak.push("sleutel");
         this.maakRegel(
           "MACHINE",
-          `Je vindt zomaar een sleutel in de bloempot van de plant! Woehoe!! De sleutel zit in je rugzak!`
+          `Je vindt zomaar een sleutel in de bloempot van de plant! Woehoe!! Je kuist de aarde een beetje af en steelt de sleutel in je rugzak!`
         );
       } else {
         this.plant("error");
@@ -483,7 +483,7 @@ export class Level2Component implements OnInit {
         this.maakRegel("", this.brief, "art");
         this.maakRegel(
           "MACHINE",
-          `Volgende TOP SECRET raadsels staan in de brief. Het zijn telkens 3-cijferige codes. Misschien komen hun oplossingen later nog van pas!`
+          `Volgende TOP SECRET raadsels staan in de brief. Het zijn telkens 3-cijferige codes. Misschien komen hun oplossingen later nog van pas?`
         );
       } else {
         this.maakRegel("", this.bureauLamp, "art");
@@ -615,7 +615,7 @@ export class Level2Component implements OnInit {
       this.maakRegel(
         "MACHINE",
         `Je staat voor de kluis met het geld in. Rechts van de kluis staat een radio. Je sprak af met je kompanen dat ze de code van de kluis via een radiofrequentie zullen doorgeven,\
-      maar je vergat de welke. Je onthield wel de tip: de frequentie is het kookpunt van H20 in Fahrenheit? ZET JE GELUID AAN!\n\
+      maar je vergat de welke. Je herinnert je wel de tip: de frequentie is het kookpunt van H20 in Fahrenheit? ZET JE GELUID AAN!\n\
           COMMANDO'S: \n\
           - Stel radio in op frequentie xxx\n\
           - zet radio uit\n\
@@ -629,7 +629,7 @@ export class Level2Component implements OnInit {
         this.data.frequentieGeraden = true;
         this.maakRegel(
           "MACHINE",
-          "Hoera: je kon je de frequentie opnieuw herrinneren! Nu luister je naar de morsecode die jouw kompanen je doorzenden!\n\
+          "Hoera: je kon je de frequentie opnieuw herinneren! Nu luister je naar de morsecode die jouw kompanen je doorzenden!\n\
         - open kluis met code xxxxxx\n\
         - zet radio uit\n\
         - zet radio aan"
