@@ -28,7 +28,6 @@ export class DataService {
     }
 
     this.dataSource$.subscribe((item) => {
-      console.log("trigger setData");
       localStorage.setItem("data", JSON.stringify(item));
     });
   }
