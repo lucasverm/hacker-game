@@ -19,12 +19,10 @@ export class DataService {
     var data = localStorage.getItem("data");
     if (data == null) {
       this.dataSource$ = new BehaviorSubject<Data>(new Data());
-      //this.dataObserver$ = this._dataSource$.asObservable();
     } else {
       this.dataSource$ = new BehaviorSubject<Data>(
         Data.fromJson(JSON.parse(data))
       );
-      //this.dataObserver$ = this._dataSource$.asObservable();
     }
 
     this.dataSource$.subscribe((item) => {
