@@ -9,8 +9,7 @@ import { Data } from '../data';
 })
 export class DataService {
   public dataSource$;
-  // Observable navItem stream
-  // service command
+
   updateData(data: Data) {
     this.dataSource$.next(data);
   }

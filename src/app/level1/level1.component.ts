@@ -571,7 +571,7 @@ export class Level1Component implements OnInit {
      - Heb je hulp nodig bij de commando's: typ \"help\". \n\
      - (optie) Met je pijltjes haal je je laatste commando's terug in het input veld. \n\
      - (optie) Herstart het spel met \"restart\". \n\
-     Alles zal wel duidelijk worden. Zodra je het gebouw binnenstapt, begint jouw klok te lopen! Probeer een snelle tijd neer ze zetten! Succes! (Een fout gevonden? Meld op lucasvermeulen@gmail.com!)\n\n\
+     Alles zal wel duidelijk worden. Zodra je het gebouw binnenstapt, begint jouw klok te lopen! Probeer een snelle tijd neer ze zetten! Succes! (Een fout gevonden? Meld op escape-room@ardu.be!)\n\n\
     Om het gebouw binnen te stappen: typ: \"ga binnen\".`
     );
   }
