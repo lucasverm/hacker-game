@@ -2,8 +2,7 @@ import { Injectable, KeyValueDiffer, KeyValueDiffers, KeyValueChanges } from '@a
 import { Regel } from '../regel';
 import * as moment from 'moment';
 import { Data } from '../data';
-import { observe } from "rxjs-observe";
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
