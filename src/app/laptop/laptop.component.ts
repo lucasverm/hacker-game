@@ -1,44 +1,44 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DataService } from '../services/data.service';
+
+import { take } from 'rxjs/operators';
+
 import { Data } from '../data';
+import { DataService } from '../services/data.service';
 
 @Component({
-  selector: 'app-laptop',
-  templateUrl: './laptop.component.html',
-  styleUrls: ['./laptop.component.scss']
+  selector: "app-laptop",
+  templateUrl: "./laptop.component.html",
+  styleUrls: ["./laptop.component.scss"],
 })
 export class LaptopComponent implements OnInit {
-
   public hintTonen: Boolean = false;
   public loginForm: FormGroup;
   data: Data;
 
-  constructor(public router: Router, private fb: FormBuilder, public dataService: DataService) { }
-  @ViewChild('canvas', { static: false })
+  constructor(
+    public router: Router,
+    private fb: FormBuilder,
+    public dataService: DataService
+  ) {}
+  @ViewChild("canvas", { static: false })
   myCanvas: ElementRef<HTMLCanvasElement>;
   errorMessage: string = "";
 
   ngOnInit(): void {
-    this.dataService.dataObserver$.subscribe(item => {
+    this.dataService.dataSource$.pipe(take(1)).subscribe((item) => {
       this.data = item;
     });
     this.loginForm = this.fb.group({
       email: ["sonia@nationalebank.be"],
-      passwoord: [""]
-    })
+      passwoord: [""],
+    });
   }
 
   updateData() {
     this.dataService.updateData(this.data);
-    this.dataService.dataObserver$.subscribe(item => {
-      this.data = item;
-      this.router.navigate([`../level-2`]);
-      console.log("done");
-      
-    }
-    )
+    this.router.navigate([`../level-2`]);
   }
 
   signIn() {
@@ -46,12 +46,11 @@ export class LaptopComponent implements OnInit {
     var password = this.loginForm.value.passwoord;
     if (password != "10-09-1968") {
       //if(false){
-      this.errorMessage = "Password is niet correct!"
+      this.errorMessage = "Password is niet correct!";
     } else {
       this.data.soniaIngelogd = true;
       this.data.terugVanLaptop = true;
       this.updateData();
-      
     }
   }
 
@@ -63,6 +62,4 @@ export class LaptopComponent implements OnInit {
     this.data.terugVanLaptop = true;
     this.updateData();
   }
-
-
 }
