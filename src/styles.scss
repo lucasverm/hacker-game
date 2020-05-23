@@ -24,6 +24,10 @@ input {
   }
 }
 
+input::-ms-clear {
+  display: none;
+}
+
 .input-group-prepend,
 .input-group-text {
   background-color: black !important;
