@@ -661,6 +661,7 @@ export class Level2Component implements OnInit {
         this.audioZoeken.pause();
         this.data.eindKlok = moment();
         this.data.kluisOpen = true;
+        this.updateData();
         this.router.navigate([`../certificaat`]);
       } else {
         this.maakRegel(
