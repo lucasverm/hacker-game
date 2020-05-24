@@ -5,7 +5,7 @@ $green: #20C20E;
 }
 
 img {
-  margin-bottom: 15px;
+  margin-bottom: 15px; 
 }
 
 .tijd {
@@ -30,8 +30,8 @@ a {
 }
 
 .qr {
-  margin-top: 15px;
   width: 22%;
+  margin-left: 20px;
   //max-width: 30%;
 }
 
@@ -41,6 +41,8 @@ a {
   padding: 10px 20px !important;
   margin-left: 20px;
   display: inline-block;
+  text-decoration: none !important;
+  cursor: pointer !important;
 
   &:hover {
     text-decoration: none;

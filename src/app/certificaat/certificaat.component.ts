@@ -36,6 +36,16 @@ export class CertificaatComponent implements OnInit {
     });
   }
 
+  updateData() {
+    this.dataService.updateData(this.data);
+  }
+
+  restart() {
+    this.data = new Data();
+    this.updateData();
+    this.router.navigate(['../level-1']);
+  }
+
   berekenTijd() {
     var verschil = this.data.eindKlok.diff(this.data.startKlok);
     var tempTime = moment.duration(verschil);

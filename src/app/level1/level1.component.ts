@@ -571,7 +571,7 @@ export class Level1Component implements OnInit {
      - Heb je hulp nodig bij de commando's: typ \"help\". \n\
      - (optie) Met je pijltjes haal je je laatste commando's terug in het input veld. \n\
      - (optie) Herstart het spel met \"restart\". \n\
-     Alles zal wel duidelijk worden. Zodra je het gebouw binnenstapt, begint jouw klok te lopen! Probeer een snelle tijd neer te zetten! Succes! (Een fout gevonden? Meld op escape-room@ardu.be!)\n\n\
+     Alles zal wel duidelijk worden. Zodra je het gebouw binnenstapt, begint jouw klok te lopen! Probeer een snelle tijd neer te zetten! Succes! Deze applicatie werd geschreven door Lucas Vermeulen. (Een fout gevonden? Meld op escape-room@ardu.be!)\n\n\
     Om het gebouw binnen te stappen: typ: \"ga binnen\".`
     );
   }
@@ -580,7 +580,7 @@ export class Level1Component implements OnInit {
     this.maakRegel("", this.scoutsArduHackSpel, "art");
     this.maakRegel(
       "MACHINE",
-      "Welkom op de online escape room van Scouts Ardu. De bedoeling is dat jij onze scouts helpt door te hacken! Volg de vragen, en denk goed na! Voor de visualiteit raden we aan om het spel op de computer te spelen. Veel escape plezier!"
+      "Welkom op de online escape room van Scouts Ardu. De bedoeling is dat jij onze scouts helpt door te hacken! Volg de vragen, en denk goed na! Voor de visualiteit raden we aan om het spel op de computer te spelen. Veel escape plezier! Deze applicatie werd geschreven door Lucas Vermeulen. (Een fout gevonden? Meld op escape-room@ardu.be!)"
     );
     this.maakRegel("MACHINE", "Geef je voornaam in: ");
   }
