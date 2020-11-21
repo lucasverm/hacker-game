@@ -1,13 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
-
-import { take } from 'rxjs/operators';
-
-import { Data } from '../data';
-import { Regel } from '../regel';
-import { DataService } from '../services/data.service';
-import * as moment from 'moment';
+import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup } from "@angular/forms";
+import { Router } from "@angular/router";
+import * as moment from "moment";
+import { take } from "rxjs/operators";
+import { Data } from "../data";
+import { Regel } from "../regel";
+import { DataService } from "../services/data.service";
 
 @Component({
   selector: "app-level1",
@@ -580,7 +578,7 @@ export class Level1Component implements OnInit {
     this.maakRegel("", this.scoutsArduHackSpel, "art");
     this.maakRegel(
       "MACHINE",
-      "Welkom op de online escape room van Scouts Ardu. De bedoeling is dat jij onze scouts helpt door te hacken! Volg de vragen, en denk goed na! Voor de visualiteit raden we aan om het spel op de computer te spelen. Veel escape plezier! Deze applicatie werd geschreven door Lucas Vermeulen. (Een fout gevonden? Meld op escape-room@ardu.be!)"
+      "Welkom op de online escape room van Chiro Romejo. De bedoeling is dat jij onze scouts helpt door te hacken! Volg de vragen, en denk goed na! Voor de visualiteit raden we aan om het spel op de computer te spelen. Veel escape plezier! Deze applicatie werd geschreven door Lucas Vermeulen. (Een fout gevonden? Meld op escape-room@ardu.be!)"
     );
     this.maakRegel("MACHINE", "Geef je voornaam in: ");
   }
@@ -598,12 +596,14 @@ export class Level1Component implements OnInit {
   }
 
   scoutsArduHackSpel = String.raw`
-  ███████╗ ██████╗ ██████╗ ██╗   ██╗████████╗███████╗     █████╗ ██████╗ ██████╗ ██╗   ██╗
-  ██╔════╝██╔════╝██╔═══██╗██║   ██║╚══██╔══╝██╔════╝    ██╔══██╗██╔══██╗██╔══██╗██║   ██║
-  ███████╗██║     ██║   ██║██║   ██║   ██║   ███████╗    ███████║██████╔╝██║  ██║██║   ██║
-  ╚════██║██║     ██║   ██║██║   ██║   ██║   ╚════██║    ██╔══██║██╔══██╗██║  ██║██║   ██║
-  ███████║╚██████╗╚██████╔╝╚██████╔╝   ██║   ███████║    ██║  ██║██║  ██║██████╔╝╚██████╔╝
-  ╚══════╝ ╚═════╝ ╚═════╝  ╚═════╝    ╚═╝   ╚══════╝    ╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝  ╚═════╝
+  
+   ██████╗██╗  ██╗██╗██████╗  ██████╗     ██████╗  ██████╗ ███╗   ███╗███████╗     ██╗ ██████╗ 
+  ██╔════╝██║  ██║██║██╔══██╗██╔═══██╗    ██╔══██╗██╔═══██╗████╗ ████║██╔════╝     ██║██╔═══██╗
+  ██║     ███████║██║██████╔╝██║   ██║    ██████╔╝██║   ██║██╔████╔██║█████╗       ██║██║   ██║
+  ██║     ██╔══██║██║██╔══██╗██║   ██║    ██╔══██╗██║   ██║██║╚██╔╝██║██╔══╝  ██   ██║██║   ██║
+  ╚██████╗██║  ██║██║██║  ██║╚██████╔╝    ██║  ██║╚██████╔╝██║ ╚═╝ ██║███████╗╚█████╔╝╚██████╔╝
+   ╚═════╝╚═╝  ╚═╝╚═╝╚═╝  ╚═╝ ╚═════╝     ╚═╝  ╚═╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝ ╚════╝  ╚═════╝ 
+                                                                                             
 
   ███████╗███████╗ ██████╗ █████╗ ██████╗ ███████╗    ██████╗  ██████╗  ██████╗ ███╗   ███╗
   ██╔════╝██╔════╝██╔════╝██╔══██╗██╔══██╗██╔════╝    ██╔══██╗██╔═══██╗██╔═══██╗████╗ ████║
