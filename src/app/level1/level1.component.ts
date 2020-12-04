@@ -580,7 +580,7 @@ export class Level1Component implements OnInit {
     this.maakRegel("", this.scoutsArduHackSpel, "art");
     this.maakRegel(
       "MACHINE",
-      "Welkom op de online escape room van de aspi's van Chiro de kaproenen. De bedoeling is dat jij onze scouts helpt door te hacken! Volg de vragen, en denk goed na! Voor de visualiteit raden we aan om het spel op de computer te spelen. Veel escape plezier! Deze applicatie werd geschreven door Lucas Vermeulen. (Een fout gevonden? Meld op escape-room@ardu.be!)"
+      "Welkom op de online escape room van de aspi's van Chiro de kaproenen. De bedoeling is dat jij onze chiro helpt door te hacken! Volg de vragen, en denk goed na! Voor de visualiteit raden we aan om het spel op de computer te spelen. Veel escape plezier! Deze applicatie werd geschreven door Lucas Vermeulen. (Een fout gevonden? Meld op escape-room@ardu.be!)"
     );
     this.maakRegel("MACHINE", "Geef je voornaam in: ");
   }
